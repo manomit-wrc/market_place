@@ -73,16 +73,15 @@ module.exports = function(app, admin) {
     		phone_no: req.body.phone_no,
     		avator: fileName
 	    },{ where: { id: req.user.id } }).then(function(result){
-
-	    	
 	    	res.render('admin/profile', {
 	        layout: 'dashboard',
 	        success_message: "Profile updated successfully"
 	        });
 	    }).catch(function(err){
+	    	var validation_error = err.errors;
 	    	res.render('admin/profile', {
 	        layout: 'dashboard',
-	        error_message: "Please try again"
+	        error_message: validation_error[0].message
 	        });
 	    });
   	});

@@ -17,7 +17,6 @@ var port     = process.env.PORT || 8080;
 var passport = require('passport');
 var flash    = require('connect-flash');
 var models = require("./models");
-
 require('./config/passport')(passport,models.Admin);
 
 // view engine setup
@@ -60,7 +59,7 @@ app.use(function(req, res, next){
   if (req.isAuthenticated())
   {
     delete req.user.password;
-    if (fs.existsSync("public/profile/thumbs/"+req.user.avator)) {
+    if (fs.existsSync("public/profile/thumbs/"+req.user.avator) && req.user.avator != "") {
       res.locals.image = "/profile/thumbs/"+req.user.avator;
     }
     else {
@@ -74,6 +73,7 @@ app.use(function(req, res, next){
 
 
 require('./routes/profile')(app, models.Admin);
+require('./routes/section')(app, models.Section);
 
 
 // catch 404 and forward to error handler
