@@ -42,7 +42,7 @@ module.exports = function (app, testimonial){
 		});
 	});
 
-	app.post('/admin/testimonial/edit/:id', function (req,res){
+	app.get('/admin/testimonial/edit/:id', function (req,res){
 		//for edit
 		Testimonial.update({
 			ClientName: req.body.client_name,
@@ -56,5 +56,17 @@ module.exports = function (app, testimonial){
 		    var redirectUrl = '/admin/testimonial/edit/' + req.params['id'];
 		    res.redirect(redirectUrl);
 		});
+	});
+
+	app.get('/admin/testimonial/delete/:id', function(req,res){
+		//for delete
+		Testimonial.destroy({
+		    where: {
+		       id:req.params['id']
+		    }
+		}).then(function(response){
+			res.redirect('/admin/testimonial');
+		});
+
 	});
 }
