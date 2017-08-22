@@ -110,3 +110,112 @@ function validateskill(){
   }
 
   /* Job Category validation section end */
+
+
+
+  /* CMS validation section start */
+
+  function validatecms(){
+    var cms_slag = $("#cms_slag").val();                
+    if(cms_slag ==''){
+      document.getElementById('cms_slag').style.border = '1px solid red !important';
+      $("#cms_slag_error").css("display", "block");
+      document.getElementById("cms_slag_error").innerHTML = "Please enter slag";
+      document.getElementById('cms_slag').focus();
+      return false;
+    }else{
+      $("#cms_slag_error").css("display", "none");     
+      document.getElementById('cms_slag').style.border = '';
+      document.getElementById("cms_slag_error").innerHTML = "";
+    }
+
+    var cms_title = $("#cms_title").val();                
+    if(cms_title ==''){
+      document.getElementById('cms_title').style.border = '1px solid red !important';
+      $("#cms_title_error").css("display", "block");
+      document.getElementById("cms_title_error").innerHTML = "Please enter title";
+      document.getElementById('cms_title').focus();
+      return false;
+    }else{
+      $("#cms_title_error").css("display", "none");     
+      document.getElementById('cms_title').style.border = '';
+      document.getElementById("cms_title_error").innerHTML = "";
+    }
+
+    var cms_short_description = $("#cms_short_description").val();                
+    if(cms_short_description ==''){
+      document.getElementById('cms_short_description').style.border = '1px solid red !important';
+      $("#cms_short_description_error").css("display", "block");
+      document.getElementById("cms_short_description_error").innerHTML = "Please enter short description";
+      document.getElementById('cms_short_description').focus();
+      return false;
+    }else{
+      $("#cms_short_description_error").css("display", "none");     
+      document.getElementById('cms_short_description').style.border = '';
+      document.getElementById("cms_short_description_error").innerHTML = "";
+    }
+
+   /* var cms_full_description = $("#cms_full_description").val();                
+    if(cms_full_description ==''){
+      document.getElementById('cms_full_description').style.border = '1px solid red !important';
+      $("#cms_full_description_error").css("display", "block");
+      document.getElementById("cms_full_description_error").innerHTML = "Please enter full description";
+      document.getElementById('cms_full_description').focus();
+      return false;
+    }else{
+      $("#cms_full_description_error").css("display", "none");     
+      document.getElementById('cms_full_description').style.border = '';
+      document.getElementById("cms_full_description_error").innerHTML = "";
+    } */
+  }
+
+  function cmsckhslagval(val)
+  {                                       
+    if(val.search(/\S/) == -1)
+    {
+      $("#cms_slag_error").show();
+      $("#cms_slag_error").html("Please enter slag");
+    }
+    else
+    {                     
+      $("#cms_slag_error").hide();
+    }    
+  }
+  function cmsckhtitleval(val)
+  {                                       
+    if(val.search(/\S/) == -1)
+    {
+      $("#cms_title_error").show();
+      $("#cms_title_error").html("Please enter title");
+    }
+    else
+    {                     
+      $("#cms_title_error").hide();
+    }                     
+  }
+   function cmsckhshortdescval(val)
+  {                                       
+    if(val.search(/\S/) == -1)
+    {
+      $("#cms_short_description_error").show();
+      $("#cms_short_description_error").html("Please enter short description");
+    }
+    else
+    {                     
+      $("#cms_short_description_error").hide();
+    }                     
+  }
+   function cmsckhfulldescriptionval(val)
+  {                                       
+    if(val.search(/\S/) == -1)
+    {
+      $("#cms_full_description_error").show();
+      $("#cms_full_description_error").html("Please enter full description");
+    }
+    else
+    {                     
+      $("#cms_full_description_error").hide();
+    }                     
+  }
+
+  /* CMS validation section end */
