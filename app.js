@@ -88,8 +88,17 @@ app.use(function(req, res, next){
 
 require('./routes/profile')(app, models.Admin);
 require('./routes/section')(app, models.Section);
+
+require('./routes/skill')(app, models.Skill);
+require('./routes/job-category')(app, models.JobCategory);
+
 require('./routes/faq-category')(app, models.FaqCategory);
+<<<<<<< HEAD
 require('./routes/testimonial')(app, models.Testimonial);
+=======
+require('./routes/cms')(app, models.Cms);
+
+>>>>>>> 3d52d6e4eb4ab9b9ad9338ba29658f4a6a72b606
 
 // catch 404 and forward to error handler
 
