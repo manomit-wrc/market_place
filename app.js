@@ -89,7 +89,7 @@ require('./routes/profile')(app, models.Admin);
 require('./routes/section')(app, models.Section);
 
 require('./routes/skill')(app, models.Skill);
-
+require('./routes/job-category')(app, models.JobCategory);
 
 require('./routes/faq-category')(app, models.FaqCategory);
 

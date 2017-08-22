@@ -29,7 +29,7 @@
                     <label for="name" class="col-sm-2 control-label">Name</label>
 
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="skill_name" placeholder="Enter Skill Name" name="name" value="{{body.name}}" >
+                      <input type="text" class="form-control" id="skill_name" placeholder="Enter Skill Name" name="name" value="{{body.name}}" onkeyup="return skillckhnameval(this.value)">
                       <span class="text-danger"></span>
                       <div class="alert alert-danger fade in alert-dismissable" id="skill_name_error" style="display:none; margin-top:5px;">
                       </div>
@@ -40,7 +40,7 @@
                     <label for="status" class="col-sm-2 control-label">Status</label>
 
                     <div class="col-sm-10">
-                      <select name="status" id="skill_status" class="form-control">
+                      <select name="status" id="skill_status" class="form-control" onchange="skillckhstatusval(this.value)">
                         <option value="" disabled="disabled">Select Any</option>
                         <option value="1">Active</option>
                         <option value="0">In-Active</option>
