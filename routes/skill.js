@@ -15,7 +15,8 @@ module.exports = function(app, skill) {
 
 	app.post('/admin/skill/add', function(req, res){
 		Skill.create({
-			name: req.body.name
+			name: req.body.name,
+			status: req.body.status
 		}).then(function(result){
 			res.redirect('/admin/skill');
 		}).catch(function(err){
@@ -28,7 +29,7 @@ module.exports = function(app, skill) {
 		});
 	});
 
-	/* app.get('/admin/skill/edit/:id', function(req, res){
+	app.get('/admin/skill/edit/:id', function(req, res){
 		Skill.findById(req.params['id']).then(function(skill){
 			res.render('admin/skill/edit', {
 	        layout: 'dashboard',
@@ -40,8 +41,7 @@ module.exports = function(app, skill) {
 	app.post('/admin/skill/edit/:id', function(req, res){
 		Skill.update({
     		name: req.body.name,
-    		description: req.body.description,
-    		remarks: req.body.remarks
+    		status: req.body.status
 	    },{ where: { id: req.params['id'] } }).then(function(result){
 	    	res.redirect('/admin/skill');
 	    }).catch(function(err){
@@ -57,6 +57,6 @@ module.exports = function(app, skill) {
 		}).then(function(response){
 			res.redirect('/admin/skill');
 		});
-	});*/
+	});
 
 };

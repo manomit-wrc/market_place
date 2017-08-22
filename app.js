@@ -7,6 +7,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var fs = require('fs');
 
+//const hbsHelpers = require('./helpers/handlebars');
+
 
 var exphbs  = require('express-handlebars');
 
@@ -33,7 +35,18 @@ models.sequelize.sync().then(function() {
 });
 
 app.set('views', path.join(__dirname, 'views'));
-app.engine('.hbs', exphbs({extname: '.hbs'}));
+var hbs = exphbs.create({
+extname: '.hbs', //we will be creating this layout shortly
+helpers: {
+    if_eq: function (a, b, opts) {
+        if (a == b) // Or === depending on your needs
+            return opts.fn(this);
+        else
+            return opts.inverse(this);
+    }
+}
+});
+app.engine('.hbs', hbs.engine);
 app.set('view engine', 'hbs');
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -74,7 +87,11 @@ app.use(function(req, res, next){
 
 require('./routes/profile')(app, models.Admin);
 require('./routes/section')(app, models.Section);
+
 require('./routes/skill')(app, models.Skill);
+
+
+require('./routes/faq-category')(app, models.FaqCategory);
 
 
 // catch 404 and forward to error handler

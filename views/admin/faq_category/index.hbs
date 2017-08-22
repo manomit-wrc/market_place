@@ -1,11 +1,11 @@
 <section class="content-header">
       <h1>
-        Skill List
+        Faq Category List
       </h1>
       <ol class="breadcrumb">
         <li><a href="/admin/dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
         
-        <li class="active">Skill List</li>
+        <li class="active">Faq Category List</li>
       </ol>
     </section>
 
@@ -17,25 +17,32 @@
                              
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Skill List</h3>
+              <h3 class="box-title">Faq Category List</h3>
             </div>
             <!-- /.box-header -->
-            <div class="topbtn"><a href="/admin/skill/add"><button type="button" class="btn bg-purple btn-rightad">ADD</button></a></div>
+            <div class="topbtn"><a href="/admin/faq-category/add"><button type="button" class="btn bg-purple btn-rightad">ADD</button></a></div>
             <div class="box-body">
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                  <th>Name</th>                  
+                  <th>Name</th>
                   <th>Status</th>
                   <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                    {{#each skill}}
+                    {{#each faq_category}}
                      <tr>
                       <td>{{this.name}}</td>
-                      <td>{{#if_eq this.status 1}} Active {{else}}In-Active {{/if_eq}}</td>                      
-                      <td><a href="/admin/skill/edit/{{this.id}}" >Edit</a>&nbsp;|&nbsp;<a href="/admin/skill/delete/{{this.id}}" onclick="return confirm('Are you sure?')">Delete</a></td>
+                      {{#if this.status}}
+                      <td>Active
+                      </td>
+                      {{else}}
+                      <td>
+                      In-Active
+                      </td>
+                      {{/if}}
+                      <td><a href="/admin/faq-category/edit/{{this.id}}" >Edit</a>&nbsp;|&nbsp;<a href="/admin/faq-category/delete/{{this.id}}" onclick="return confirm('Are you sure?')">Delete</a></td>
                     </tr>
                      {{/each}}               
                 </tbody>

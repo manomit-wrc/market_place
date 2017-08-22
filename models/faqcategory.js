@@ -1,7 +1,7 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
-  var Skill = sequelize.define('Skill', {
-      name: {
+  var FaqCategory = sequelize.define('FaqCategory', {
+    name: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: 
@@ -13,7 +13,7 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     status: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: true,
       validate: 
       { notEmpty: 
@@ -22,7 +22,7 @@ module.exports = function(sequelize, DataTypes) {
           msg: 'Please select status'
         },
       }
-    }   
+    }
   }, {
     classMethods: {
       associate: function(models) {
@@ -30,5 +30,5 @@ module.exports = function(sequelize, DataTypes) {
       }
     }
   });
-  return Skill;
+  return FaqCategory;
 };

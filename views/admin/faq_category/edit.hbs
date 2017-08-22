@@ -1,10 +1,10 @@
 <section class="content-header">
   <h1>
-    Skill
+    Faq Category
   </h1>
   <ol class="breadcrumb">
     <li><a href="/admin/dashboard">Dashboard</a></li>
-    <li class="active">Skill - Add</li>
+    <li class="active">Faq Category - Edit</li>
   </ol>
 </section>
 
@@ -13,7 +13,7 @@
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
               
-              <li class="active"><a href="#settings" data-toggle="tab">Skill - Add</a></li>
+              <li class="active"><a href="#settings" data-toggle="tab">Faq Category - Edit</a></li>
             </ul>
             <div class="tab-content">
             	
@@ -23,33 +23,30 @@
               	</div>
               	{{/if}}
                <div class="tab-pane active" id="settings">
-                <form name="frmProfile" method="post" action="/admin/skill/add" class="form-horizontal" onsubmit="return validateskill()">
+                <form name="frmProfile" method="post" action="/admin/faq-category/edit/{{faq_category.id}}" class="form-horizontal" >
                   
                   <div class="form-group ">
                     <label for="name" class="col-sm-2 control-label">Name</label>
 
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="skill_name" placeholder="Enter Skill Name" name="name" value="{{body.name}}" >
+                      <input type="text" class="form-control" id="name" placeholder="Enter Faq Category Name" name="name" value="{{faq_category.name}}" >
                       <span class="text-danger"></span>
-                      <div class="alert alert-danger fade in alert-dismissable" id="skill_name_error" style="display:none; margin-top:5px;">
-                      </div>
                     </div>
                   </div>
 
                   <div class="form-group ">
-                    <label for="status" class="col-sm-2 control-label">Status</label>
+                    <label for="remarks" class="col-sm-2 control-label">Remarks</label>
 
                     <div class="col-sm-10">
-                      <select name="status" id="skill_status" class="form-control">
+                      <select name="status" id="status" class="form-control">
                         <option value="" disabled="disabled">Select Any</option>
-                        <option value="1">Active</option>
-                        <option value="0">In-Active</option>
+                        <option value="1" {{#if_eq faq_category.status 1 }} selected="selected" {{/if_eq}}>Active</option>
+                        <option value="0" {{#if_eq faq_category.status 0 }} selected="selected" {{/if_eq}}>In-Active</option>
                       </select>
                       <span class="text-danger"></span>
-                      <div class="alert alert-danger fade in alert-dismissable" id="skill_status_error" style="display:none; margin-top:5px;">
-                      </div>
                     </div>
                   </div>
+                  
                   <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
                       <button type="submit" class="btn btn-danger">Submit</button>
