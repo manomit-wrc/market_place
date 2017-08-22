@@ -5,6 +5,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+
 var fs = require('fs');
 
 //const hbsHelpers = require('./helpers/handlebars');
@@ -88,6 +89,7 @@ app.use(function(req, res, next){
 require('./routes/profile')(app, models.Admin);
 require('./routes/section')(app, models.Section);
 require('./routes/faq-category')(app, models.FaqCategory);
+require('./routes/testimonial')(app, models.Testimonial);
 
 // catch 404 and forward to error handler
 
