@@ -65,6 +65,7 @@ module.exports = function (app, testimonial){
 		       id:req.params['id']
 		    }
 		}).then(function(response){
+			req.flash('successMsg', 'Deleted successfully.');
 			res.redirect('/admin/testimonial');
 		});
 
