@@ -193,7 +193,7 @@ function validateskill(){
       $("#cms_title_error").hide();
     }                     
   }
-   function cmsckhshortdescval(val)
+  function cmsckhshortdescval(val)
   {                                       
     if(val.search(/\S/) == -1)
     {
@@ -205,7 +205,7 @@ function validateskill(){
       $("#cms_short_description_error").hide();
     }                     
   }
-   function cmsckhfulldescriptionval(val)
+  function cmsckhfulldescriptionval(val)
   {                                       
     if(val.search(/\S/) == -1)
     {
@@ -219,3 +219,61 @@ function validateskill(){
   }
 
   /* CMS validation section end */
+
+
+  /* Blog Category validation section start */
+
+  function validateblogcategory(){
+    var blog_category_name = $("#blog_category_name").val();                
+    if(blog_category_name ==''){
+      document.getElementById('blog_category_name').style.border = '1px solid red !important';
+      $("#blog_category_name_error").css("display", "block");
+      document.getElementById("blog_category_name_error").innerHTML = "Please enter name";
+      document.getElementById('blog_category_name').focus();
+      return false;
+    }else{
+      $("#blog_category_name_error").css("display", "none");     
+      document.getElementById('blog_category_name').style.border = '';
+      document.getElementById("blog_category_name_error").innerHTML = "";
+    }
+
+    var blog_category_status = $("#blog_category_status").val();                
+    if(blog_category_status ==''){
+      document.getElementById('blog_category_status').style.border = '1px solid red !important';
+      $("#blog_category_status_error").css("display", "block");
+      document.getElementById("blog_category_status_error").innerHTML = "Please select status";
+      document.getElementById('blog_category_status').focus();
+      return false;
+    }else{
+      $("#blog_category_status_error").css("display", "none");     
+      document.getElementById('blog_category_status').style.border = '';
+      document.getElementById("blog_category_status_error").innerHTML = "";
+    }
+  }
+
+  function blogcatckhnameval(val)
+  {                                       
+    if(val.search(/\S/) == -1)
+    {
+      $("#blog_category_name_error").show();
+      $("#blog_category_name_error").html("Please enter name");
+    }
+    else
+    {                     
+      $("#blog_category_name_error").hide();
+    }    
+  }
+  function blogcatckhstatusval(val)
+  {                                       
+    if(val == '')
+    {
+      $("#blog_category_status_error").show();
+      $("#blog_category_status_error").html("Please select status");
+    }
+    else
+    {                     
+      $("#blog_category_status_error").hide();
+    }                     
+  }
+
+  /* Blog Category validation section end */

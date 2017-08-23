@@ -95,6 +95,7 @@ require('./routes/job-category')(app, models.JobCategory);
 require('./routes/faq-category')(app, models.FaqCategory);
 require('./routes/testimonial')(app, models.Testimonial);
 require('./routes/cms')(app, models.Cms);
+require('./routes/blog-category')(app, models.BlogCategory);
 
 // catch 404 and forward to error handler
 
