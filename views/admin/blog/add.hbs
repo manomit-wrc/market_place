@@ -1,0 +1,103 @@
+<section class="content-header">
+  <h1>
+    Blog
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="/admin/dashboard">Dashboard</a></li>
+    <li class="active">Blog - Add</li>
+  </ol>
+</section>
+
+<section class="content">
+        <div class="col-md-12">
+          <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+              
+              <li class="active"><a href="#settings" data-toggle="tab">Blog - Add</a></li>
+            </ul>
+            <div class="tab-content">
+            	
+              	{{#if error_message}}
+              	<div class="alert alert-danger" id="result77">
+              	{{error_message}}
+              	</div>
+              	{{/if}}
+               <div class="tab-pane active" id="settings">
+                <form name="frmProfile" method="post" action="/admin/blog/add" class="form-horizontal" onsubmit="return validateblog()" enctype="multipart/form-data">
+                  
+                  <div class="form-group ">
+                    <label for="slag" class="col-sm-2 control-label">Blog Name</label>
+
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="blog_name" placeholder="Enter Blog Name" name="blog_name" value="{{body.blog_name}}" onkeyup="return blognameckhval(this.value)">
+                      <span class="text-danger"></span>
+                      <div class="alert alert-danger fade in alert-dismissable" id="blog_name_error" style="display:none; margin-top:5px;">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group ">
+                    <label for="slag" class="col-sm-2 control-label">Blog Category</label>
+
+                    <div class="col-sm-10">
+                      <select class="form-control" id="blog_category_id" name="blog_category_id" onchange="blogcatckhval(this.value)">
+                      <option value="">Please select</option>
+                      {{#each blogCategory}}
+                      <option value="{{this.id}}"> {{this.name}}</option>
+                      {{/each}}
+                      </select>
+                      <span class="text-danger"></span>
+                      <div class="alert alert-danger fade in alert-dismissable" id="blog_category_id_error" style="display:none; margin-top:5px;">
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="form-group">
+                    <label for="short_description" class="col-sm-2 control-label">Short Description</label>
+                    <div class="col-sm-10">
+                      <textarea class="form-control" id="blog_short_description" placeholder="Enter Short Description" name="short_description"  onkeyup="return blogckhshortdescval(this.value)">{{body.short_description}}</textarea>
+                      <span class="text-danger"></span>
+                      <div class="alert alert-danger fade in alert-dismissable" id="blog_short_description_error" style="display:none; margin-top:5px;">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="long_description" class="col-sm-2 control-label">Description</label>
+                    <div class="col-sm-10">
+                      <textarea class="form-control" id="blog_long_description" placeholder="Enter Long Description" name="long_description"  onkeyup="return cmsckhlongdescval(this.value)">{{body.long_description}}</textarea>
+                      <span class="text-danger"></span>
+                      <div class="alert alert-danger fade in alert-dismissable" id="blog_long_description_error" style="display:none; margin-top:5px;">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group ">
+                    <label for="blog_image" class="col-sm-2 control-label">Blog Image</label>
+
+                    <div class="col-sm-10">
+                      <input type="file"  id="blog_image" name="blog_image" >
+                      <span class="text-danger"></span>
+                    </div>
+                  </div>
+
+                  
+                  <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                      <button type="submit" class="btn btn-danger">Submit</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <!-- /.tab-pane -->
+            </div>
+            <!-- /.tab-content -->
+          </div>
+          <!-- /.nav-tabs-custom -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+
+</section>

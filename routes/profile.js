@@ -31,6 +31,7 @@ module.exports = function(app, admin) {
 	};
 
     var upload = multer({ storage: storage, limits: {fileSize:3000000, fileFilter:restrictImgType} });
+	
 	app.get('/admin/dashboard', function(req, res) {
 
 		res.render('admin/dashboard',{layout:'dashboard'});

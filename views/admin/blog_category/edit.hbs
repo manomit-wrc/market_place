@@ -1,0 +1,71 @@
+<section class="content-header">
+  <h1>
+    Blog Category
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="/admin/dashboard">Dashboard</a></li>
+    <li class="active">Blog Category - Edit</li>
+  </ol>
+</section>
+
+<section class="content">
+        <div class="col-md-12">
+          <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+              
+              <li class="active"><a href="#settings" data-toggle="tab">Blog Category - Edit</a></li>
+            </ul>
+            <div class="tab-content">
+            	
+              	{{#if error_message}}
+              	<div class="alert alert-danger" id="result77">
+              	{{error_message}}
+              	</div>
+              	{{/if}}
+               <div class="tab-pane active" id="settings">
+                <form name="frmProfile" method="post" action="/admin/blog-category/edit/{{blog_category.id}}" class="form-horizontal" onsubmit="return validateblogcategory()">
+                  
+                  <div class="form-group ">
+                    <label for="name" class="col-sm-2 control-label">Name</label>
+
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="blog_category_name" placeholder="Enter Category Name" name="name" value="{{blog_category.name}}" onkeyup="return blogcatckhnameval(this.value)">
+                      <span class="text-danger"></span>
+                      <div class="alert alert-danger fade in alert-dismissable" id="blog_category_name_error" style="display:none; margin-top:5px;">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group ">
+                    <label for="status" class="col-sm-2 control-label">Status</label>
+
+                    <div class="col-sm-10">
+                      <select name="status" id="blog_category_status" class="form-control" onchange="blogcatckhstatusval(this.value)">
+                        <option value="" disabled="disabled">Select Any</option>
+                        <option value="1" {{#if_eq blog_category.status 1 }} selected="selected" {{/if_eq}}>Active</option>
+                        <option value="0" {{#if_eq blog_category.status 0 }} selected="selected" {{/if_eq}}>In-Active</option>
+                      </select>
+                      <span class="text-danger"></span>
+                      <div class="alert alert-danger fade in alert-dismissable" id="blog_category_status_error" style="display:none; margin-top:5px;">
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                      <button type="submit" class="btn btn-danger">Submit</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <!-- /.tab-pane -->
+            </div>
+            <!-- /.tab-content -->
+          </div>
+          <!-- /.nav-tabs-custom -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+
+</section>

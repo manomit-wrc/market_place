@@ -5,6 +5,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+
 var fs = require('fs');
 
 //const hbsHelpers = require('./helpers/handlebars');
@@ -70,7 +71,7 @@ app.use(flash());
 require('./routes/index')(app, passport);
 app.use(function(req, res, next){
   if (req.isAuthenticated())
-  {
+  {                                                                                                                    
     delete req.user.password;
     if (fs.existsSync("public/profile/thumbs/"+req.user.avator) && req.user.avator != "") {
       res.locals.image = "/profile/thumbs/"+req.user.avator;
@@ -87,7 +88,15 @@ app.use(function(req, res, next){
 
 require('./routes/profile')(app, models.Admin);
 require('./routes/section')(app, models.Section);
+
+require('./routes/skill')(app, models.Skill);
+require('./routes/job-category')(app, models.JobCategory);
+
 require('./routes/faq-category')(app, models.FaqCategory);
+require('./routes/testimonial')(app, models.Testimonial);
+require('./routes/cms')(app, models.Cms);
+require('./routes/blog-category')(app, models.BlogCategory);
+require('./routes/blog')(app,models.Blog, models.BlogCategory);
 
 // catch 404 and forward to error handler
 
