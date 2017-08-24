@@ -59,7 +59,7 @@ module.exports = function(app, blog,blogCategory) {
 	app.post('/admin/blog/add',upload.single('blog_image'), function(req, res){
 		var photo = null;
 	    var allowedTypes = ['image/jpeg','image/gif','image/png'];
-	   /* if (req.file){
+	    if (req.file){
 	            photo = fileName;
 	            // save thumbnail -- should this part go elsewhere?
 	            im.crop({
@@ -71,7 +71,7 @@ module.exports = function(app, blog,blogCategory) {
 	              if (err) throw err;
 	              console.log('100x100 thumbnail created');
 	            });
-	    }*/
+	    }
 		Blog.create({
 			blog_name: req.body.blog_name,
 			blog_category_id: req.body.blog_category_id,

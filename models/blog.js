@@ -45,6 +45,9 @@ module.exports = function(sequelize, DataTypes) {
           msg: 'Please enter long description'
         },
       }
+    },
+    blog_image: {
+      type: DataTypes.STRING
     }
   }, {
     classMethods: {
