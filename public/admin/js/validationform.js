@@ -276,4 +276,92 @@ function validateskill(){
     }                     
   }
 
-  /* Blog Category validation section end */
+  /* Blog category validation section end */
+
+  /* Blog validation section start */
+
+  function validateblog(){
+    var blog_name = $("#blog_name").val();                
+    if(blog_name ==''){
+      document.getElementById('blog_name').style.border = '1px solid red !important';
+      $("#blog_name_error").css("display", "block");
+      document.getElementById("blog_name_error").innerHTML = "Please enter blog name";
+      document.getElementById('blog_name').focus();
+      return false;
+    }else{
+      $("#blog_name_error").css("display", "none");     
+      document.getElementById('blog_name').style.border = '';
+      document.getElementById("blog_name_error").innerHTML = "";
+    }
+
+    var blog_category_id = $("#blog_category_id").val();                
+    if(blog_category_id ==''){
+      document.getElementById('blog_category_id').style.border = '1px solid red !important';
+      $("#blog_category_id_error").css("display", "block");
+      document.getElementById("blog_category_id_error").innerHTML = "Please select category";
+      document.getElementById('blog_category_id').focus();
+      return false;
+    }else{
+      $("#blog_category_id_error").css("display", "none");     
+      document.getElementById('blog_category_id').style.border = '';
+      document.getElementById("blog_category_id_error").innerHTML = "";
+    }
+
+    var blog_short_description = $("#blog_short_description").val();                
+    if(blog_short_description ==''){
+      document.getElementById('blog_short_description').style.border = '1px solid red !important';
+      $("#blog_short_description_error").css("display", "block");
+      document.getElementById("blog_short_description_error").innerHTML = "Please enter short description";
+      document.getElementById('blog_short_description').focus();
+      return false;
+    }else{
+      $("#blog_short_description_error").css("display", "none");     
+      document.getElementById('blog_short_description').style.border = '';
+      document.getElementById("blog_short_description_error").innerHTML = "";
+    }
+  }
+
+  function blognameckhval(val)
+  {                                       
+    if(val.search(/\S/) == -1)
+    {
+      $("#blog_name_error").show();
+      $("#blog_name_error").html("Please enter blog name");
+    }
+    else
+    {                     
+      $("#blog_name_error").hide();
+    }    
+  }
+  function blogcatckhval(val)
+  {                                       
+    if(val == '')
+    {
+      $("#blog_category_id_error").show();
+      $("#blog_category_id_error").html("Please select category");
+    }
+    else
+    {                     
+      $("#blog_category_id_error").hide();
+    }                     
+  }
+
+  function blogckhshortdescval(val)
+  {                                       
+    if(val.search(/\S/) == -1)
+    {
+      $("#blog_short_description_error").show();
+      $("#blog_short_description_error").html("Please enter short description");
+    }
+    else
+    {                     
+      $("#blog_short_description_error").hide();
+    }                     
+  }
+  
+
+
+  /* Blog validation section end */
+
+
+  

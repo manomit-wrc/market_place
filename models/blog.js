@@ -49,7 +49,7 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     classMethods: {
       associate: function(models) {
-        blog.belongsTo(models.BlogCategory, { foreignKey: 'blog_category_id'} );
+       
       }
     }
   });
