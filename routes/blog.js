@@ -102,12 +102,12 @@ module.exports = function(app, blog,blogCategory) {
 		});
 	});
 	
-	app.post('/admin/blog/edit/:id', function(req, res){
+	app.post('/admin/blog/edit/:id', function(req, res){		
 		Blog.update({
     		blog_name: req.body.blog_name,
 			blog_category_id: req.body.blog_category_id,
 			short_description: req.body.short_description,
-			long_description: req.body.long_description,
+			long_description: req.body.long_description			
 	    },{ where: { id: req.params['id'] } }).then(function(result){
 	    	res.redirect('/admin/blog');
 	    }).catch(function(err){
