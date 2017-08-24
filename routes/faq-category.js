@@ -45,7 +45,8 @@ module.exports = function(app, faq_category) {
 	    },{ where: { id: req.params['id'] } }).then(function(result){
 	    	res.redirect('/admin/faq-category');
 	    }).catch(function(err){
-	    	
+	    	var redirectUrl = '/admin/faq-category/edit/' + req.params['id'];
+	    	res.redirect(redirectUrl);
 	    });
 	});
 
