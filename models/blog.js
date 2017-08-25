@@ -46,9 +46,8 @@ module.exports = function(sequelize, DataTypes) {
         },
       }
     },
-    blog_image: {
-      type: DataTypes.STRING
-    }
+    blog_image: DataTypes.STRING
+    
   }, {
     classMethods: {
       associate: function(models) {
