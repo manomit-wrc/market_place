@@ -1,0 +1,80 @@
+<section class="content-header">
+  <h1>
+    Faq
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="/admin/dashboard">Dashboard</a></li>
+    <li class="active">Faq - Add</li>
+  </ol>
+</section>
+
+<section class="content">
+        <div class="col-md-12">
+          <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+              
+              <li class="active"><a href="#settings" data-toggle="tab">Faq - Add</a></li>
+            </ul>
+            <div class="tab-content">
+            	
+              	{{#if error_message}}
+              	<div class="alert alert-danger" id="result77">
+              	{{error_message}}
+              	</div>
+              	{{/if}}
+               <div class="tab-pane active" id="settings">
+                <form name="frmFaq" method="post" action="/admin/faq/add" class="form-horizontal" >
+                  
+                  <div class="form-group ">
+                    <label for="faq_category_id" class="col-sm-2 control-label">Faq-Category</label>
+
+                    <div class="col-sm-10">
+                      <select name="faq_category_id" id="faq_category_id" class="form-control">
+                        <option value="" disabled="disabled">Select Any</option>
+                        {{#each faq_category}}
+                          <option value="{{this.id}}">{{this.name}}</option>
+                        {{/each}}
+                      </select>
+                      <span class="text-danger"></span>
+                    </div>
+                  </div>
+
+                  <div class="form-group ">
+                    <label for="question" class="col-sm-2 control-label">Question</label>
+
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="question" placeholder="Enter question" name="question" value="{{body.question}}" >
+                      <span class="text-danger"></span>
+                    </div>
+                  </div>
+
+                  <div class="form-group ">
+                    <label for="answer" class="col-sm-2 control-label">Answer</label>
+
+                    <div class="col-sm-10">
+                      
+                      <textarea name="answer" id="answer" placeholder="Enter answer" class="form-control">{{body.answer}}</textarea>
+                      <span class="text-danger"></span>
+                    </div>
+                  </div>
+
+                  
+                  
+                  <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                      <button type="submit" class="btn btn-danger">Submit</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <!-- /.tab-pane -->
+            </div>
+            <!-- /.tab-content -->
+          </div>
+          <!-- /.nav-tabs-custom -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+
+</section>
