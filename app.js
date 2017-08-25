@@ -93,6 +93,7 @@ require('./routes/skill')(app, models.Skill);
 require('./routes/job-category')(app, models.JobCategory);
 
 require('./routes/faq-category')(app, models.FaqCategory);
+require('./routes/faq')(app, models.Faq, models.FaqCategory);
 require('./routes/testimonial')(app, models.Testimonial);
 require('./routes/cms')(app, models.Cms);
 require('./routes/blog-category')(app, models.BlogCategory);
