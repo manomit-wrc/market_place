@@ -51,7 +51,15 @@ module.exports = function(app, blog,blogCategory) {
 	});
 
 	app.get('/admin/blog/add', function(req, res){
-		BlogCategory.findAll().then(function(blogCategory){			
+		BlogCategory.findAll(
+		{
+			where:
+			{
+				status:'1'
+			}
+		}				
+		).then(function(blogCategory){
+
 			res.render('admin/blog/add',{layout:'dashboard', blogCategory:blogCategory});
 		});		
 	});
@@ -92,7 +100,14 @@ module.exports = function(app, blog,blogCategory) {
 
 	app.get('/admin/blog/edit/:id', function(req, res){
 		Blog.findById(req.params['id']).then(function(blog){
-			BlogCategory.findAll().then(function(blogCategory){
+			BlogCategory.findAll(
+			{
+				where:
+				{
+					status:'1'
+				}
+			}	
+			).then(function(blogCategory){
 			res.render('admin/blog/edit', {
 	        layout: 'dashboard',
 	        blog:blog,
