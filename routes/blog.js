@@ -51,7 +51,15 @@ module.exports = function(app, blog,blogCategory) {
 	});
 
 	app.get('/admin/blog/add', function(req, res){
-		BlogCategory.findAll().then(function(blogCategory){
+		BlogCategory.findAll(
+		{
+			where:
+			{
+				status:'1'
+			}
+		}				
+		).then(function(blogCategory){
+
 			res.render('admin/blog/add',{layout:'dashboard', blogCategory:blogCategory});
 		});		
 	});
@@ -92,7 +100,14 @@ module.exports = function(app, blog,blogCategory) {
 
 	app.get('/admin/blog/edit/:id', function(req, res){
 		Blog.findById(req.params['id']).then(function(blog){
-			BlogCategory.findAll().then(function(blogCategory){
+			BlogCategory.findAll(
+			{
+				where:
+				{
+					status:'1'
+				}
+			}	
+			).then(function(blogCategory){
 			res.render('admin/blog/edit', {
 	        layout: 'dashboard',
 	        blog:blog,
@@ -102,12 +117,28 @@ module.exports = function(app, blog,blogCategory) {
 		});
 	});
 	
-	app.post('/admin/blog/edit/:id', function(req, res){
+	app.post('/admin/blog/edit/:id',upload.single('blog_image'), function(req, res){
+		var photo = null;
+	    var allowedTypes = ['image/jpeg','image/gif','image/png'];
+	    if (req.file){
+            photo = fileName;
+            // save thumbnail -- should this part go elsewhere?
+            im.crop({
+              srcPath: 'public/blog/'+ fileName,
+              dstPath: 'public/blog/thumbs/'+ fileName,
+              width: 100,
+              height: 100
+            }, function(err, stdout, stderr){
+              if (err) throw err;
+              console.log('100x100 thumbnail created');
+            });
+	    }		
 		Blog.update({
     		blog_name: req.body.blog_name,
 			blog_category_id: req.body.blog_category_id,
 			short_description: req.body.short_description,
 			long_description: req.body.long_description,
+			blog_image: fileName			
 	    },{ where: { id: req.params['id'] } }).then(function(result){
 	    	res.redirect('/admin/blog');
 	    }).catch(function(err){
