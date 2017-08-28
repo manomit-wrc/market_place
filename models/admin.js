@@ -44,7 +44,7 @@ module.exports = function(sequelize, DataTypes) {
           msg: 'Phone no can not be blank'
         },
         isNumeric: {
-          atgs: true,
+          args: true,
           msg: 'Phone number must be numeric'
         },
         len: {
