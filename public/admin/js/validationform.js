@@ -362,6 +362,81 @@ function validateskill(){
 
 
   /* Blog validation section end */
+$(document).ready(function(){
+  //organization validation
+  $('#org_edit').on('click',function(){
+    var valid = $('#org').valid();
+    if(valid){
+      $('#org').submit();    
+    }
+  });
 
-
-  
+  $('#org').validate({
+    rules:{
+      address:{
+        required: true
+      },
+      contact_no:{
+        required: true,
+        number: true,
+        maxlength: 10,
+        minlength: 10
+      },
+      email:{
+        required: true,
+        email: true
+      },
+      fb_link:{
+        required: true
+      },
+      twitter:{
+        required: true
+      },
+      linkedin:{
+        required: true
+      },
+      title:{
+        required: true
+      },
+      meta_key:{
+        required: true
+      },
+      meta_description:{
+        required: true
+      }
+    },
+    messages:{
+      address: {
+        required: "<font color='red'>Please enter address</font>"
+      },
+      contact_no:{
+        required: "<font color='red'>Please enter contact number</font>",
+        number: "<font color='red'>Contact number should be a digit</font>",
+        maxlength: "<font color='red'>Contact number should be a 10 digit</font>",
+        minlength: "<font color='red'>Contact number should be a 10 digit</font>"
+      },
+      email:{
+        required: "<font color='red'>Please enter email id</font>",
+        email: "<font color='red'>Please enter valid email id</font>",
+      },
+      fb_link:{
+        required: "<font color='red'>Please enter facebook link</font>"
+      },
+      twitter:{
+        required: "<font color='red'>Please enter twitter link</font>"
+      },
+      linkedin:{
+        required: "<font color='red'>Please enter linkedin link</font>"
+      },
+      title:{
+        required: "<font color='red'>Please enter title</font>"
+      },
+      meta_key:{
+        required: "<font color='red'>Please enter meta key</font>"
+      },
+      meta_description:{
+        required: "<font color='red'>Please enter meta description</font>"
+      }
+    }
+  });
+});

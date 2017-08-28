@@ -9,6 +9,7 @@ module.exports = function (app,organization){
 	});
 
 	app.post('/admin/organization/edit/:id', function (req, res){
+		//update query means edit query
 		Organization.update({
 			address: req.body.address,
 			contact_no: req.body.contact_no,
@@ -20,6 +21,7 @@ module.exports = function (app,organization){
 			meta_key: req.body.meta_key,
 			meta_description: req.body.meta_description
 		},{
+			//id matching with database
 			where:{
 				id: req.params['id']
 			}

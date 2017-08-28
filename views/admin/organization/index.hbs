@@ -30,7 +30,7 @@
                 {{/if}}
 
                <div class="tab-pane active" id="settings">
-                <form name="frmProfile" method="post" action="/admin/organization/edit/{{details.id}}" class="form-horizontal" >
+                <form name="frmProfile" id="org" method="post" action="/admin/organization/edit/{{details.id}}" class="form-horizontal" >
                   
                   <div class="form-group ">
                     <label for="name" class="col-sm-2 control-label">Address</label>
@@ -117,7 +117,7 @@
                   
                   <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
-                      <button type="submit" class="btn btn-danger">Edit</button>
+                      <button type="submit" class="btn btn-danger" id="org_edit">Edit</button>
                     </div>
                   </div>
                 </form>
