@@ -1,6 +1,6 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
-  var Cms = sequelize.define('Cms', {
+  var Cms = sequelize.define('cms', {
     slag: {
       type: DataTypes.STRING,
       allowNull: false,

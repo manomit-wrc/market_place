@@ -20,7 +20,7 @@ var port     = process.env.PORT || 8080;
 var passport = require('passport');
 var flash    = require('connect-flash');
 var models = require("./models");
-require('./config/passport')(passport,models.Admin);
+require('./config/passport')(passport,models.admin);
 
 // view engine setup
 
@@ -86,19 +86,19 @@ app.use(function(req, res, next){
 });
 
 
-require('./routes/profile')(app, models.Admin);
-require('./routes/section')(app, models.Section);
+require('./routes/profile')(app, models.admin);
+require('./routes/section')(app, models.section);
 
-require('./routes/skill')(app, models.Skill);
-require('./routes/job-category')(app, models.JobCategory);
+require('./routes/skill')(app, models.skill);
+require('./routes/job-category')(app, models.jobcategory);
 
-require('./routes/faq-category')(app, models.FaqCategory);
-require('./routes/faq')(app, models.Faq, models.FaqCategory);
-require('./routes/testimonial')(app, models.Testimonial);
-require('./routes/cms')(app, models.Cms);
-require('./routes/blog-category')(app, models.BlogCategory);
-require('./routes/blog')(app,models.Blog, models.BlogCategory);
-require('./routes/organization')(app, models.Organization);
+require('./routes/faq-category')(app, models.faqcategory);
+require('./routes/faq')(app, models.faq, models.faqcategory);
+require('./routes/testimonial')(app, models.testimonial);
+require('./routes/cms')(app, models.cms);
+require('./routes/blog-category')(app, models.blogcategory);
+require('./routes/blog')(app,models.blog, models.blogcategory);
+require('./routes/organization')(app, models.organization);
  
 // catch 404 and forward to error handler
 

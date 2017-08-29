@@ -25,7 +25,7 @@
                <div class="tab-pane active" id="settings">
                 <form name="frmProfile" method="post" action="/admin/cms/add" class="form-horizontal" onsubmit="return validatecms()">
                   
-                  <div class="form-group ">
+                  <div class="form-group">
                     <label for="slag" class="col-sm-2 control-label">Slag</label>
 
                     <div class="col-sm-10">
@@ -58,7 +58,7 @@
                   <div class="form-group">
                     <label for="full_description" class="col-sm-2 control-label">Full Description</label>
                     <div class="col-sm-10">
-                      <textarea class="form-control" id="textarea_id" placeholder="Enter Short Description" name="full_description"  onkeyup="return cmsckhfulldescriptionval(this.value)">{{body.full_description}}</textarea>
+                      <textarea class="form-control" id="textarea_id" placeholder="Enter Full Description" name="full_description"  onkeyup="return cmsckhfulldescriptionval(this.value)">{{body.full_description}}</textarea>
                       <span class="text-danger"></span>
                       <div class="alert alert-danger fade in alert-dismissable" id="cms_full_description_error" style="display:none; margin-top:5px;">
                       </div>

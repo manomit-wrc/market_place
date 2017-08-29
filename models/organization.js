@@ -1,6 +1,6 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
-  var Organization = sequelize.define('Organization', {
+  var Organization = sequelize.define('organization', {
     address: {
       type: DataTypes.STRING,
       allowNull: true,
