@@ -439,4 +439,43 @@ $(document).ready(function(){
       }
     }
   });
+
+  // banner add validation
+  $('#frmBanner_add_submit').on('click',function(){
+    var valid = $('#frmBanner_add').valid();
+    if(valid){
+      $('#frmBanner_add').submit();
+    }
+  });
+
+  $('#frmBanner_add').validate({
+    rules:{
+      header_1:{
+        required: true
+      },
+      header_2:{
+        required: true
+      },
+      description:{
+        required: true
+      },
+      banner_image:{
+        required: true
+      }
+    },
+    messages:{
+      header_1:{
+        required: "<font color='red'>Please enter heading 1"
+      },
+      header_2:{
+        required: "<font color='red'>Please enter heading 2"
+      },
+      description:{
+        required: "<font color='red'>Please enter description"
+      },
+      banner_image:{
+        required: "<font color='red'>Please select image"
+      }
+    }
+  });
 });
