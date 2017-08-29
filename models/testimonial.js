@@ -1,6 +1,6 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
-  var Testimonial = sequelize.define('Testimonial', {
+  var Testimonial = sequelize.define('testimonial', {
     ClientName: {
       type: DataTypes.TEXT,
       allowNull: true,

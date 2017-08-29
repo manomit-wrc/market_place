@@ -1,6 +1,6 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
-  var Admin = sequelize.define('Admin', {
+  var Admin = sequelize.define('admin', {
     first_name: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -44,7 +44,7 @@ module.exports = function(sequelize, DataTypes) {
           msg: 'Phone no can not be blank'
         },
         isNumeric: {
-          atgs: true,
+          args: true,
           msg: 'Phone number must be numeric'
         },
         len: {

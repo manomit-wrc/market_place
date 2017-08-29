@@ -1,24 +1,39 @@
 'use strict';
 module.exports = {
   up: function(queryInterface, Sequelize) {
-    return queryInterface.createTable('cms', {
+    return queryInterface.createTable('organizations', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      slag: {
+      address: {
+        type: Sequelize.STRING
+      },
+      contact_no: {
+        type: Sequelize.INTEGER
+      },
+      email: {
+        type: Sequelize.STRING
+      },
+      facebook: {
+        type: Sequelize.STRING
+      },
+      twitter: {
+        type: Sequelize.STRING
+      },
+      linkedin: {
         type: Sequelize.STRING
       },
       title: {
         type: Sequelize.STRING
       },
-      short_description: {
-        type: Sequelize.TEXT
+      meta_key: {
+        type: Sequelize.STRING
       },
-      full_description: {
-        type: Sequelize.TEXT
+      meta_description: {
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
@@ -31,6 +46,6 @@ module.exports = {
     });
   },
   down: function(queryInterface, Sequelize) {
-    return queryInterface.dropTable('cms');
+    return queryInterface.dropTable('organizations');
   }
 };

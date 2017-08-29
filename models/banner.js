@@ -1,6 +1,6 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
-  var Banner = sequelize.define('Banner', {
+  var Banner = sequelize.define('banner', {
     header_1: DataTypes.STRING,
     header_2: DataTypes.STRING,
     description: DataTypes.TEXT,

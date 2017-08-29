@@ -1,6 +1,6 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
-  var Blog = sequelize.define('Blog', {   
+  var Blog = sequelize.define('blog', {   
     blog_name: {
       type: DataTypes.STRING,
       allowNull: false,
