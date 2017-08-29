@@ -98,6 +98,7 @@ require('./routes/testimonial')(app, models.Testimonial);
 require('./routes/cms')(app, models.Cms);
 require('./routes/blog-category')(app, models.BlogCategory);
 require('./routes/blog')(app,models.Blog, models.BlogCategory);
+require('./routes/banner')(app, models.Banner);
 
 // catch 404 and forward to error handler
 
