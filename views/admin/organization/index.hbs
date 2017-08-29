@@ -1,0 +1,135 @@
+<section class="content-header">
+  <h1>
+    Organization Settings
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="/admin/dashboard">Dashboard</a></li>
+    <li class="active">Organization Settings</li>
+  </ol>
+</section>
+
+<section class="content">
+        <div class="col-md-12">
+          <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+              
+              <li class="active"><a href="#settings" data-toggle="tab">Organization Settings</a></li>
+            </ul>
+            <div class="tab-content">
+              
+                {{#if error_message}}
+                <div class="alert alert-danger" id="result77">
+                {{error_message}}
+                </div>
+                {{/if}}
+
+                {{#if successMsg}}
+                <div class="alert alert-success" id="result77">
+                {{successMsg}}
+                </div>
+                {{/if}}
+
+               <div class="tab-pane active" id="settings">
+                <form name="frmProfile" id="org" method="post" action="/admin/organization/edit/{{details.id}}" class="form-horizontal" >
+                  
+                  <div class="form-group ">
+                    <label for="name" class="col-sm-2 control-label">Address</label>
+
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="address" placeholder="Address" name="address" value="{{details.address}}" >
+                      <span class="text-danger"></span>
+                    </div>
+                  </div>
+
+                  <div class="form-group ">
+                    <label for="name" class="col-sm-2 control-label">Contact Number</label>
+
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="contact_no" placeholder="Contact Number" name="contact_no" value="{{details.contact_no}}" >
+                      <span class="text-danger"></span>
+                    </div>
+                  </div>
+
+
+                  <div class="form-group ">
+                    <label for="name" class="col-sm-2 control-label">Email</label>
+
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="email" placeholder="Email" name="email" value="{{details.email}}" >
+                      <span class="text-danger"></span>
+                    </div>
+                  </div>
+
+                  <div class="form-group ">
+                    <label for="name" class="col-sm-2 control-label">FB Link</label>
+
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="fb_link" placeholder="FB Link" name="fb_link" value="{{details.facebook}}" >
+                      <span class="text-danger"></span>
+                    </div>
+                  </div>
+
+
+                  <div class="form-group ">
+                    <label for="name" class="col-sm-2 control-label">Twitter</label>
+
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="twitter" placeholder="Twitter" name="twitter" value="{{details.twitter}}" >
+                      <span class="text-danger"></span>
+                    </div>
+                  </div>
+
+                  <div class="form-group ">
+                    <label for="name" class="col-sm-2 control-label">LinkedIn</label>
+
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="linkedin" placeholder="LinkedIn" name="linkedin" value="{{details.linkedin}}" >
+                      <span class="text-danger"></span>
+                    </div>
+                  </div>
+
+                  <div class="form-group ">
+                    <label for="name" class="col-sm-2 control-label">Title</label>
+
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="title" placeholder="Title" name="title" value="{{details.title}}" >
+                      <span class="text-danger"></span>
+                    </div>
+                  </div>
+
+                  <div class="form-group ">
+                    <label for="description" class="col-sm-2 control-label">Meta key</label>
+
+                    <div class="col-sm-10">
+                      <textarea class="form-control" id="meta_key" placeholder="Meta key" name="meta_key" >{{details.meta_key}}</textarea>
+                      <span class="text-danger"></span>
+                    </div>
+                  </div>
+
+                  <div class="form-group ">
+                    <label for="description" class="col-sm-2 control-label">Meta Description</label>
+
+                    <div class="col-sm-10">
+                      <textarea class="form-control" id="meta_description" placeholder="Meta Description" name="meta_description" >{{details.meta_description}}</textarea>
+                      <span class="text-danger"></span>
+                    </div>
+                  </div>
+                  
+                  <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                      <button type="submit" class="btn btn-danger" id="org_edit">Edit</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <!-- /.tab-pane -->
+            </div>
+            <!-- /.tab-content -->
+          </div>
+          <!-- /.nav-tabs-custom -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+
+</section>
