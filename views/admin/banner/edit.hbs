@@ -23,7 +23,7 @@
               	</div>
               	{{/if}}
                <div class="tab-pane active" id="settings">
-                <form name="frmBanner" method="post" action="/admin/banner/edit/{{banner.id}}" class="form-horizontal"  enctype="multipart/form-data">
+                <form name="frmBanner" id="frmBanner_add" method="post" action="/admin/banner/edit/{{banner.id}}" class="form-horizontal"  enctype="multipart/form-data">
                   
                   <div class="form-group ">
                     <label for="header_1" class="col-sm-2 control-label">Heading-1</label>
@@ -77,7 +77,7 @@
                   
                   <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
-                      <button type="submit" class="btn btn-danger">Submit</button>
+                      <button type="submit" class="btn btn-danger" id="frmBanner_add_submit">Submit</button>
                     </div>
                   </div>
                 </form>
