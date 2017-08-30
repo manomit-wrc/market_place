@@ -1,7 +1,7 @@
-module.exports = function(app, blog,blogCategory) {
+module.exports = function(app, blog,blogcategory) {
  	
- 	var Blog = blog;
- 	var BlogCategory = blogCategory;
+ 	var blog = blog;
+ 	var blogcategory = blogcategory;
 
  	var multer  = require('multer');
 	var im = require('imagemagick');
@@ -36,31 +36,31 @@ module.exports = function(app, blog,blogCategory) {
 	
 	
 	/*app.get('/admin/blog', function(req, res) {
-		Blog.findAll().then(function(blog){
+		blog.findAll().then(function(blog){
 			res.render('admin/blog/index',{layout:'dashboard', blog:blog});
 		});
 		
 	});*/
 
 	app.get('/admin/blog', function(req, res) {
-		Blog.belongsTo(BlogCategory, {foreignKey: 'blog_category_id'});
-		Blog.findAll({include: [{model: BlogCategory}]}).then(function(blog){
+		blog.belongsTo(blogcategory, {foreignKey: 'blog_category_id'});
+		blog.findAll({include: [{model: blogcategory}]}).then(function(blog){
 		console.log(blog);
 		res.render('admin/blog/index',{layout:'dashboard', blog:blog});
 		});
 	});
 
 	app.get('/admin/blog/add', function(req, res){
-		BlogCategory.findAll(
+		blogcategory.findAll(
 		{
 			where:
 			{
 				status:'1'
 			}
 		}				
-		).then(function(blogCategory){
+		).then(function(blogcategory){
 
-			res.render('admin/blog/add',{layout:'dashboard', blogCategory:blogCategory});
+			res.render('admin/blog/add',{layout:'dashboard', blogcategory:blogcategory});
 		});		
 	});
 
@@ -80,7 +80,7 @@ module.exports = function(app, blog,blogCategory) {
 	              console.log('100x100 thumbnail created');
 	            });
 	    }
-		Blog.create({
+		blog.create({
 			blog_name: req.body.blog_name,
 			blog_category_id: req.body.blog_category_id,
 			short_description: req.body.short_description,
@@ -99,19 +99,19 @@ module.exports = function(app, blog,blogCategory) {
 	});
 
 	app.get('/admin/blog/edit/:id', function(req, res){
-		Blog.findById(req.params['id']).then(function(blog){
-			BlogCategory.findAll(
+		blog.findById(req.params['id']).then(function(blog){
+			blogcategory.findAll(
 			{
 				where:
 				{
 					status:'1'
 				}
 			}	
-			).then(function(blogCategory){
+			).then(function(blogcategory){
 			res.render('admin/blog/edit', {
 	        layout: 'dashboard',
 	        blog:blog,
-	        blogCategory:blogCategory,
+	        blogcategory:blogcategory,
 	        });
 		 });
 		});
@@ -133,7 +133,7 @@ module.exports = function(app, blog,blogCategory) {
               console.log('100x100 thumbnail created');
             });
 	    }		
-		Blog.update({
+		blog.update({
     		blog_name: req.body.blog_name,
 			blog_category_id: req.body.blog_category_id,
 			short_description: req.body.short_description,
@@ -147,7 +147,7 @@ module.exports = function(app, blog,blogCategory) {
 	});
 
 	app.get('/admin/blog/delete/:id', function(req, res){
-		Blog.destroy({
+		blog.destroy({
 		    where: {
 		       id:req.params['id']
 		    }
