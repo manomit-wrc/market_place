@@ -89,8 +89,12 @@ app.use(function(req, res, next){
 require('./routes/profile')(app, models.admin);
 require('./routes/section')(app, models.section);
 
+
+require('./routes/banner')(app, models.banner);
+
 require('./routes/skill')(app, models.skill);
 require('./routes/job-category')(app, models.jobcategory);
+
 
 require('./routes/faq-category')(app, models.faqcategory);
 require('./routes/faq')(app, models.faq, models.faqcategory);

@@ -402,7 +402,7 @@ $(document).ready(function(){
         required: true
       },
       meta_description:{
-        required: true
+        required: true 
       }
     },
     messages:{
