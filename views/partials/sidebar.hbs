@@ -6,7 +6,12 @@
        <!--  <li class="header">MAIN NAVIGATION</li> -->
         <li><a href="admin/dashboard"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
 
-        <li class="treeview">
+        <li class="treeview {{#if (or (eq active "skill")(eq active "job-category"))}} active{{/if}}
+        {{#if (or (eq active "faq-category")(eq active "faq"))}} active{{/if}}
+        {{#if (or (eq active "testimonial")(eq active "cms"))}} active{{/if}}
+        {{#if (or (eq active "blog-category")(eq active "blog"))}} active{{/if}}
+        {{#if (or (eq active "banner")(eq active "organization"))}} active{{/if}}
+        ">
           <a href="javascript:void(0)">
             <i class="fa fa-cog"></i> <span>Settings</span>
             <span class="pull-right-container">
@@ -16,21 +21,21 @@
           <ul class="treeview-menu">
             <!--<li class=""><a href="/admin/section"><i class="fa fa-language"></i>Sections(Example)</a></li>-->
 
-            <li class=""><a href="/admin/skill"><i class="fa fa-language"></i>Skill</a></li>                                
-            <li class=""><a href="/admin/job-category"><i class="fa fa-language"></i>Job Category</a></li>
+            <li class="{{#if (eq active "skill")}} active {{/if}}"><a href="/admin/skill"><i class="fa fa-language"></i>Skill</a></li>                                
+            <li class="{{#if (eq active "job-category")}} active {{/if}}"><a href="/admin/job-category"><i class="fa fa-language"></i>Job Category</a></li>
 
-            <li class=""><a href="/admin/faq-category"><i class="fa fa-language"></i>Faq Category</a></li>
+            <li class="{{#if (eq active "faq-category")}} active {{/if}}"><a href="/admin/faq-category"><i class="fa fa-language"></i>Faq Category</a></li>
 
-            <li class=""><a href="/admin/faq"><i class="fa fa-language"></i>Faq</a></li>
+            <li class="{{#if (eq active "faq")}} active {{/if}}"><a href="/admin/faq"><i class="fa fa-language"></i>Faq</a></li>
 
-            <li class=""><a href="/admin/testimonial"><i class="fa fa-language"></i>Testimonial</a></li>
-            <li class=""><a href="/admin/cms"><i class="fa fa-language"></i>Content</a></li>
-            <li class=""><a href="/admin/blog-category"><i class="fa fa-language"></i>Blog Category</a></li>
+            <li class="{{#if (eq active "testimonial")}} active {{/if}}"><a href="/admin/testimonial"><i class="fa fa-language"></i>Testimonial</a></li>
+            <li class="{{#if (eq active "cms")}} active {{/if}}"><a href="/admin/cms"><i class="fa fa-language"></i>Content</a></li>
+            <li class="{{#if (eq active "blog-category")}} active {{/if}}"><a href="/admin/blog-category"><i class="fa fa-language"></i>Blog Category</a></li>
 
-            <li class=""><a href="/admin/blog"><i class="fa fa-language"></i>Blog</a></li>      
+            <li class="{{#if (eq active "blog")}} active {{/if}}"><a href="/admin/blog"><i class="fa fa-language"></i>Blog</a></li>      
 
-            <li class=""><a href="/admin/banner"><i class="fa fa-language"></i>Banner</a></li>  
-            <li class=""><a href="/admin/organization"><i class="fa fa-language"></i>Organization</a></li>                    
+            <li class="{{#if (eq active "banner")}} active {{/if}}"><a href="/admin/banner"><i class="fa fa-language"></i>Banner</a></li>  
+            <li class="{{#if (eq active "organization")}} active {{/if}}"><a href="/admin/organization"><i class="fa fa-language"></i>Organization</a></li>                    
 
 
           </ul>

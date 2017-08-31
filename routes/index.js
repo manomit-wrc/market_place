@@ -3,6 +3,11 @@ module.exports = function(app, passport) {
 	// =====================================
 	// Login PAGE (with login links) ========
 	// =====================================
+
+	app.get('/', function(req, res){
+		res.render('frontend/index',{layout:false}); 
+	});
+
 	app.get('/admin', function(req, res) {
 
 		var msg = req.flash('loginMessage')[0];
