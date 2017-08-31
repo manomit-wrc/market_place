@@ -131,7 +131,7 @@ require('./routes/cms')(app, models.cms);
 require('./routes/blog-category')(app, models.blogcategory);
 require('./routes/blog')(app,models.blog, models.blogcategory);
 require('./routes/organization')(app, models.organization);
- 
+require('./routes/team')(app, models.team); 
 // catch 404 and forward to error handler
 
 
