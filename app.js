@@ -26,12 +26,12 @@ require('./config/passport')(passport,models.admin);
 
 models.sequelize.sync().then(function() {
  
-    console.log('Nice! Database looks fine')
+    console.log('Nice! Database looks fine');
  
  
 }).catch(function(err) {
  
-    console.log(err, "Something went wrong with the Database Update!")
+    console.log(err, "Something went wrong with the Database Update!");
  
 });
 
