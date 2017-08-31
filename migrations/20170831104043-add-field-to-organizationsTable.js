@@ -3,18 +3,34 @@
 module.exports = {
   up: function (queryInterface, Sequelize) {
     return [queryInterface.addColumn(
-      'jobcategories',
-      'short_desc',
+      'organizations',
+      'client',
       {
-        type: Sequelize.STRING(150),after: 'image'
+        type: Sequelize.STRING(255),after: 'meta_description'
       }
       ),
     queryInterface.addColumn(
-      'jobcategories',
-      'background_image',
+      'organizations',
+      'freelancers',
       {
-      type: Sequelize.STRING(150),
-      after: 'short_desc'
+      type: Sequelize.STRING(255),
+      after: 'client'
+    }
+    ),
+    queryInterface.addColumn(
+      'organizations',
+      'jobs_completed',
+      {
+      type: Sequelize.STRING(255),
+      after: 'freelancers'
+    }
+    ),
+    queryInterface.addColumn(
+      'organizations',
+      'payed_to_freelancers',
+      {
+      type: Sequelize.STRING(255),
+      after: 'jobs_completed'
     }
     )
     ];
