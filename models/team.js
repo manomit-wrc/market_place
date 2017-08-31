@@ -1,6 +1,6 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
-  var JobCategory = sequelize.define('jobcategory', {
+  var Team = sequelize.define('team', {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -8,43 +8,37 @@ module.exports = function(sequelize, DataTypes) {
       { notEmpty: 
         {
           args: true,
-          msg: 'Please enter name'
+          msg: 'Please enter blog name'
         },
       }
     },
-    short_desc: {
+    image: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: 
       { notEmpty: 
         {
           args: true,
-          msg: 'Please enter short description'
+          msg: 'Please enter image'
         },
       }
     },
-    background_image: {
-      type: DataTypes.STRING,
-      // allowNull: false,
-      // validate: 
-      // { notEmpty: 
-      //   {
-      //     args: true,
-      //     msg: 'Please select image'
-      //   },
-      // }
-    },
-    status: {
-      type: DataTypes.STRING,
-      allowNull: true,
+     description: {
+      type: DataTypes.TEXT,
+      allowNull: false,
       validate: 
       { notEmpty: 
         {
           args: true,
-          msg: 'Please select status'
+          msg: 'Please enter description'
         },
       }
-    }
+    },   
+    facebook: DataTypes.STRING,
+    linkedin: DataTypes.STRING,
+    twitter: DataTypes.STRING,
+    google_plus: DataTypes.STRING,
+    status: DataTypes.INTEGER
   }, {
     classMethods: {
       associate: function(models) {
@@ -52,5 +46,5 @@ module.exports = function(sequelize, DataTypes) {
       }
     }
   });
-  return JobCategory;
+  return Team;
 };

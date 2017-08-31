@@ -108,12 +108,12 @@ module.exports = function(app, blog,blogcategory) {
 				}
 			}	
 			).then(function(blogcategory){
-			res.render('admin/blog/edit', {
-	        layout: 'dashboard',
-	        blog:blog,
-	        blogcategory:blogcategory,
-	        });
-		 });
+				res.render('admin/blog/edit', {
+		        layout: 'dashboard',
+		        blog:blog,
+		        blogcategory:blogcategory,
+		        });
+			});
 		});
 	});
 	

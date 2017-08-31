@@ -19,7 +19,11 @@ module.exports = function (app,organization){
 			linkedin: req.body.linkedin,
 			title: req.body.title,
 			meta_key: req.body.meta_key,
-			meta_description: req.body.meta_description
+			meta_description: req.body.meta_description,
+			client: req.body.client,
+			freelancers: req.body.freelancers,
+			jobs_completed: req.body.jobs_completed,
+			payed_to_freelancers: req.body.payed_to_freelancers
 		},{
 			//id matching with database
 			where:{

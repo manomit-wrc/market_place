@@ -8,7 +8,7 @@ MainCtrl.controller('MainController', function ($scope, $http) {
 			
 			$scope.testimonials = response.data.testimonials;
 			$scope.banner = response.data.banner;
-			
+			$scope.jobcategories = response.data.jobcategories;
 
 		}).catch(function(reason){
 
@@ -49,7 +49,7 @@ MainCtrl.controller('MainController', function ($scope, $http) {
 			        animation: 'kenburns',
 			        cover: true
 				});
-
+	        	$('#loader_image').delay(2000).fadeOut(1000);
             	});
           	});
         });

@@ -14,7 +14,8 @@ module.exports = function(app, passport, models) {
 	app.get('/home-content', function(req, res){
 		Promise.all([
 		    models.testimonial.findAll(),
-		    models.banner.findAll()
+		    models.banner.findAll(),
+		    models.jobcategory.findAll()
 		  ]).then(function(values) {
 		    var result = JSON.parse(JSON.stringify(values));
 		    var bannerArray = [];
@@ -22,7 +23,7 @@ module.exports = function(app, passport, models) {
 		    	bannerArray.push({ src: "/banner/resize/"+result[1][i].banner_image});
 		    }
 		    
-		    res.send({testimonials: result[0], banner: bannerArray});
+		    res.send({testimonials: result[0], banner: bannerArray, jobcategories:result[2]});
 		  });
 	});
 
