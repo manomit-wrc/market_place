@@ -42,7 +42,7 @@ module.exports = function (app, testimonial){
 		});
 	});
 
-	app.get('/admin/testimonial/edit/:id', function (req,res){
+	app.post('/admin/testimonial/edit/:id', function (req,res){
 		//for edit
 		Testimonial.update({
 			ClientName: req.body.client_name,

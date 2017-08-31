@@ -2,21 +2,7 @@ $(window).load(function () {
 	
 		/* VEGAS Home Slider */
 	
-	$("#header").vegas({
-		slides: [
-			{ src: "/frontend/img/slider/1.jpg" },
-			{ src: "/frontend/img/slider/2.jpg" },
-			{ src: "/frontend/img/slider/3.jpg" },
-			{ src: "/frontend/img/slider/4.jpg" }
-		],
-        transition: 'fade',
-        preloadImage: true,
-        timer: true,
-        shuffle: true,
-        delay: 5000,
-        animation: 'kenburns',
-        cover: true
-	});
+	
 	
 	$("#video").vegas({
 		slides: [

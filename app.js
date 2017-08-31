@@ -20,7 +20,7 @@ var port     = process.env.PORT || 8080;
 var passport = require('passport');
 var flash    = require('connect-flash');
 var models = require("./models");
-require('./config/passport')(passport,models.admin);
+
 
 // view engine setup
 
@@ -93,7 +93,9 @@ app.use(passport.session());
 app.use(flash());
 
 
-require('./routes/index')(app, passport);
+require('./config/passport')(passport,models.admin);
+require('./routes/index')(app, passport, models);
+
 app.use(function(req, res, next){
   if (req.isAuthenticated())
   {                                                                                                                    
