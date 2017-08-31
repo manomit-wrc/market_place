@@ -8,7 +8,7 @@ MainCtrl.controller('MainController', function ($scope, $http) {
 			
 			$scope.testimonials = response.data.testimonials;
 			$scope.banner = response.data.banner;
-			
+			$scope.jobcategories = response.data.jobcategories;
 
 		}).catch(function(reason){
 

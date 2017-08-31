@@ -39,146 +39,21 @@
 		 <hr class="mint">
 		 <p class="top-p">View over 30,000 available services by category.</p>
 		 
-		 <div class="col-lg-4 col-md-4 col-sm-6">
-		  <a href="services.html" class="hover">
+		 <div class="col-lg-4 col-md-4 col-sm-6" ng-repeat="job in jobcategories">
+		  <a href="javascript:void(0)" class="hover">
 		   <div class="features one">
 		    <span class="fa-stack fa-3x">
 			 <i class="fa fa-circle fa-stack-2x"></i>
 			 <i class="fa fa-code fa-stack-1x fa-inverse"></i>			
 			</span><!-- /span -->
-			<h4>Web Development & IT</h4>
+			<h4>{{job.name}}</h4>
 		   </div><!-- /.features -->
 		   <div class="spacer">
-			<p>Designer, Developer, Project Management, Front-End Developer.</p>
+			<p>{{job.short_desc}}</p>
 			<p><b>Over 2,000 services</b></p>
 		   </div> <!-- /.spacer -->
 		  </a>		 
 		 </div><!-- /.col-lg-4 -->
-		 
-		 <div class="col-lg-4 col-md-4 col-sm-6">
-		  <a href="services.html">
-		   <div class="features two">
-		    <span class="fa-stack fa-3x">
-			 <i class="fa fa-circle fa-stack-2x"></i>
-			 <i class="fa fa-eye fa-stack-1x fa-inverse"></i>			
-			</span><!-- /span -->
-			<h4>Design, Art & Multimedia</h4>
-		   </div><!-- /.features -->
-		   <div class="spacer">
-			<p>Design, Logo Design, Animation, Graphic Design, 3D, Adobe photoshop.</p>
-			<p><b>Over 2,000 services</b></p>
-		   </div> <!-- /.spacer -->
-		  </a>		 
-		 </div><!-- /.col-lg-4 -->
-		 
-		 <div class="col-lg-4 col-md-4 col-sm-6">
-		  <a href="services.html">
-		   <div class="features three">
-		    <span class="fa-stack fa-3x">
-			 <i class="fa fa-circle fa-stack-2x"></i>
-			 <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>			
-			</span><!-- /span -->
-			<h4>Writing & Translation</h4>
-		   </div><!-- /.features -->
-		   <div class="spacer">
-			<p>Content Writing, English Translation, Articles, SEO, Translation, Research.</p>
-			<p><b>Over 2,000 services</b></p>
-		   </div> <!-- /.spacer -->
-		  </a>		 
-		 </div><!-- /.col-lg-4 -->
-		  
-		 </div><!-- /.col-lg-12 -->
-		</div><!-- /.row -->
-		
-		<div class="row">
-		<div class="col-lg-12">
-		
-		  <div class="col-lg-4 col-md-4 col-sm-6">
-		  <a href="services.html">
-		   <div class="features four">
-		    <span class="fa-stack fa-3x">
-			 <i class="fa fa-circle fa-stack-2x"></i>
-			 <i class="fa fa-cogs fa-stack-1x fa-inverse"></i>			
-			</span><!-- /span -->
-			<h4>Admin Support</h4>
-		   </div><!-- /.features -->
-		   <div class="spacer">
-			<p>Data Entry, English, Excel, Customer Service, Admin Support, Research, Email.</p>
-			<p><b>Over 2,000 services</b></p>
-		   </div> <!-- /.spacer -->
-		  </a>		 
-		 </div><!-- /.col-lg-4 -->
-		 
-		 <div class="col-lg-4 col-md-4 col-sm-6">
-		  <a href="services.html">
-		   <div class="features five">
-		    <span class="fa-stack fa-3x">
-			 <i class="fa fa-circle fa-stack-2x"></i>
-			 <i class="fa fa-table fa-stack-1x fa-inverse"></i>			
-			</span><!-- /span -->
-			<h4>Management & Finance</h4>
-		   </div><!-- /.features -->
-		   <div class="spacer">
-			<p>Finance, Accounting, Tax Service, Payroll Manager, Book Keeper, Human Resource.</p>
-			<p><b>Over 2,000 services</b></p>
-		   </div> <!-- /.spacer -->
-		  </a>		 
-		 </div><!-- /.col-lg-4 -->
-		 
-		 <div class="col-lg-4 col-md-4 col-sm-6">
-		  <a href="services.html">
-		   <div class="features six">
-		    <span class="fa-stack fa-3x">
-			 <i class="fa fa-circle fa-stack-2x"></i>
-			 <i class="fa fa-bullhorn fa-stack-1x fa-inverse"></i>			
-			</span><!-- /span -->
-			<h4>Sales & Marketing</h4>
-		   </div><!-- /.features -->
-		   <div class="spacer">
-			<p>Sales, Marketing, Lead Generation, Market Research, Leads.</p>
-			<p><b>Over 2,000 services</b></p>
-		   </div> <!-- /.spacer -->
-		  </a>		 
-		  </div><!-- /.col-lg-4 -->
-		  
-		 </div><!-- /.col-lg-12 -->
-		</div><!-- /.row -->
-		
-		<div class="row">
-		<div class="col-lg-12">
-		 
-		 
-		 <div class="col-lg-4 col-md-4 col-sm-6">
-		  <a href="services.html">
-		   <div class="features seven">
-		    <span class="fa-stack fa-3x">
-			 <i class="fa fa-circle fa-stack-2x"></i>
-			 <i class="fa fa-wrench fa-stack-1x fa-inverse"></i>			
-			</span><!-- /span -->
-			<h4>Engineering & Architecture</h4>
-		   </div><!-- /.features -->
-		   <div class="spacer">
-			<p>Design, Architect, 3D, CAD, Engineering, Matlab, Electrical, Software.</p>
-			<p><b>Over 2,000 services</b></p>
-		   </div> <!-- /.spacer -->
-		  </a>		 
-		  </div><!-- /.col-lg-4 -->
-		 
-		  <div class="col-lg-4 col-md-4 col-sm-6">
-		  <a href="services.html">
-		   <div class="features eight">
-		    <span class="fa-stack fa-3x">
-			 <i class="fa fa-circle fa-stack-2x"></i>
-			 <i class="fa fa-legal fa-stack-1x fa-inverse"></i>			
-			</span><!-- /span -->
-			<h4>Legal</h4>
-		   </div><!-- /.features -->
-		   <div class="spacer">
-			<p>Legal, Paralegal, Contracts, Drafting, Legal Advice, Patents, Federal Law.</p>
-			<p><b>Over 2,000 services</b></p>
-		   </div> <!-- /.spacer -->
-		  </a>		 
-		  </div><!-- /.col-lg-4 -->
 		  
 		 </div><!-- /.col-lg-12 -->
 		</div><!-- /.row -->

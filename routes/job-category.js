@@ -1,6 +1,39 @@
 module.exports = function(app, job_category) {
  	
  	var JobCategory = job_category;
+
+ 	//for image
+ 	var multer  = require('multer');
+	var im = require('imagemagick');
+	var fileExt = '';
+	var fileName = '';
+	var storage = multer.diskStorage({
+	  destination: function (req, file, cb) {
+	    cb(null, 'public/job_category_image');
+	  },
+	  filename: function (req, file, cb) {
+	    fileExt = file.mimetype.split('/')[1];
+	    if (fileExt == 'jpeg'){ fileExt = 'jpg';}
+	    fileName = req.user.id + '-' + Date.now() + '.' + fileExt;
+	    cb(null, fileName);
+	  }
+	});
+
+	var restrictImgType = function(req, file, cb) {
+
+	    var allowedTypes = ['image/jpeg','image/gif','image/png'];
+	      if (allowedTypes.indexOf(req.file.mimetype) !== -1){
+	        // To accept the file pass `true`
+	        cb(null, true);
+	      } else {
+	        // To reject this file pass `false`
+	        cb(null, false);
+	       //cb(new Error('File type not allowed'));// How to pass an error?
+	      }
+	};
+
+	var upload = multer({ storage: storage, limits: {fileSize:3000000, fileFilter:restrictImgType} });
+ 	//end
 	
 	app.get('/admin/job-category', function(req, res) {
 		JobCategory.findAll().then(function(job_category){
@@ -13,9 +46,26 @@ module.exports = function(app, job_category) {
 		res.render('admin/job_category/add',{layout:'dashboard'});
 	});
 
-	app.post('/admin/job-category/add', function(req, res){
+	app.post('/admin/job-category/add',upload.single('background_image'), function(req, res){
+		var photo = null;
+	    var allowedTypes = ['image/jpeg','image/gif','image/png'];
+	    if (req.file){
+	            photo = fileName;
+	            // save thumbnail -- should this part go elsewhere?
+	            im.crop({
+	              srcPath: 'public/job_category_image/'+ fileName,
+	              dstPath: 'public/job_category_image/resize/'+ fileName,
+	              width: 767,
+	              height: 511
+	            }, function(err, stdout, stderr){
+	              if (err) throw err;
+	              
+	            });
+	    }
 		JobCategory.create({
 			name: req.body.name,
+			short_desc: req.body.job_category_desc,
+			background_image: fileName,
 			status: req.body.status
 		}).then(function(result){
 			res.redirect('/admin/job-category');

@@ -12,6 +12,28 @@ module.exports = function(sequelize, DataTypes) {
         },
       }
     },
+    short_desc: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: 
+      { notEmpty: 
+        {
+          args: true,
+          msg: 'Please enter short description'
+        },
+      }
+    },
+    background_image: {
+      type: DataTypes.STRING,
+      // allowNull: false,
+      // validate: 
+      // { notEmpty: 
+      //   {
+      //     args: true,
+      //     msg: 'Please select image'
+      //   },
+      // }
+    },
     status: {
       type: DataTypes.STRING,
       allowNull: true,
