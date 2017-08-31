@@ -403,6 +403,18 @@ $(document).ready(function(){
       },
       meta_description:{
         required: true 
+      },
+      client:{
+        required: true 
+      },
+      freelancers:{
+        required: true 
+      },
+      jobs_completed:{
+        required: true 
+      },
+      payed_to_freelancers:{
+        required: true 
       }
     },
     messages:{
@@ -436,6 +448,18 @@ $(document).ready(function(){
       },
       meta_description:{
         required: "<font color='red'>Please enter meta description</font>"
+      },
+       client:{
+        required: "<font color='red'>Please enter total client</font>"
+      },
+       freelancers:{
+        required: "<font color='red'>Please enter total freelancers</font>"
+      },
+       jobs_completed:{
+        required: "<font color='red'>Please enter total completed jobs</font>"
+      },
+       payed_to_freelancers:{
+        required: "<font color='red'>Please enter payed to freelancers</font>"
       }
     }
   });

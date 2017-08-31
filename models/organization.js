@@ -99,6 +99,46 @@ module.exports = function(sequelize, DataTypes) {
           msg: 'Enter meta description'
         }
       }
+    },
+    client: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      validate:{
+        notEmpty:{
+          args: true,
+          msg: 'Enter total client'
+        }
+      }
+    },
+    freelancers: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      validate:{
+        notEmpty:{
+          args: true,
+          msg: 'Enter total freelancers'
+        }
+      }
+    },
+    jobs_completed: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      validate:{
+        notEmpty:{
+          args: true,
+          msg: 'Enter total jobs completed'
+        }
+      }
+    },
+    payed_to_freelancers: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      validate:{
+        notEmpty:{
+          args: true,
+          msg: 'Enter payed to freelancers'
+        }
+      }
     }
   }, {
     classMethods: {
