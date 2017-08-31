@@ -44,6 +44,31 @@ helpers: {
             return opts.fn(this);
         else
             return opts.inverse(this);
+    },
+    eq: function (v1, v2) {
+        return v1 === v2;
+    },
+    ne: function (v1, v2) {
+        return v1 !== v2;
+    },
+    lt: function (v1, v2) {
+        return v1 < v2;
+    },
+    gt: function (v1, v2) {
+        return v1 > v2;
+    },
+    lte: function (v1, v2) {
+        return v1 <= v2;
+    },
+    gte: function (v1, v2) {
+        return v1 >= v2;
+    },
+    and: function (v1, v2) {
+        return v1 && v2;
+    },
+    or: function (v1, v2) {
+        return v1 || v2;
+
     }
 }
 });
@@ -80,6 +105,7 @@ app.use(function(req, res, next){
       res.locals.image = "/user2-160x160.jpg";
     }
     res.locals.user = req.user;
+    res.locals.active = req.path.split('/')[2];
     return next();
   }
   res.redirect('/admin');
