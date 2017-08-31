@@ -1,4 +1,4 @@
-var marketPlaceApp = angular.module('marketPlaceApp',['marketPlaceRoute']);
+var marketPlaceApp = angular.module('marketPlaceApp',['marketPlaceRoute','MainCtrl']);
 
 marketPlaceApp.directive('myNavbar', function () {
 	return {

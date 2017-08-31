@@ -1,3 +1,4 @@
+<div ng-init="homeContent();">
 <header id="header" class="header-two">
       <div class="container">
 	   <div class="content">
@@ -8,10 +9,10 @@
          <h1 class="hire revealOnScroll" data-animation="fadeInUp" data-timeout="400">Hire the best freelancers for your work.</h1>
 	     <div class="form-row animations scale-in d3">
 		  <div class="radio radio-left">
-		   <a href="signup.html">HIRE</a>		  
+		   <a href="javascript:void(0)">HIRE</a>		  
 		  </div>
 		  <div class="radio radio-right">
-		   <a href="signup.html">WORK</a>		  
+		   <a href="javascript:void(0)">WORK</a>		  
 		  </div><!--./radio -->
 	 	 </div><!--./form-row -->
         </div><!--./row -->
@@ -239,22 +240,15 @@
 	   <h3>Testimonials</h3>
 	   <hr class="mint">
 	   
-		<div class="testimonials-slider">
+		<div class="testimonials-slider" testimonial-slider>
 		 <ul class="slides">
-          <li>
-		   <p>The Kafe Template, is a powerful medium of expression and design in which its communications offers an infinite variety of perception, interpretation and execution.
-		   <span>John Doe</span></p>
-		  </li>
-		  <li>
-           <p>I m wondering why I never contacted these guys sooner! Seriously, they all have commendable talent in their respective field and knocked my concept out of the ballpark. Thanks for an amazing experience!
-		   <span>Segero, NoranicMeds</span></p>
-		  </li>
-		  <li>
-		   <p>I m wondering why I never contacted these guys sooner! Seriously, they all have commendable talent in their respective field and knocked my concept out of the ballpark. Thanks for an amazing experience!
-		   <span>Jane Doe</span></p>
+          <li ng-repeat="t in testimonials">
+		   <p>{{t.description}}
+		   <span>{{t.ClientName}}</span></p>
 		  </li>
          </ul><!-- /ul -->
 		</div><!-- /.testimonials-slider -->
 	   </div><!-- /.row -->
 	  </div><!-- /.container -->
      </div>
+ </div>

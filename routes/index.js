@@ -1,4 +1,4 @@
-module.exports = function(app, passport) {
+module.exports = function(app, passport, models) {
 
 	// =====================================
 	// Login PAGE (with login links) ========
@@ -6,6 +6,21 @@ module.exports = function(app, passport) {
 
 	app.get('/', function(req, res){
 		res.render('frontend/index',{layout:false}); 
+	});
+
+	app.get('/home-content', function(req, res){
+		Promise.all([
+		    models.testimonial.findAll(),
+		    models.banner.findAll()
+		  ]).then(function(values) {
+		    var result = JSON.parse(JSON.stringify(values));
+		    var bannerArray = [];
+		    for(var i=0;i<result[1].length;i++) {
+		    	bannerArray.push({ src: "/banner/resize/"+result[1][i].banner_image});
+		    }
+		    
+		    res.send({testimonials: result[0], banner: bannerArray});
+		  });
 	});
 
 	app.get('/admin', function(req, res) {
