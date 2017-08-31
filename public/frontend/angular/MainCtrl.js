@@ -60,4 +60,15 @@ MainCtrl.controller('MainController', function ($scope, $http) {
         restrict: "A",
         link: linker
     }
+}).directive( 'elemReady', function( $parse ) {
+   return {
+       restrict: 'A',
+       link: function( $scope, elem, attrs ) {    
+          elem.ready(function(){
+            $scope.$apply(function(){
+                $('#loader_image').delay(2000).fadeOut(1000);
+            })
+          })
+       }
+    }
 });
