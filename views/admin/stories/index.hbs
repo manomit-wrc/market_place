@@ -1,11 +1,11 @@
 <section class="content-header">
       <h1>
-        Faq
+        Our Story
       </h1>
       <ol class="breadcrumb">
         <li><a href="/admin/dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
         
-        <li class="active">Faq</li>
+        <li class="active">Our Story</li>
       </ol>
   </section>
 
@@ -17,28 +17,25 @@
                              
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Faq</h3>
+              <h3 class="box-title">Our Story</h3>
             </div>
             <!-- /.box-header -->
-            <div class="topbtn"><a href="/admin/faq/add"><button type="button" class="btn bg-purple btn-rightad">ADD</button></a></div>
+            <div class="topbtn"><a href="/admin/stories/add"><button type="button" class="btn bg-purple btn-rightad">ADD</button></a></div>
             <div class="box-body">
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                  <th>Category Name</th>
-                  <th>Question</th>
-                  <th>Answer</th>
+                  <th>Published Date</th>
+                  <th>Description</th>
                   <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                    {{#each faq}}
+                    {{#each stories}}
                      <tr>
-                      <td>{{this.faqcategory.name}}</td>
-                      <td>{{this.question}}</td>
-                      <td>{{this.answer}}</td>
-                      
-                      <td><a href="/admin/faq/edit/{{this.id}}" >Edit</a>&nbsp;|&nbsp;<a href="/admin/faq/delete/{{this.id}}" onclick="return confirm('Are you sure?')">Delete</a></td>
+                      <td>{{dateFormat this.published_date "dddd, MMMM Do YYYY"}}</td>
+                      <td>{{this.description}}</td>
+                      <td><a href="/admin/stories/edit/{{this.id}}" >Edit</a>&nbsp;|&nbsp;<a href="/admin/stories/delete/{{this.id}}" onclick="return confirm('Are you sure?')">Delete</a></td>
                     </tr>
                      {{/each}}               
                 </tbody>

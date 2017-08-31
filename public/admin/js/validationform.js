@@ -478,4 +478,36 @@ $(document).ready(function(){
       }
     }
   });
+
+  $.validator.addMethod("minDate", function (value, element) {
+    var now = new Date();
+    var newDate = value.split("/");
+    var myDate = new Date(newDate[2],newDate[1]-1,newDate[0]);
+    console.log(now);
+    console.log(myDate);
+    return this.optional(element) || myDate < now;
+
+    // else alert('Das passt nicht!' + mD +  '   ' + nowdate);
+  });
+
+  $("#frmStory").validate({
+    rules: {
+      published_date: {
+        required: true,
+        minDate: true
+      },
+      description: {
+        required: true
+      }
+    },
+    messages: {
+      published_date: {
+        required: "Please enter published date",
+        minDate: "Date can't be greater than current date"
+      },
+      description: {
+        required: "Please enter description"
+      }
+    }
+  });
 });

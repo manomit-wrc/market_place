@@ -69,7 +69,8 @@ helpers: {
     or: function (v1, v2) {
         return v1 || v2;
 
-    }
+    },
+    dateFormat: require('handlebars-dateformat')
 }
 });
 app.engine('.hbs', hbs.engine);
@@ -131,6 +132,7 @@ require('./routes/cms')(app, models.cms);
 require('./routes/blog-category')(app, models.blogcategory);
 require('./routes/blog')(app,models.blog, models.blogcategory);
 require('./routes/organization')(app, models.organization);
+require('./routes/stories')(app, models.story);
  
 // catch 404 and forward to error handler
 

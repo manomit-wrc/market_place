@@ -17,30 +17,28 @@ MainCtrl.controller('MainController', function ($scope, $http) {
 }).directive('testimonialSlider',function() {
     var linker = function($scope, element, attr) {
         $scope.$watch('testimonials', function () {
-             $('.testimonials-slider').flexslider({
-				animation: "fade",
-				controlsContainer: $(".custom-controls-container"),
-				customDirectionNav: $(".custom-navigation a")
-			});
-
-             $('.number-animator').appear();
-	        $('.number-animator').on('appear', function () {
-	            $(this).animateNumbers($(this).attr("data-value"), true, parseInt($(this).attr("data-animation-duration")));
-	        });
-
-	        $('.animated-progress-bar').appear();
-	        $('.animated-progress-bar').on('appear', function () {
-	            $(this).css('width','0%').animate({ 'width': $(this).attr("data-percentage") }, 1000);
-	        });
-
-	        $('.animate-number').each(function () {
-            	$(this).animateNumbers($(this).attr("data-value"), true, parseInt($(this).attr("data-animation-duration")));
-        	});
-	        //console.log(JSON.stringify($scope.banner));
-	        
-
 			element.ready(function(){
             $scope.$apply(function(){
+
+            	$('.testimonials-slider').flexslider({
+					animation: "fade",
+					controlsContainer: $(".custom-controls-container"),
+					customDirectionNav: $(".custom-navigation a")
+				});
+
+             	$('.number-animator').appear();
+	        	$('.number-animator').on('appear', function () {
+            		$(this).animateNumbers($(this).attr("data-value"), true, parseInt($(this).attr("data-animation-duration")));
+	        	});
+
+	        	$('.animated-progress-bar').appear();
+	        	$('.animated-progress-bar').on('appear', function () {
+	            	$(this).css('width','0%').animate({ 'width': $(this).attr("data-percentage") }, 1000);
+	        	});
+
+	        	$('.animate-number').each(function () {
+            		$(this).animateNumbers($(this).attr("data-value"), true, parseInt($(this).attr("data-animation-duration")));
+        		});
 	        	$("#header").vegas({
 					slides: $scope.banner,
 			        transition: 'fade',

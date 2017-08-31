@@ -7,6 +7,9 @@ module.exports = function(app, passport, models) {
 	app.get('/', function(req, res){
 		res.render('frontend/index',{layout:false}); 
 	});
+	app.get('/about', function(req, res){
+		res.render('frontend/index',{layout:false}); 
+	});
 
 	app.get('/home-content', function(req, res){
 		Promise.all([
