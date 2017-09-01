@@ -219,7 +219,7 @@ $(function () {
 
   </div>
 <!-- ./wrapper -->
-      <script type="text/javascript">
+  <script type="text/javascript">
 	$(document).ready(function(e){
 		$("#avator").change(function(e){
 			
@@ -230,20 +230,18 @@ $(function () {
 		            $('.profile-user-img').attr('src', e.target.result);
 		            $('.header-image').attr('src', e.target.result);
 		        }
-
 		        reader.readAsDataURL(this.files[0]);
     		}
 		});
 
     $("#image").change(function(e){      
       if (this.files && this.files[0]) {
-            var reader = new FileReader();
-
-            reader.onload = function (e) {
-                $('.team-img').attr('src', e.target.result);                
-            }
-            reader.readAsDataURL(this.files[0]);
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $('.team-img').attr('src', e.target.result);                
         }
+        reader.readAsDataURL(this.files[0]);
+      }
     });
 
 		$('#example2').DataTable({
