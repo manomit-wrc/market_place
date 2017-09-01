@@ -4,7 +4,8 @@
   </h1>
   <ol class="breadcrumb">
     <li><a href="/admin/dashboard">Dashboard</a></li>
-    <li class="active">Job Category - Add</li>
+    <li><a href="/admin/job-category">Job Category</a></li>
+    <li class="active">Add</li>
   </ol>
 </section>
 
@@ -23,16 +24,14 @@
               	</div>
               	{{/if}}
                <div class="tab-pane active" id="settings">
-                <form name="frmProfile" method="post" action="/admin/job-category/add" class="form-horizontal" onsubmit="return validatejobcategory()">
+                <form name="frmProfile" method="post" action="/admin/job-category/add" class="form-horizontal" enctype="multipart/form-data">
                   
                   <div class="form-group ">
                     <label for="name" class="col-sm-2 control-label">Category Name</label>
 
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="job_category_name" placeholder="Enter Job Category Name" name="name" value="{{body.name}}" onkeyup="return jobcatckhnameval(this.value)">
-                      <span class="text-danger"></span>
-                      <div class="alert alert-danger fade in alert-dismissable" id="job_category_name_error" style="display:none; margin-top:5px;">
-                      </div>
+                      <input type="text" class="form-control" id="job_category_name" placeholder="Enter Job Category Name" name="name" value="{{body.name}}" >
+                      
                     </div>
                   </div>
 
@@ -40,28 +39,20 @@
                     <label for="job_category_desc" class="col-sm-2 control-label">Category short desciption</label>
 
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="job_category_desc" placeholder="Enter Job Category Description" name="job_category_desc" value="{{body.job_category_desc}}" onkeyup="return jobcatckhnameval(this.value)">
-                      <span class="text-danger"></span>
-                      <div class="alert alert-danger fade in alert-dismissable" id="job_category_desc" style="display:none; margin-top:5px;">
-                      </div>
+                      <input type="text" class="form-control" id="job_category_desc" placeholder="Enter Job Category Description" name="job_category_desc" value="{{body.job_category_desc}}" >
+                      
                     </div>
                   </div>
 
                   <div class="form-group ">
                     <label for="background_image" class="col-sm-2 control-label">Background Image</label>
                     <div class="col-sm-10">
-                      <input type="file" id="background_image" name="background_image" >
                       
+                      <img class="team-img img-responsive" src="/team/thumbs/no_image.jpg" width="200" height="150"><br/>
+                      <input type="file" id="background_image" name="background_image" class="img-preview">
                     </div>
                   </div>
 
-                  <!--<div class="form-group ">
-                    <label for="banner_image" class="col-sm-2 control-label">Forground Image</label>
-                    <div class="col-sm-10">
-                      <input type="file" id="forground_image" name="forground_image" >
-                      
-                    </div>
-                  </div>-->
 
                   <div class="form-group ">
                     <label for="status" class="col-sm-2 control-label">Status</label>
@@ -72,9 +63,7 @@
                         <option value="1">Active</option>
                         <option value="0">In-Active</option>
                       </select>
-                      <span class="text-danger"></span>
-                      <div class="alert alert-danger fade in alert-dismissable" id="job_category_status_error" style="display:none; margin-top:5px;">
-                      </div>
+                      
                     </div>
                   </div>
                   <div class="form-group">
