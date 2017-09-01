@@ -53,7 +53,7 @@
 		
 </head>
 
-<body ng-app="marketPlaceApp" ng-controller="MainController">
+<body ng-app="marketPlaceApp" ng-controller="MainController" ng-init="homeContent();">
 
 	{{!-- <div id="loader_image" style=" width: 100%; height: 800px; position: absolute; top: 0; left: 0; padding-top: 15%; text-align: center; overflow-y: hidden !important; overflow-x: hidden !important; background: #fff; z-index: 99999999999">
         <img style="width: 100px; height:100px" src="/frontend/img/Custom-loader-ABT.gif" alt="" class="" />
@@ -126,8 +126,8 @@
 	  <div class="container">
 	   <div class="row">
 		<div class="col-lg-10 col-lg-offset-1 text-center">
-		 <h4 class="made-with-love">The Kafe. Template</h4>
-		 <p class="made-with-love-1">Handcrafted with <i class="fa fa-heart"></i> &amp; Much <i class="fa fa-coffee"></i> In Nairobi, Kenya.</p>
+		 <h4 class="made-with-love">PLMA - Market Place</h4>
+		 <p class="made-with-love-1">\{{organization[0].address}}</p>
 		</div>
 		<!-- /.col-lg-10 -->
 	   </div><!-- /.row -->
@@ -143,11 +143,9 @@
 	   
 	    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
 		 <ul class="social-links">
-		  <li class="revealOnScroll" data-animation="slideInLeft" data-timeout="800"><a href="#link"><i class="fa fa-facebook fa-fw"></i></a></li>
-		  <li class="revealOnScroll" data-animation="slideInLeft" data-timeout="600"><a href="#link"><i class="fa fa-twitter fa-fw"></i></a></li>
-		  <li class="revealOnScroll" data-animation="slideInLeft" data-timeout="400"><a href="#link"><i class="fa fa-google-plus fa-fw"></i></a></li>
-		  <li class="revealOnScroll" data-animation="slideInLeft" data-timeout="200"><a href="#link"><i class="fa fa-pinterest fa-fw"></i></a></li>
-		  <li class="revealOnScroll" data-animation="slideInLeft"><a href="#link"><i class="fa fa-linkedin fa-fw"></i></a></li>
+		  <li class="revealOnScroll" data-animation="slideInLeft" data-timeout="800"><a href="\{{organization[0].facebook}}"" target="_blank"><i class="fa fa-facebook fa-fw"></i></a></li>
+		  <li class="revealOnScroll" data-animation="slideInLeft" data-timeout="600"><a href="\{{organization[0].twitter}}" target="_blank"><i class="fa fa-twitter fa-fw"></i></a></li>
+		  <li class="revealOnScroll" data-animation="slideInLeft"><a href="\{{organization[0].linkedin}}" target="_blank"><i class="fa fa-linkedin fa-fw"></i></a></li>
 		 </ul>
 		</div>
 	    <!-- /.col-sm-4 -->

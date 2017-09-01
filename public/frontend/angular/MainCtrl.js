@@ -3,12 +3,21 @@ var MainCtrl = angular.module('MainCtrl',['ngSanitize']);
 MainCtrl.controller('MainController', function ($scope, $http, $sce) {
 	$scope.testimonials = {};
 	$scope.banner = [];
+	$scope.organization = {};
 	$scope.homeContent = function() {
 		$http.get('/home-content').then(function(response){
 			
 			$scope.testimonials = response.data.testimonials;
 			$scope.banner = response.data.banner;
 			$scope.jobcategories = response.data.jobcategories;
+			$scope.organization = response.data.organization;
+
+			
+
+			$scope.client_parcentage = ($scope.organization[0].client) / 100;
+			$scope.freelancer_parcentage = ($scope.organization[0].freelancers) / 100;
+			$scope.jobs_completed_parcentage = ($scope.organization[0].jobs_completed) / 100;
+			$scope.payed_to_freelancers_parcentage = ($scope.organization[0].payed_to_freelancers) / 100;
 
 		}).catch(function(reason){
 

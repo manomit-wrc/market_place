@@ -15,7 +15,8 @@ module.exports = function(app, passport, models) {
 		Promise.all([
 		    models.testimonial.findAll(),
 		    models.banner.findAll(),
-		    models.jobcategory.findAll()
+		    models.jobcategory.findAll(),
+		    models.organization.findAll()
 		  ]).then(function(values) {
 		    var result = JSON.parse(JSON.stringify(values));
 		    var bannerArray = [];
@@ -31,7 +32,7 @@ module.exports = function(app, passport, models) {
 		    		image_url: "/job_category_image/"+result[2][i].background_image
 		    	});
 		    }
-		    res.send({testimonials: result[0], banner: bannerArray, jobcategories:jobCategoryArr});
+		    res.send({testimonials: result[0], banner: bannerArray, jobcategories:jobCategoryArr, organization:result[3]});
 		  });
 	});
 
