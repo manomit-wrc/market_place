@@ -1,55 +1,63 @@
 <section class="content-header">
   <h1>
-    Blog
+    Team
   </h1>
   <ol class="breadcrumb">
     <li><a href="/admin/dashboard">Dashboard</a></li>
-    <li class="active">Team - Edit</li>
+    <li><a href="/admin/team">Dashboard</a></li>
+    <li class="active">Edit</li>
   </ol>
 </section>
 
 <section class="content">
         <div class="col-md-12">
           <div class="nav-tabs-custom">
-            <ul class="nav nav-tabs">              
+            <ul class="nav nav-tabs">
+              
               <li class="active"><a href="#settings" data-toggle="tab">Team - Edit</a></li>
             </ul>
-            <div class="tab-content">            	
-              	{{#if error_message}}
-              	<div class="alert alert-danger" id="result77">
-              	{{error_message}}
-              	</div>
-              	{{/if}}
+            <div class="tab-content">
+              
+                {{#if error_message}}
+                <div class="alert alert-danger" id="result77">
+                {{error_message}}
+                </div>
+                {{/if}}
                <div class="tab-pane active" id="settings">
-                <form name="frmProfile" method="post" action="/admin/team/edit/{{team.id}}" class="form-horizontal"  enctype="multipart/form-data">
+                <form name="frmTeam" id="frmTeam" method="post" action="/admin/team/edit/{{team.id}}" class="form-horizontal" enctype="multipart/form-data">
                   
-                   <div class="form-group ">
-                    <label for="team_name" class="col-sm-2 control-label">Name</label>
+                  <div class="form-group ">
+                    <label for="name" class="col-sm-2 control-label">Person Name</label>
 
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="team_name" placeholder="Enter Name" name="name" value="{{team.name}}" onkeyup="return teamnameckhval(this.value)">
-                      <span class="text-danger"></span>
-                      <div class="alert alert-danger fade in alert-dismissable" id="team_name_error" style="display:none; margin-top:5px;">
-                      </div>
+                      <input type="text" class="form-control" id="name" placeholder="Enter Name" name="name" value="{{team.name}}" >
+                      
                     </div>
                   </div>                  
 
                   <div class="form-group">
-                    <label for="team_description" class="col-sm-2 control-label"> Description</label>
+                    <label for="description" class="col-sm-2 control-label">About</label>
                     <div class="col-sm-10">
-                      <textarea class="form-control" id="team_description" placeholder="Enter Description" name="description"  onkeyup="return teamckhdescval(this.value)">{{team.description}}</textarea>
-                      <span class="text-danger"></span>
-                      <div class="alert alert-danger fade in alert-dismissable" id="team_description_error" style="display:none; margin-top:5px;">
-                      </div>
+                      <textarea class="form-control" id="description" placeholder="Enter Description" name="description" rows="5">{{team.description}}</textarea>
+                      
                     </div>
                   </div>
+
+                  <div class="form-group ">
+                    <label for="designation" class="col-sm-2 control-label">Designation</label>
+
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="designation" placeholder="Enter Designation" name="designation" value="{{team.designation}}" >
+                      
+                    </div>
+                  </div> 
 
                   <div class="form-group ">
                     <label for="team_name" class="col-sm-2 control-label">Facebook</label>
 
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="facebook" placeholder="Enter facebook" name="facebook" value="{{team.facebook}}">
-                      <span class="text-danger"></span>                      
+                      <input type="text" class="form-control" id="facebook" placeholder="Enter facebook url" name="facebook" value="{{team.facebook}}" >
+                                           
                     </div>
                   </div>
 
@@ -57,8 +65,8 @@
                     <label for="linkedin" class="col-sm-2 control-label">Linkedin</label>
 
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="linkedin" placeholder="Enter linkedin" name="linkedin" value="{{team.linkedin}}" >
-                      <span class="text-danger"></span>                      
+                      <input type="text" class="form-control" id="linkedin" placeholder="Enter linkedin url" name="linkedin" value="{{team.linkedin}}" >
+                                          
                     </div>
                   </div>
 
@@ -66,27 +74,25 @@
                     <label for="twitter" class="col-sm-2 control-label">Twitter</label>
 
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="twitter" placeholder="Enter twitter" name="twitter" value="{{team.twitter}}" >
-                      <span class="text-danger"></span>                      
+                      <input type="text" class="form-control" id="twitter" placeholder="Enter twitter url" name="twitter" value="{{team.twitter}}" >
+                                           
                     </div>
                   </div>
 
                   <div class="form-group ">
-                    <label for="google_plus" class="col-sm-2 control-label">Google plus</label>
+                    <label for="google_plus" class="col-sm-2 control-label">G+</label>
 
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="google_plus" placeholder="Enter google plus" name="google_plus" value="{{team.google_plus}}" >
-                      <span class="text-danger"></span>                      
+                      <input type="text" class="form-control" id="google_plus" placeholder="Enter google plus url" name="google_plus" value="{{team.google_plus}}">
+                                           
                     </div>
                   </div>
 
-                                      
-
                   <div class="form-group ">
-                    <label for="team_image" class="col-sm-2 control-label">Image</label>
+                    <label for="image" class="col-sm-2 control-label">Image</label>
                     <div class="col-sm-10">
-                      <input type="file" id="team_image" name="image" >
-                      <span class="text-danger"></span>
+                      <input type="file" id="image" name="image" >
+                      
                     </div>
                   </div>
                   
@@ -103,8 +109,4 @@
           </div>
           <!-- /.nav-tabs-custom -->
         </div>
-        <!-- /.col -->
-      </div>
-      <!-- /.row -->
-
 </section>

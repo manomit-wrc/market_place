@@ -534,4 +534,56 @@ $(document).ready(function(){
       }
     }
   });
+
+
+  $.validator.addMethod('filesize', function (value, element, param) {
+    
+    return this.optional(element) || (element.files[0].size <= param)
+  }, 'File size must be less than 5 MB');
+
+  $("#frmTeam").validate({
+    rules: {
+      name: {
+        required: true
+      },
+      description: {
+        required: true
+      },
+      designation: {
+        required: true
+      },
+      facebook: {
+        required: true
+      },
+      linkedin: {
+        required: true 
+      },
+      image: {
+        required: true,
+        extension: 'jpg|png',
+        filesize: 5242880
+      }
+    },
+    messages: {
+      name: {
+        required: "Please enter person name"
+      },
+      description: {
+        required: "Please enter details about that person"
+      },
+      designation: {
+        required: "Please enter the designation"
+      },
+      facebook: {
+        required: "Please enter facebook url of that person"
+      },
+      linkedin: {
+        required: "Please enter linkedin url of that person" 
+      },
+      image: {
+        required: "Please upload person image",
+        extension: 'Image type must be jpg or png'
+      }
+    }
+  });
 });

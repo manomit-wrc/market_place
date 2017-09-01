@@ -7,7 +7,7 @@ module.exports = function(app,team) {
 	var fileName = '';
 	var storage = multer.diskStorage({
 	  destination: function (req, file, cb) {
-	    cb(null, 'public/blog');
+	    cb(null, 'public/team');
 	  },
 	  filename: function (req, file, cb) {
 	    fileExt = file.mimetype.split('/')[1];
@@ -30,7 +30,7 @@ module.exports = function(app,team) {
 	      }
 	};
 
-    var upload = multer({ storage: storage, limits: {fileSize:3000000, fileFilter:restrictImgType} });
+    var upload = multer({ storage: storage, limits: {fileSize:5242880, fileFilter:restrictImgType} });
 	
 	
 	
@@ -64,7 +64,7 @@ module.exports = function(app,team) {
 		team.create({
 			name: req.body.name,
 			description: req.body.description,
-			status: req.body.status,
+			designation: req.body.designation,
 			facebook: req.body.facebook,
 			linkedin: req.body.linkedin,
 			twitter: req.body.twitter,
@@ -110,7 +110,7 @@ module.exports = function(app,team) {
 		team.update({
     		name: req.body.name,
 			description: req.body.description,
-			status: req.body.status,
+			designation: req.body.designation,
 			facebook: req.body.facebook,
 			linkedin: req.body.linkedin,
 			twitter: req.body.twitter,

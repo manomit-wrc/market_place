@@ -2,38 +2,15 @@
 module.exports = function(sequelize, DataTypes) {
   var Team = sequelize.define('team', {
     name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: 
-      { notEmpty: 
-        {
-          args: true,
-          msg: 'Please enter blog name'
-        },
-      }
+      type: DataTypes.STRING
     },
     image: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: 
-      { notEmpty: 
-        {
-          args: true,
-          msg: 'Please enter image'
-        },
-      }
+      type: DataTypes.STRING
     },
      description: {
-      type: DataTypes.TEXT,
-      allowNull: false,
-      validate: 
-      { notEmpty: 
-        {
-          args: true,
-          msg: 'Please enter description'
-        },
-      }
-    },   
+      type: DataTypes.TEXT
+    },
+    designation: DataTypes.STRING,   
     facebook: DataTypes.STRING,
     linkedin: DataTypes.STRING,
     twitter: DataTypes.STRING,
