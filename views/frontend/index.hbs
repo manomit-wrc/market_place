@@ -53,7 +53,7 @@
 		
 </head>
 
-<body ng-app="marketPlaceApp" ng-controller="MainController" ng-init="homeContent();">
+<body ng-app="marketPlaceApp" ng-controller="MainController" ng-init="homeContent(); aboutContent();">
 
 	{{!-- <div id="loader_image" style=" width: 100%; height: 800px; position: absolute; top: 0; left: 0; padding-top: 15%; text-align: center; overflow-y: hidden !important; overflow-x: hidden !important; background: #fff; z-index: 99999999999">
         <img style="width: 100px; height:100px" src="/frontend/img/Custom-loader-ABT.gif" alt="" class="" />
@@ -74,8 +74,7 @@
 	    <div class="col-md-4 col-sm-6 text-left">
 	     <h4 class="heading no-margin">About Us</h4>
 		 <hr class="mint">
-		 <p>The Kafe. Template is the Ultimate Freelance Marketplace Template for employers and freelancers to connect, collaborate, and get work done.</p>
-		 <p>We work hard to build a great product that is beautifully designed, simple to use, user friendly with great focus on user experience and customer service.</p>
+		 <p ng-bind-html="about"></p>
 	    </div><!-- /.col-md-4 -->
 	   
 	    <div class="col-md-2 col-sm-6 text-left">
