@@ -20,7 +20,8 @@
 		<div class="row">
 		 <div class="col-lg-10 col-lg-offset-1 hidden-xs">
 		  <div class="logos">
-		   <img src="/frontend/img/featured-logos.png" class="img-responsive" alt=""/>		  </div>
+		   <img src="/frontend/img/featured-logos.png" class="img-responsive" alt=""/>
+		   </div>
 		  <!--./logos -->
 		 </div>
 		 <!--./col-lg-10 -->
@@ -41,7 +42,7 @@
 		 
 		 <div class="col-lg-4 col-md-4 col-sm-6" ng-repeat="job in jobcategories">
 		  <a href="javascript:void(0)" class="hover">
-		   <div class="features one">
+		   <div class="features one" ng-style="{'background-image':'url({{job.image_url}})'}">
 		    <span class="fa-stack fa-3x">
 			 <i class="fa fa-circle fa-stack-2x"></i>
 			 <i class="fa fa-code fa-stack-1x fa-inverse"></i>			

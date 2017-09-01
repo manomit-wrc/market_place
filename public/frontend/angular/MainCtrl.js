@@ -1,6 +1,6 @@
-var MainCtrl = angular.module('MainCtrl',[]);
+var MainCtrl = angular.module('MainCtrl',['ngSanitize']);
 
-MainCtrl.controller('MainController', function ($scope, $http) {
+MainCtrl.controller('MainController', function ($scope, $http, $sce) {
 	$scope.testimonials = {};
 	$scope.banner = [];
 	$scope.homeContent = function() {
@@ -10,6 +10,17 @@ MainCtrl.controller('MainController', function ($scope, $http) {
 			$scope.banner = response.data.banner;
 			$scope.jobcategories = response.data.jobcategories;
 
+		}).catch(function(reason){
+
+		});
+	};
+
+	$scope.aboutContent = function() {
+		$http.get('/about-content').then(function(response){
+			$scope.team = response.data.team;
+			$scope.stories = response.data.stories;
+			$scope.about = $sce.trustAsHtml(response.data.about);
+			
 		}).catch(function(reason){
 
 		});
@@ -49,7 +60,7 @@ MainCtrl.controller('MainController', function ($scope, $http) {
 			        animation: 'kenburns',
 			        cover: true
 				});
-	        	$('#loader_image').delay(2000).fadeOut(1000);
+	        	//$('#loader_image').delay(2000).fadeOut(1000);
             	});
           	});
         });

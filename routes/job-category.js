@@ -88,10 +88,25 @@ module.exports = function(app, job_category) {
 		});
 	});
 	
-	app.post('/admin/job-category/edit/:id', function(req, res){
+	app.post('/admin/job-category/edit/:id', upload.single('background_image'), function(req, res){
+		if (req.file){
+	            photo = fileName;
+	            // save thumbnail -- should this part go elsewhere?
+	            im.crop({
+	              srcPath: 'public/job_category_image/'+ fileName,
+	              dstPath: 'public/job_category_image/resize/'+ fileName,
+	              width: 767,
+	              height: 511
+	            }, function(err, stdout, stderr){
+	              if (err) throw err;
+	              
+	            });
+	    }
 		JobCategory.update({
     		name: req.body.name,
-    		status: req.body.status
+			short_desc: req.body.job_category_desc,
+			background_image: fileName,
+			status: req.body.status
 	    },{ where: { id: req.params['id'] } }).then(function(result){
 	    	res.redirect('/admin/job-category');
 	    }).catch(function(err){
