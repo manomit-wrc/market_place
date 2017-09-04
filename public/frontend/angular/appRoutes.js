@@ -8,5 +8,7 @@ marketPlaceRoute.config(function ($routeProvider, $locationProvider) {
 		templateUrl: '/templates/about.html'
 	}).when('/faq', {
 		templateUrl: '/templates/faq.html'
+	}).when('/jobs',{
+		templateUrl: '/templates/jobs.html'
 	});
 });
