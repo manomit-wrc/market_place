@@ -4,6 +4,7 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce) {
 	$scope.testimonials = {};
 	$scope.banner = [];
 	$scope.organization = {};
+	$scope.faq_category = {};
 	$scope.homeContent = function() {
 		$http.get('/home-content').then(function(response){
 			
@@ -34,6 +35,15 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce) {
 
 		});
 	};
+
+	$scope.faqContent = function() {
+		$http.get('/faq-content').then(function(response){
+			$scope.faq_category	=	response.data.faq_category;
+		}).catch(function(reason){
+
+		});
+	};
+
 }).directive('testimonialSlider',function() {
     var linker = function($scope, element, attr) {
         $scope.$watch('testimonials', function () {
@@ -70,6 +80,30 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce) {
 			        cover: true
 				});
 	        	//$('#loader_image').delay(2000).fadeOut(1000);
+            	});
+          	});
+        });
+    };
+    return {
+        restrict: "A",
+        link: linker
+    }
+}).directive('sideBar',function() {
+    var linker = function($scope, element, attr) {
+        $scope.$watch('faq_category', function () {
+			element.ready(function(){
+            $scope.$apply(function(){
+            	  var $sideBar = $('#sidebar .panel');
+				  $sideBar.affix({
+					offset: {
+					  top: function () {
+						var offsetTop      = $sideBar.offset().top;
+
+						return (this.top = offsetTop - 50)
+					  },
+					 bottom: ($('.footer').outerHeight(true) + $('.made').outerHeight(true)) + 130
+					}
+				  });
             	});
           	});
         });

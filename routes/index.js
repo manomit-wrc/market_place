@@ -11,6 +11,10 @@ module.exports = function(app, passport, models) {
 		res.render('frontend/index',{layout:false}); 
 	});
 
+	app.get('/faq', function(req, res){
+		res.render('frontend/index',{layout:false}); 
+	});
+
 	app.get('/home-content', function(req, res){
 		Promise.all([
 		    models.testimonial.findAll(),
@@ -64,6 +68,15 @@ module.exports = function(app, passport, models) {
 			}
 			
 			res.send({team:teamArr,stories:result[1], about:result[2][0].full_description});
+		});
+	});
+
+	app.get("/faq-content", function(req, res){
+		Promise.all([
+			models.faqcategory.findAll()
+		]).then(function(values){
+			var result = JSON.parse(JSON.stringify(values));
+			res.send({faq_category:result[0]});
 		});
 	});
 
