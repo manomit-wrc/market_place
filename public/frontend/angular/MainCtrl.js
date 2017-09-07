@@ -44,6 +44,15 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce) {
 		});
 	};
 
+	$scope.blogContent = function() {
+		$http.get('/blog-content').then(function (response){
+			$scope.blog_content = response.data.blog_content;
+			$scope.blogcategory = response.data.blogcategory;
+		}).catch(function(reason){
+
+		});
+	};
+
 }).directive('testimonialSlider',function() {
     var linker = function($scope, element, attr) {
         $scope.$watch('testimonials', function () {

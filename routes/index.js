@@ -18,6 +18,14 @@ module.exports = function(app, passport, models) {
 		res.render('frontend/index',{layout:false}); 
 	});
 
+	app.get('/register', function(req, res){
+		res.render('frontend/index',{layout:false}); 
+	});
+
+	app.get('/blog', function(req, res){
+		res.render('frontend/index',{layout:false}); 
+	});
+
 	app.get('/home-content', function(req, res){
 		Promise.all([
 		    models.testimonial.findAll(),
@@ -81,6 +89,20 @@ module.exports = function(app, passport, models) {
 			var result = JSON.parse(JSON.stringify(values));
 			res.send({faq_category:result[0]});
 		});
+	});
+
+	app.get("/blog-content", function (req,res){
+		Promise.all([
+			models.blog.findAll(),
+			models.blogcategory.findAll()
+		]).then(function(values){
+			var result = JSON.parse(JSON.stringify(values));
+			res.send({
+				blog_content: result[0],
+				blogcategory: result[1]
+			});
+		});
+
 	});
 
 	app.get('/admin', function(req, res) {

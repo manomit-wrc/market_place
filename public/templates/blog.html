@@ -1,0 +1,103 @@
+<div ng-init="blogContent()">
+     <!-- ==============================================
+	 Header
+	 =============================================== -->	 
+	 <header class="header-blog">
+      <div class="container">
+	   <div class="content">
+        <div class="row">
+	     <h1 class="revealOnScroll" data-animation="fadeInDown"><i class="fa fa-coffee"></i> Blog</h1>
+		 <p>Keep up to date with the latest news.</p>
+        </div><!-- /.row -->
+       </div><!-- /.content -->
+	  </div><!-- /.container -->
+     </header><!-- /header -->
+	 
+     <!-- ==============================================
+     Banner Section
+     =============================================== -->
+	 <div class="blog-categories">
+	  <div class="container">
+		<a class="blog-title"><i class="fa fa-coffee"></i> Blog</a>
+	    <input type="checkbox" id="drop" />
+	     <label for="drop" class="drop"></label>
+	    <ul class="cat text-center">
+		 <li class="cat-item current-cat">
+		  <a href="#">All</a>
+		 </li>
+		 <li class="cat-item" ng-repeat="blog_categories in blogcategory">
+		  <a href="#">{{blog_categories.name}}</a>
+		 </li>
+		</ul><!-- /ul.cat -->
+		
+	  </div><!-- /.container -->
+	 </div><!-- /.blog-categories -->
+	 
+     <!-- ==============================================
+     Blog Section
+     =============================================== -->	 
+     <section class="blog">
+	  <div class="container text-left">
+	   <div class="row mt">
+	    <div class="col-lg-12">
+		 <h3>Recent Posts</h3>
+		</div><!-- col-lg-12 -->
+		<div class="col-lg-8">
+		 <span>Our latests thoughts about things that only matters to us.</span>
+		</div><!-- col-lg-8-->
+		<div class="col-lg-4">
+		 <span class="pull-right-sm"><a href="#"><i class="fa fa-angle-right"></i> See All Posts</a></span>
+		</div>
+	   </div><!-- row -->
+		
+	   <div class="row">
+	   
+		<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 bb" ng-repeat="blog in blog_content">
+		 <div class="panel" >
+		  <a href="blogpage.html" class="caption-link">
+		   <div class="caption">
+			<div class="caption-content">
+			 <i class="fa fa-angle-right fa-3x"></i>			
+		 	</div><!-- /.caption -->
+		   </div><!-- /.caption-content -->
+		   <img class="img-responsive panel-img" src="/blog/{{blog.blog_image}}" alt="">		  </a>		 </div>
+		 <!-- /.panel --> 
+		 <a href="blogpage.html" class="a-body"> 
+		 <div class="panel-body">
+		  <h4>{{blog.blog_name}}</h4>
+		   <div class="date">{{blog.createdAt | date : "fullDate"}}</div>
+	  	   <p>{{blog.short_description}}</p>
+		   <hr/>
+		   <ul class="bottom_data">
+		    <li>By Admin</li>
+		   </ul><!-- /.bottom_data -->
+		   <ul class="bottom_data pull-right">
+		    <li><i class="fa fa-comment-o"></i>0</li>
+		    <li><i class="fa fa-heart-o"></i>0</li>
+		    <li><i class="fa fa-align-left"></i>0 Min Read</li>
+		   </ul><!-- /.bottom_data --> 
+		 </div> 
+		 <!-- /.panel-body -->
+		 </a> 
+		</div><!-- /.col-lg-4 -->
+		</div><!-- /.col-lg-4 -->	
+				
+	   </div><!-- row -->
+	   
+	   <div class="row">
+	   <div class="page text-center">
+		 <ul class="pagination">
+		  <li class="disabled"><a href="#">«</a></li>
+		  <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+		  <li><a href="#">2</a></li>
+		  <li><a href="#">3</a></li>
+		  <li><a href="#">4</a></li>
+		  <li><a href="#">5</a></li>
+		  <li><a href="#">»</a></li>
+		 </ul>
+	   </div><!-- /.page -->	   	   
+	   </div><!-- /.row -->
+	   
+	  </div><!-- container -->	 
+	 </section><!-- /.section -->	 
+<div>
