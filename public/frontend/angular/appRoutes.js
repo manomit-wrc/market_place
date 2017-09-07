@@ -14,5 +14,7 @@ marketPlaceRoute.config(function ($routeProvider, $locationProvider) {
 		templateUrl: '/templates/register.html'
 	}).when('/blog', {
 		templateUrl: '/templates/blog.html'
+	}).when('/blog-details', {
+		templateUrl: '/templates/blogpage.html'
 	});
 });

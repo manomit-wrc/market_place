@@ -54,13 +54,15 @@
 	   
 		<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 bb" ng-repeat="blog in blog_content">
 		 <div class="panel" >
-		  <a href="blogpage.html" class="caption-link">
+		  <a href="/blog-details/{{blog.id}}" class="caption-link">
 		   <div class="caption">
 			<div class="caption-content">
 			 <i class="fa fa-angle-right fa-3x"></i>			
 		 	</div><!-- /.caption -->
 		   </div><!-- /.caption-content -->
-		   <img class="img-responsive panel-img" src="/blog/{{blog.blog_image}}" alt="">		  </a>		 </div>
+		   <img class="img-responsive panel-img" src="/blog/{{blog.blog_image}}" alt="">		 
+		    </a>		 
+		   </div>
 		 <!-- /.panel --> 
 		 <a href="blogpage.html" class="a-body"> 
 		 <div class="panel-body">
