@@ -5,6 +5,10 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce) {
 	$scope.banner = [];
 	$scope.organization = {};
 	$scope.faq_category = {};
+	$scope.blog_content = {};
+	$scope.blog_details = {};
+	$scope.active_class = 0;
+	
 	$scope.homeContent = function() {
 		$http.get('/home-content').then(function(response){
 			
@@ -51,6 +55,35 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce) {
 		}).catch(function(reason){
 
 		});
+	};
+
+	$scope.filterPortFolio = function(value) {
+		var tempArr = [];
+		if($scope.blog_details.length > 0) {
+			$scope.tempObj = angular.copy($scope.blog_details);
+			$scope.blog_content = angular.copy($scope.tempObj);
+		}
+		if(value != 0) {
+			$scope.blog_details = angular.copy($scope.blog_content);
+			for(var i=0;i<$scope.blog_details.length;i++) {
+					if(value == $scope.blog_content[i].blog_category_id) {
+						tempArr.push(
+							{
+								id:$scope.blog_content[i].id,
+								blog_name: $scope.blog_content[i].blog_name,
+								long_description: $scope.blog_content[i].long_description,
+								short_description: $scope.blog_content[i].short_description,
+								blog_image: $scope.blog_content[i].blog_image,
+								blog_category_id: $scope.blog_content[i].blog_category_id,
+								createdAt: $scope.blog_content[i].createdAt
+							});
+					}
+				}
+			
+			$scope.blog_content = angular.copy(tempArr);
+		}
+		$scope.active_class = value;
+		
 	};
 
 }).directive('testimonialSlider',function() {

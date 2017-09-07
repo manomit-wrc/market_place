@@ -22,11 +22,11 @@
 	    <input type="checkbox" id="drop" />
 	     <label for="drop" class="drop"></label>
 	    <ul class="cat text-center">
-		 <li class="cat-item current-cat">
+		 <li class="cat-item {{active_class == 0 ? 'current-cat': ''}}" data-filter="0" ng-click="filterPortFolio(0);">
 		  <a href="#">All</a>
 		 </li>
-		 <li class="cat-item" ng-repeat="blog_categories in blogcategory">
-		  <a href="#">{{blog_categories.name}}</a>
+		 <li class="cat-item {{active_class == blog_categories.id ? 'current-cat': ''}}" ng-repeat="blog_categories in blogcategory" data-filter="{{blog_categories.id}}" >
+		  <a ng-click="filterPortFolio(blog_categories.id)" href="javascript:void(0)">{{blog_categories.name}}</a>
 		 </li>
 		</ul><!-- /ul.cat -->
 		
