@@ -1,6 +1,6 @@
 var MainCtrl = angular.module('MainCtrl',['ngSanitize']);
 
-MainCtrl.controller('MainController', function ($scope, $http, $sce) {
+MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParams) {
 	$scope.testimonials = {};
 	$scope.banner = [];
 	$scope.organization = {};
@@ -86,6 +86,14 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce) {
 		
 	};
 
+	$scope.blogDetails = function (){
+		$http.get('/blog_details',{params:{id:$routeParams.id}}).then(function(response){
+			$scope.blog_details = response.data.blog_details[0];
+			
+		});
+
+	};
+
 }).directive('testimonialSlider',function() {
     var linker = function($scope, element, attr) {
         $scope.$watch('testimonials', function () {
@@ -122,6 +130,7 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce) {
 			        cover: true
 				});
 	        	//$('#loader_image').delay(2000).fadeOut(1000);
+	        	
             	});
           	});
         });
