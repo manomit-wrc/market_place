@@ -5,14 +5,14 @@ module.exports = function(app, story) {
 
 	app.get('/admin/stories', function(req, res) {
 		Story.findAll().then(function(stories){
-			res.render('admin/stories/index',{layout:'dashboard', stories:stories});
+			res.render('admin/stories/index',{layout:'dashboard', title:'Admin - Stories', stories:stories});
 		}).catch(function(err){
 
 		});
 	});
 
 	app.get('/admin/stories/add', function(req, res){
-		res.render('admin/stories/add',{layout:'dashboard'});
+		res.render('admin/stories/add',{layout:'dashboard', title:'Admin - Stories'});
 	});
 
 	app.post("/admin/stories/add", function(req, res){
@@ -30,7 +30,7 @@ module.exports = function(app, story) {
 	app.get("/admin/stories/edit/:id", function(req, res){
 
 		Story.findById(req.params['id']).then(function(story){
-			res.render('admin/stories/edit',{layout:'dashboard', story:story});
+			res.render('admin/stories/edit',{layout:'dashboard', title:'Admin - Stories', story:story});
 		}).catch(function(err){
 
 		});

@@ -4,13 +4,13 @@ module.exports = function(app, section) {
 	
 	app.get('/admin/section', function(req, res) {
 		Section.findAll().then(function(section){
-			res.render('admin/section/index',{layout:'dashboard', section:section});
+			res.render('admin/section/index',{layout:'dashboard', title:'Admin - Section', section:section});
 		});
 		
 	});
 
 	app.get('/admin/section/add', function(req, res){
-		res.render('admin/section/add',{layout:'dashboard'});
+		res.render('admin/section/add',{layout:'dashboard', title:'Admin - Section'});
 	});
 
 	app.post('/admin/section/add', function(req, res){
@@ -34,6 +34,7 @@ module.exports = function(app, section) {
 		Section.findById(req.params['id']).then(function(section){
 			res.render('admin/section/edit', {
 	        layout: 'dashboard',
+	        title:'Admin - Section',
 	        section:section
 	        });
 		});

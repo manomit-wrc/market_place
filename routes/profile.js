@@ -34,7 +34,7 @@ module.exports = function(app, admin) {
 	
 	app.get('/admin/dashboard', function(req, res) {
 
-		res.render('admin/dashboard',{layout:'dashboard'});
+		res.render('admin/dashboard',{layout:'dashboard', title:'Admin - Dashboard'});
 	});
 
 	// =====================================
@@ -47,7 +47,7 @@ module.exports = function(app, admin) {
 	
 	app.get('/admin/profile', function(req, res) {
 
-		res.render('admin/profile',{layout:'dashboard'});
+		res.render('admin/profile',{layout:'dashboard', title:'Admin - Profile'});
 	});
 
 	app.post('/admin/profile', upload.single('avator'),  function(req, res) {
