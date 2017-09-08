@@ -134,10 +134,9 @@ require('./routes/blog')(app,models.blog, models.blogcategory);
 require('./routes/organization')(app, models.organization);
 
 require('./routes/stories')(app, models.story);
- 
 
 require('./routes/team')(app, models.team); 
-
+require('./routes/user')(app, models.user); 
 // catch 404 and forward to error handler
 
 

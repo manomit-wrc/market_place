@@ -3,7 +3,7 @@
         Blog
       </h1>
       <ol class="breadcrumb">
-        <li><a href="/admin/dashboard"><i class="fa fa-dashboard"></i> Home</a></li>        
+        <li><a href="/admin/dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Blog List</li>
       </ol>
     </section>
@@ -25,7 +25,7 @@
                 <thead>
                 <tr>
                   <th>Blog Name</th>
-                  <th>Blog Category</th>                  
+                  <th>Blog Category</th>
                   <th>Short Description</th>
                   <th>Action</th>
                 </tr>
@@ -35,10 +35,10 @@
                      <tr>
                       <td>{{this.blog_name}}</td>
                       <td>{{this.blogcategory.name}}</td>
-                      <td>{{this.short_description}}</td>                      
+                      <td>{{this.short_description}}</td>
                       <td><a href="/admin/blog/edit/{{this.id}}" >Edit</a>&nbsp;|&nbsp;<a href="/admin/blog/delete/{{this.id}}" onclick="return confirm('Are you sure?')">Delete</a></td>
                     </tr>
-                     {{/each}}               
+                     {{/each}}
                 </tbody>
                 
               </table>

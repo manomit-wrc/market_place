@@ -4,7 +4,7 @@ module.exports = function (app,organization){
 	app.get('/admin/organization', function (req, res) {
 		//for fetch use findAll()
 		Organization.findAll().then(function(result){
-			res.render('admin/organization/index',{layout:'dashboard',details:result[0],successMsg:req.flash('successMsg')[0]});
+			res.render('admin/organization/index',{layout:'dashboard', title:'Admin - Organisation Settings',details:result[0],successMsg:req.flash('successMsg')[0]});
 		});
 	});
 
