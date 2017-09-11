@@ -175,7 +175,7 @@
     var startPos = evt.currentTarget.selectionStart;
     if (evt.which === 32 && startPos == 0)
         evt.preventDefault();
-    var isBackspaceOrDelete = (evt.keyCode == 8 || evt.keyCode == 46 || evt.keyCode == 32);
+    var isBackspaceOrDelete = (evt.keyCode == 8 || evt.keyCode == 9 || evt.keyCode == 46 || evt.keyCode == 32);
     return (isBackspaceOrDelete || (charCode > 57 && charCode <= 90));
   }
   function isBlank(evt) {

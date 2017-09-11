@@ -135,6 +135,12 @@
 </section>
 
 <script type="text/javascript">
+  jQuery.validator.addMethod("checkExists", function(value, element) {
+      //No idea what to call here
+  }, 
+    "Username already exists."
+  );
+
   $(document).ready(function() {
     $("#frmUser").validate({
         rules: {
@@ -146,7 +152,12 @@
           },
           email: {
             required: true,
-            email: true
+            email: true,
+            remote: {
+              type: 'post',
+              url: '/admin/user/check-user-email',
+              dataType: 'json'
+            }
           },
           password: {
             required: true
@@ -168,7 +179,8 @@
           },
           email: {
             required: "Please enter the email address",
-            email: "Please enter valid email address"
+            email: "Please enter valid email address",
+            remote: "Email Address already in use"
           },
           password: {
             required: "Please enter password"
