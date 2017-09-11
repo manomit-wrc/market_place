@@ -152,4 +152,21 @@ module.exports = function (app, user) {
 		});
 	});
 
+	app.post('/admin/user/check-user-email', function(req, res) {
+		user.findAll({
+			where: {
+				email: req.body.email
+			},
+			raw: true,
+		}).then(function(email) {
+			if(email.length > 0) {
+				console.log(email);
+				res.send(false);
+			}
+			else {
+				res.send(true);
+			}
+		});
+	});
+
 }

@@ -147,7 +147,12 @@
           },
           email: {
             required: true,
-            email: true
+            email: true,
+            remote: {
+              type: 'post',
+              url: '/admin/user/check-user-email',
+              dataType: 'json'
+            }
           },
           password: {
             required: true
@@ -168,7 +173,8 @@
           },
           email: {
             required: "Please enter the email address",
-            email: "Please enter valid email address"
+            email: "Please enter valid email address",
+            remote: "Email Address already in use"
           },
           password: {
             required: "Please enter password"
