@@ -26,7 +26,7 @@ module.exports = function(app, passport, models) {
 		res.render('frontend/index',{layout:false}); 
 	});
 
-	app.get('/blog-details', function (req,res){
+	app.get('/blog-details/:id', function (req,res){
 		res.render('frontend/index',{layout:false}); 
 	});
 
@@ -107,6 +107,28 @@ module.exports = function(app, passport, models) {
 			});
 		});
 
+	});
+
+	app.get('/blog_details', function (req,res){
+
+		Promise.all([
+			models.blog.findById(req.query.id)
+		]).then(function(values){
+			var result = JSON.parse(JSON.stringify(values));
+			var blog_detailsArr = [];
+	    	blog_detailsArr.push({
+	    		blog_name: result[0].blog_name,
+	    		short_description: result[0].short_description,
+	    		long_description: result[0].long_description,
+	    		blog_image: "/blog/"+result[0].blog_image,
+	    		createdAt: result[0].createdAt
+	    	});
+
+			res.send({
+				blog_details: blog_detailsArr
+			});
+		});
+		
 	});
 
 	app.get('/admin', function(req, res) {
