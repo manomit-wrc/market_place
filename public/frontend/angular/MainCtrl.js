@@ -1,6 +1,6 @@
 var MainCtrl = angular.module('MainCtrl',['ngSanitize']);
 
-MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParams) {
+MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParams, $filter) {
 	$scope.testimonials = {};
 	$scope.banner = [];
 	$scope.organization = {};
@@ -51,6 +51,26 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 	$scope.blogContent = function() {
 		$http.get('/blog-content').then(function (response){
 			$scope.blog_content = response.data.blog_content;
+
+			var blog_contentArray = [];
+
+			for(var i=0; i<$scope.blog_content.length; i++){
+				$scope.short_description_limit = $filter('limitTo')($scope.blog_content[i].short_description, 20, 0);
+				$scope.short_description_limit_html = $sce.trustAsHtml($scope.short_description_limit);
+				
+				blog_contentArray.push({
+					blog_category_id: $scope.blog_content[i].blog_category_id,
+					blog_image: $scope.blog_content[i].blog_image,
+					blog_name: $scope.blog_content[i].blog_name,
+					createdAt: $scope.blog_content[i].createdAt,
+					id: $scope.blog_content[i].id,
+					long_description: $sce.trustAsHtml($scope.blog_content[i].long_description),
+					short_description: $sce.trustAsHtml($scope.blog_content[i].short_description),
+					short_description_limit: $scope.short_description_limit_html
+				});
+			}
+			$scope.blog_content1 = angular.copy(blog_contentArray);
+
 			$scope.blogcategory = response.data.blogcategory;
 		}).catch(function(reason){
 
@@ -89,6 +109,9 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 	$scope.blogDetails = function (){
 		$http.get('/blog_details',{params:{id:$routeParams.id}}).then(function(response){
 			$scope.blog_details = response.data.blog_details[0];
+			
+			$scope.short_description = $sce.trustAsHtml($scope.blog_details.short_description);
+			$scope.long_description = $sce.trustAsHtml($scope.blog_details.long_description);
 			
 		});
 
