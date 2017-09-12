@@ -45,6 +45,8 @@ module.exports = function(app, passport, models) {
 		res.render('frontend/index',{layout:false}); 
 	});
 
+
+
 	app.get('/home-content', function(req, res){
 		Promise.all([
 		    models.testimonial.findAll(),
@@ -110,6 +112,17 @@ module.exports = function(app, passport, models) {
 		});
 	});
 
+	app.get("/work-content", function(req, res){
+		Promise.all([
+			models.work.findAll()
+		]).then(function(values){
+			var result = JSON.parse(JSON.stringify(values));
+			//console.log(result[0]);
+			res.send({work_details:result[0]});
+		});
+	});
+
+
 	app.get("/blog-content", function (req,res){
 		Promise.all([
 			models.blog.findAll(),
@@ -146,7 +159,22 @@ module.exports = function(app, passport, models) {
 		
 	});
 
-
+	app.post("/vendor/register", function(req, res){
+		  console.log(req.body.email);
+		  
+		  //alert(req.email);
+		  //console.log(lastname);
+		  /*user.create({
+			email:req.body.email,
+			fname:req.body.fname,
+			lname:req.body.lname,
+			password:req.body.password
+		}).then(function(result){
+			
+		}).catch(function(err){
+			
+		});*/
+	});
 
 
 	app.post('/authenticate', function(req, res) {
