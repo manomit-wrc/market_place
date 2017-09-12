@@ -36,13 +36,13 @@ module.exports = function(app,team) {
 	
 	app.get('/admin/team', function(req, res) {
 		team.findAll().then(function(team){
-			res.render('admin/team/index',{layout:'dashboard', team:team});
+			res.render('admin/team/index',{layout:'dashboard', title:'Admin - Team', team:team});
 		});
 		
 	});
 
 	app.get('/admin/team/add', function(req, res){
-		res.render('admin/team/add',{layout:'dashboard'});
+		res.render('admin/team/add',{layout:'dashboard', title:'Admin - Team'});
 	});
 
 	app.post('/admin/team/add',upload.single('image'), function(req, res){
@@ -76,6 +76,7 @@ module.exports = function(app,team) {
 			var validation_error = err.errors;
 	    	res.render('admin/team/add', {
 	        layout: 'dashboard',
+	        title:'Admin - Team',
 	        error_message: validation_error[0].message,
 	        body: req.body
 	        });
@@ -86,6 +87,7 @@ module.exports = function(app,team) {
 		team.findById(req.params['id']).then(function(team){
 			res.render('admin/team/edit', {
 	        layout: 'dashboard',
+	        title:'Admin - Team',
 	        team:team
 	        });
 		});

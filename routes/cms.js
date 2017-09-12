@@ -4,13 +4,13 @@ module.exports = function(app, cms) {
 	
 	app.get('/admin/cms', function(req, res) {
 		Cms.findAll().then(function(cms){
-			res.render('admin/cms/index',{layout:'dashboard', cms:cms});
+			res.render('admin/cms/index',{layout:'dashboard', title:'Admin - CMS', cms:cms});
 		});
 		
 	});
 
 	app.get('/admin/cms/add', function(req, res){
-		res.render('admin/cms/add',{layout:'dashboard'});
+		res.render('admin/cms/add',{layout:'dashboard', title:'Admin - CMS'});
 	});
 
 	app.post('/admin/cms/add', function(req, res){
@@ -35,6 +35,7 @@ module.exports = function(app, cms) {
 		Cms.findById(req.params['id']).then(function(cms){
 			res.render('admin/cms/edit', {
 	        layout: 'dashboard',
+	        title:'Admin - CMS',
 	        cms:cms
 	        });
 		});

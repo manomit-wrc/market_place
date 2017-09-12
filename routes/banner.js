@@ -36,12 +36,12 @@ module.exports = function(app, banner) {
 
 	app.get('/admin/banner', function(req, res) {
 		Banner.findAll().then(function(banner){
-		res.render('admin/banner/index',{layout:'dashboard', banner:banner});
+		res.render('admin/banner/index',{layout:'dashboard', title:'Admin - Banner', banner:banner});
 		});
 	});
 
 	app.get('/admin/banner/add', function(req, res){
-		res.render('admin/banner/add',{layout:'dashboard'});		
+		res.render('admin/banner/add',{layout:'dashboard', title:'Admin - Banner'});		
 	});
 
 	app.post('/admin/banner/add',upload.single('banner_image'), function(req, res){
@@ -82,6 +82,7 @@ module.exports = function(app, banner) {
 		Banner.findById(req.params['id']).then(function(banner){
 			res.render('admin/banner/edit', {
 	        layout: 'dashboard',
+	        title:'Admin - Banner',
 	        banner:banner
 	        });
 		});

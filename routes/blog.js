@@ -20,7 +20,6 @@ module.exports = function(app, blog,blogcategory) {
 	})
 
 	var restrictImgType = function(req, file, cb) {
-
 	    var allowedTypes = ['image/jpeg','image/gif','image/png'];
 	      if (allowedTypes.indexOf(req.file.mimetype) !== -1){
 	        // To accept the file pass `true`
@@ -34,19 +33,18 @@ module.exports = function(app, blog,blogcategory) {
 
     var upload = multer({ storage: storage, limits: {fileSize:3000000, fileFilter:restrictImgType} });
 	
-	
-	/*app.get('/admin/blog', function(req, res) {
+	/* app.get('/admin/blog', function(req, res) {
 		blog.findAll().then(function(blog){
 			res.render('admin/blog/index',{layout:'dashboard', blog:blog});
 		});
 		
-	});*/
+	}); */
 
 	app.get('/admin/blog', function(req, res) {
 		blog.belongsTo(blogcategory, {foreignKey: 'blog_category_id'});
 		blog.findAll({include: [{model: blogcategory}]}).then(function(blog){
 		console.log(blog);
-		res.render('admin/blog/index',{layout:'dashboard', blog:blog});
+		res.render('admin/blog/index',{layout:'dashboard', title:'Admin - Blog', blog:blog});
 		});
 	});
 
@@ -60,7 +58,7 @@ module.exports = function(app, blog,blogcategory) {
 		}				
 		).then(function(blogcategory){
 
-			res.render('admin/blog/add',{layout:'dashboard', blogcategory:blogcategory});
+			res.render('admin/blog/add',{layout:'dashboard', title:'Admin - Blog', blogcategory:blogcategory});
 		});		
 	});
 
@@ -110,6 +108,7 @@ module.exports = function(app, blog,blogcategory) {
 			).then(function(blogcategory){
 				res.render('admin/blog/edit', {
 		        layout: 'dashboard',
+		        title:'Admin - Blog',
 		        blog:blog,
 		        blogcategory:blogcategory,
 		        });

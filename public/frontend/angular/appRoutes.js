@@ -10,13 +10,17 @@ marketPlaceRoute.config(function ($routeProvider, $locationProvider) {
 		templateUrl: '/templates/faq.html'
 	}).when('/jobs',{
 		templateUrl: '/templates/jobs.html'
-	}).when('/register',{
+	}).when('/vendor/register',{
+		templateUrl: '/templates/register.html'
+	}).when('/freelancer/register',{
 		templateUrl: '/templates/register.html'
 	}).when('/blog', {
 		templateUrl: '/templates/blog.html'
-	}).when('/blog-details', {
+	}).when('/blog-details/:id', {
 		templateUrl: '/templates/blogpage.html'
 	}).when('/work-details', {
 		templateUrl: '/templates/work.html'
+	}).when('/signup', {
+		templateUrl: '/templates/signup.html'
 	});
 });

@@ -48,7 +48,7 @@
                   <div class="form-group">
                     <label for="short_description" class="col-sm-2 control-label">Short Description</label>
                     <div class="col-sm-10">
-                      <textarea class="form-control" id="cms_short_description" placeholder="Enter Short Description" name="short_description"  onkeyup="return cmsckhtitleval(this.value)">{{cms.short_description}}</textarea>
+                      <textarea class="form-control ckeditor_class" id="cms_short_description" placeholder="Enter Short Description" name="short_description"  onkeyup="return cmsckhtitleval(this.value)">{{cms.short_description}}</textarea>
                       <span class="text-danger"></span>
                       <div class="alert alert-danger fade in alert-dismissable" id="cms_short_description_error" style="display:none; margin-top:5px;">
                       </div>
@@ -58,7 +58,7 @@
                   <div class="form-group ">
                     <label for="full_description" class="col-sm-2 control-label">Full Description</label>
                     <div class="col-sm-10">
-                      <textarea class="form-control" id="textarea_id" placeholder="Enter Short Description" name="full_description"  onkeyup="return cmsckhfulldescriptionval(this.value)">{{cms.full_description}}</textarea>
+                      <textarea class="form-control ckeditor_class" id="textarea_id" placeholder="Enter Short Description" name="full_description"  onkeyup="return cmsckhfulldescriptionval(this.value)">{{cms.full_description}}</textarea>
                       <span class="text-danger"></span>
                       <div class="alert alert-danger fade in alert-dismissable" id="cms_full_description_error" style="display:none; margin-top:5px;">
                       </div>

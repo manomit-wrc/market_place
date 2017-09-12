@@ -4,13 +4,13 @@ module.exports = function(app, faq_category) {
 	
 	app.get('/admin/faq-category', function(req, res) {
 		FaqCategory.findAll().then(function(faq_category){
-			res.render('admin/faq_category/index',{layout:'dashboard', faq_category:faq_category});
+			res.render('admin/faq_category/index',{layout:'dashboard', title:'Admin - FAQ Category', faq_category:faq_category});
 		});
 		
 	});
 
 	app.get('/admin/faq-category/add', function(req, res){
-		res.render('admin/faq_category/add',{layout:'dashboard'});
+		res.render('admin/faq_category/add',{layout:'dashboard', title:'Admin - FAQ Category'});
 	});
 
 	app.post('/admin/faq-category/add', function(req, res){
@@ -33,6 +33,7 @@ module.exports = function(app, faq_category) {
 		FaqCategory.findById(req.params['id']).then(function(faq_category){
 			res.render('admin/faq_category/edit', {
 	        layout: 'dashboard',
+	        title:'Admin - FAQ Category',
 	        faq_category:faq_category
 	        });
 		});

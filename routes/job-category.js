@@ -37,13 +37,13 @@ module.exports = function(app, job_category) {
 	
 	app.get('/admin/job-category', function(req, res) {
 		JobCategory.findAll().then(function(job_category){
-			res.render('admin/job_category/index',{layout:'dashboard', job_category:job_category});
+			res.render('admin/job_category/index',{layout:'dashboard', title:'Admin - Job Category', job_category:job_category});
 		});
 		
 	});
 
 	app.get('/admin/job-category/add', function(req, res){
-		res.render('admin/job_category/add',{layout:'dashboard'});
+		res.render('admin/job_category/add',{layout:'dashboard', title:'Admin - Job Category'});
 	});
 
 	app.post('/admin/job-category/add',upload.single('background_image'), function(req, res){
@@ -83,6 +83,7 @@ module.exports = function(app, job_category) {
 		JobCategory.findById(req.params['id']).then(function(job_category){
 			res.render('admin/job_category/edit', {
 	        layout: 'dashboard',
+	        title:'Admin - Job Category',
 	        job_category:job_category
 	        });
 		});

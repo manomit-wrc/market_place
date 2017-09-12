@@ -134,19 +134,12 @@ require('./routes/blog')(app,models.blog, models.blogcategory);
 require('./routes/organization')(app, models.organization);
 
 require('./routes/stories')(app, models.story);
- 
 
 require('./routes/team')(app, models.team); 
+
 require('./routes/works')(app, models.work);
 
-//require('./public/work')(app, models.work);
-// catch 404 and forward to error handler
-//admin/works/index
-//app.get('./public/work/vedio/', function(req, res){
-  //res.render('public/work/vedio/', {
-    //title: 'Video Gallery'
-  //});
-//});
+require('./routes/user')(app, models.user); 
 
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

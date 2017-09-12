@@ -3,8 +3,9 @@
     Blog
   </h1>
   <ol class="breadcrumb">
-    <li><a href="/admin/dashboard">Dashboard</a></li>
-    <li class="active">Blog - Edit</li>
+    <li><a href="/admin/dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li><a href="/admin/blog">Blog</a></li>
+    <li class="active">Edit</li>
   </ol>
 </section>
 
@@ -39,7 +40,7 @@
 
                     <div class="col-sm-10">
                       <select class="form-control" id="blog_category_id" name="blog_category_id" onchange="blogcatckhval(this.value)">
-                      <option value="">Please select</option>
+                      <option disabled="disabled">Please select</option>
                       {{#each blogcategory}}
                       <option value="{{this.id}}" {{#if_eq this.id ../blog.blog_category_id}} selected="selected" {{/if_eq}}> {{this.name}}</option>
                       {{/each}}
@@ -54,7 +55,7 @@
                   <div class="form-group">
                     <label for="short_description" class="col-sm-2 control-label">Short Description</label>
                     <div class="col-sm-10">
-                      <textarea class="form-control" id="blog_short_description" placeholder="Enter Short Description" name="short_description"  onkeyup="return blogckhshortdescval(this.value)">{{blog.short_description}}</textarea>
+                      <textarea class="form-control ckeditor_class" id="blog_short_description" placeholder="Enter Short Description" name="short_description"  onkeyup="return blogckhshortdescval(this.value)">{{blog.short_description}}</textarea>
                       <span class="text-danger"></span>
                       <div class="alert alert-danger fade in alert-dismissable" id="blog_short_description_error" style="display:none; margin-top:5px;">
                       </div>
@@ -64,7 +65,7 @@
                   <div class="form-group">
                     <label for="long_description" class="col-sm-2 control-label">Description</label>
                     <div class="col-sm-10">
-                      <textarea class="form-control" id="blog_long_description" placeholder="Enter Long Description" name="long_description"  onkeyup="return cmsckhlongdescval(this.value)">{{blog.long_description}}</textarea>
+                      <textarea class="form-control ckeditor_class" id="blog_long_description" placeholder="Enter Long Description" name="long_description"  onkeyup="return cmsckhlongdescval(this.value)">{{blog.long_description}}</textarea>
                       <span class="text-danger"></span>
                       <div class="alert alert-danger fade in alert-dismissable" id="blog_long_description_error" style="display:none; margin-top:5px;">
                       </div>
@@ -94,7 +95,6 @@
           <!-- /.nav-tabs-custom -->
         </div>
         <!-- /.col -->
-      </div>
-      <!-- /.row -->
+     
 
 </section>

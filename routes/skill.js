@@ -4,13 +4,13 @@ module.exports = function(app, skill) {
 	
 	app.get('/admin/skill', function(req, res) {
 		Skill.findAll().then(function(skill){
-			res.render('admin/skill/index',{layout:'dashboard', skill:skill});
+			res.render('admin/skill/index',{layout:'dashboard', title:'Admin - Skill', skill:skill});
 		});
 		
 	});
 
 	app.get('/admin/skill/add', function(req, res){
-		res.render('admin/skill/add',{layout:'dashboard'});
+		res.render('admin/skill/add',{layout:'dashboard', title:'Admin - Skill'});
 	});
 
 	app.post('/admin/skill/add', function(req, res){
@@ -33,6 +33,7 @@ module.exports = function(app, skill) {
 		Skill.findById(req.params['id']).then(function(skill){
 			res.render('admin/skill/edit', {
 	        layout: 'dashboard',
+	        title:'Admin - Skill',
 	        skill:skill
 	        });
 		});

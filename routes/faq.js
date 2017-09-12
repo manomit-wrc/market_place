@@ -8,7 +8,7 @@ module.exports = function(app, faq, faq_category) {
 		Faq.findAll({
       		include: [{model: FaqCategory}]
     	}).then(function(faq){
-			res.render('admin/faq/index',{layout:'dashboard', faq:faq, message:req.flash('message')[0]});
+			res.render('admin/faq/index',{layout:'dashboard', title:'Admin - FAQ', faq:faq, message:req.flash('message')[0]});
 		});
 		
 	});
@@ -24,6 +24,7 @@ module.exports = function(app, faq, faq_category) {
 			).then(function(faq_category){
 				res.render('admin/faq/add',{
 					layout:'dashboard',
+					title:'Admin - FAQ',
 					faq_category:faq_category, 
 					error_message:req.flash('error_message')[0],
 					body:req.flash('body')[0]
@@ -63,6 +64,7 @@ module.exports = function(app, faq, faq_category) {
 			).then(function(faq_category){
 				res.render('admin/faq/edit',{
 					layout:'dashboard',
+					title:'Admin - FAQ',
 					faq_category:faq_category,
 					faq:faq
 				});

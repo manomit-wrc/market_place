@@ -4,7 +4,7 @@
 
       <ul class="sidebar-menu">
        <!--  <li class="header">MAIN NAVIGATION</li> -->
-        <li><a href="admin/dashboard"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+        <li><a href="dashboard"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
 
         <li class="treeview {{#if (or (eq active "skill")(eq active "job-category"))}} active{{/if}}
         {{#if (or (eq active "faq-category")(eq active "faq"))}} active{{/if}}
@@ -12,7 +12,11 @@
         {{#if (or (eq active "blog-category")(eq active "blog"))}} active{{/if}}
         {{#if (or (eq active "banner")(eq active "organization"))}} active{{/if}}
         {{#if (or (eq active "stories")(eq active "team"))}} active{{/if}}
+
         {{#if (or (eq active "works")(eq active "works"))}} active{{/if}}
+
+        {{#if (or (eq active "user")(eq active "user"))}} active{{/if}}
+
         ">
           <a href="javascript:void(0)">
             <i class="fa fa-cog"></i> <span>Settings</span>
@@ -42,9 +46,15 @@
 
             <li class="{{#if (eq active "stories")}} active {{/if}}"><a href="/admin/stories"><i class="fa fa-language"></i>Our Story</a></li>                    
 
+
             <li class="{{#if (eq active "team")}} active {{/if}}"><a href="/admin/team"><i class="fa fa-language"></i>Our Team</a></li>                    
 
             <li class="{{#if (eq active "works")}} active {{/if}}"><a href="/admin/works"><i class="fa fa-language"></i>How It Work</a></li>
+
+            <li class="{{#if (eq active "team")}} active {{/if}}"><a href="/admin/team"><i class="fa fa-language"></i>Our Team</a></li>
+            <li class="{{#if (eq active "user")}} active {{/if}}"><a href="/admin/user"><i class="fa fa-language"></i>Users</a></li>
+
+
 
           </ul>
         </li>

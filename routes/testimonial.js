@@ -5,12 +5,12 @@ module.exports = function (app, testimonial){
 	app.get('/admin/testimonial', function (req, res) {
 		//for fetch use findAll()
 		Testimonial.findAll().then(function(testimonial){
-			res.render('admin/testimonial/index',{layout:'dashboard', testimonial:testimonial, successMsg:req.flash('successMsg')[0]});
+			res.render('admin/testimonial/index',{layout:'dashboard', title:'Admin - Testimonial', testimonial:testimonial, successMsg:req.flash('successMsg')[0]});
 		});
 	});
 
 	app.get('/admin/testimonial/add', function (req,res){
-		res.render('admin/testimonial/add',{layout:'dashboard'});
+		res.render('admin/testimonial/add',{layout:'dashboard', title:'Admin - Testimonial'});
 	});
 
 	app.post('/admin/testimonial/add', function (req,res){
@@ -26,6 +26,7 @@ module.exports = function (app, testimonial){
 			var validation_error = err.errors;
 	    	res.render('admin/testimonial/add', {
 	        layout: 'dashboard',
+	        title:'Admin - Testimonial',
 	        error_message: validation_error[0].message,
 	        body: req.body
 	        });
@@ -36,6 +37,7 @@ module.exports = function (app, testimonial){
 		Testimonial.findById(req.params['id']).then(function(testimonial){
 			res.render('admin/testimonial/edit',{
 				layout:'dashboard',
+				title:'Admin - Testimonial',
 				testimonial:testimonial,
 				error_message: req.flash('error_message')[0]
 			});

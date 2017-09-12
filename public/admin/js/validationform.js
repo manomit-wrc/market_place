@@ -360,11 +360,10 @@ function validateskill(){
   }
   
 
-
   /* Blog validation section end */
-$(document).ready(function(){
+$(document).ready(function() {
   //organization validation
-  $('#org_edit').on('click',function(){
+  $('#org_edit').on('click',function() {
     var valid = $('#org').valid();
     if(valid){
       $('#org').submit();    
@@ -465,7 +464,7 @@ $(document).ready(function(){
   });
 
   // banner add validation
-  $('#frmBanner_add_submit').on('click',function(){
+  $('#frmBanner_add_submit').on('click',function() {
     var valid = $('#frmBanner_add').valid();
     if(valid){
       $('#frmBanner_add').submit();
@@ -535,7 +534,6 @@ $(document).ready(function(){
     }
   });
 
-
   $.validator.addMethod('filesize', function (value, element, param) {
     
     return this.optional(element) || (element.files[0].size <= param)
@@ -586,4 +584,5 @@ $(document).ready(function(){
       }
     }
   });
+
 });
