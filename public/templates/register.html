@@ -42,9 +42,9 @@
 	            'has-success': myRegistration.myEmail.$valid && (!myRegistration.$pristine || myRegistration.$submitted)
 	            }">
 			  <div class="form-controls">
-			   <input type="text" name="myEmail" ng-model="myEmail" required class="field"  placeholder="Email Address">
-			   <span class="help-block" ng-show="myRegistration.myEmail.$error.required && (!myRegistration.$pristine || myRegistration.$submitted)" style="color: white;">Please Enter Email ID</span>
-                <span class="help-block" ng-show="myRegistration.myEmail.$error.email && (!myRegistration.$pristine || myRegistration.$submitted)" style="color: white;">Please Enter Valid Email ID</span>
+			   <input type="email" name="myEmail" ng-model="myEmail" required class="field"  placeholder="Email Address">
+			   <span class="help-block" ng-show="myRegistration.myEmail.$error.required && (!myRegistration.$pristine || myRegistration.$submitted)" style="color: #fff;">Please Enter Email ID</span>
+                <span class="help-block" ng-show="myRegistration.myEmail.$error.email && (!myRegistration.$pristine || myRegistration.$submitted)" style="color: #fff;">Please Enter Valid Email ID</span>
 			  </div><!-- /.form-controls -->
              </div><!-- /.form-row -->
 
@@ -54,7 +54,7 @@
             }">
 		      <div class="form-controls">
 			   <input type="text" name="myFisrtname" ng-model="myFisrtname" required class="field" placeholder="User first name">
-			   <span class="help-block" ng-show="myRegistration.myFisrtname.$error.required && (!myRegistration.$pristine || myRegistration.$submitted)" style="color: white;">Please Enter First Name</span>
+			   <span class="help-block" ng-show="myRegistration.myFisrtname.$error.required && (!myRegistration.$pristine || myRegistration.$submitted)" style="color: #fff;">Please Enter First Name</span>
 			  </div><!-- /.form-controls -->
 		     </div><!-- /.form-row -->
 
@@ -64,7 +64,7 @@
                 }">
 		      <div class="form-controls">
 			   <input type="text" name="myLastname" ng-model="myLastname" required class="field" placeholder="User last name">
-			   <span class="help-block" ng-show="myRegistration.myLastname.$error.required && (!myRegistration.$pristine || myRegistration.$submitted)" style="color: white;">Please Enter Last Name</span>
+			   <span class="help-block" ng-show="myRegistration.myLastname.$error.required && (!myRegistration.$pristine || myRegistration.$submitted)" style="color: #fff;">Please Enter Last Name</span>
 			  </div><!-- /.form-controls -->
 		     </div><!-- /.form-row -->
 			 
@@ -74,8 +74,8 @@
                 }">
 			  <div class="form-controls">
 			   <input type="password" name="myPassword" ng-model="myPassword" class="field" placeholder="Password" ng-minlength="8" required>
-			   <span class="help-block" ng-show="myRegistration.myPassword.$error.required && (!myRegistration.$pristine || myRegistration.$submitted)" style="color: white;">Please Enter Password</span>
-			   <span class="help-block" ng-show="myRegistration.myPassword.$error.minlength && (!myRegistration.$pristine || myRegistration.$submitted)" style="color: white;">Password must be 8 chararcter long</span>
+			   <span class="help-block" ng-show="myRegistration.myPassword.$error.required && (!myRegistration.$pristine || myRegistration.$submitted)" style="color: #fff;">Please Enter Password</span>
+			   <span class="help-block" ng-show="myRegistration.myPassword.$error.minlength && (!myRegistration.$pristine || myRegistration.$submitted)" style="color: #fff;">Password must be 8 chararcter long</span>
 			  </div><!-- /.form-controls -->
              </div><!-- /.form-row -->
 
@@ -84,9 +84,10 @@
                 'has-success': myRegistration.myPassword_confirm.$valid && (!myRegistration.$pristine || myRegistration.$submitted)
                 }">
 			  <div class="form-controls">
-			   <input type="password" name="myPassword_confirm" ng-model="myPassword_confirm" class="field" placeholder="Confirm Password" required="">
-			   <span class="help-block" ng-show="myRegistration.myPassword_confirm.$error.required && (!myRegistration.$pristine || myRegistration.$submitted)" style="color: white;">Please Enter Confirm Password</span>
-			   <span ng-show="formData.myPassword != formData.myPassword_confirm" style="color: white;">Your passwords must match.</span>
+			   <input type="password" name="myPassword_confirm" ng-model="myPassword_confirm" class="field" placeholder="Confirm Password" required="" ng-match="myPassword">
+			   <span class="help-block ng-hide" ng-show="myRegistration.myPassword_confirm.$error.required && (!myRegistration.$pristine || myRegistration.$submitted)" style="color: #fff;">Please Enter Confirm Password</span>
+
+			   <span class="help-block" ng-show="myRegistration.myPassword_confirm.$error.match && (!myRegistration.$pristine || myRegistration.$submitted)" style="color: #fff;">Passwords do not match</span>
 
 			  </div><!-- /.form-controls -->
              </div><!-- /.form-row -->
