@@ -94,7 +94,7 @@ app.use(passport.session());
 app.use(flash());
 
 
-require('./config/passport')(passport,models.admin);
+require('./config/passport')(passport,models.admin, models.user);
 require('./routes/index')(app, passport, models);
 
 app.use(function(req, res, next){
