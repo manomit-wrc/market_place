@@ -20,7 +20,11 @@ module.exports = function(app, passport, models) {
 		res.render('frontend/index',{layout:false}); 
 	});
 
-	app.get('/register', function(req, res){
+	app.get('/vendor/register', function(req, res){
+		res.render('frontend/index',{layout:false}); 
+	});
+
+	app.get('/freelancer/register', function(req, res){
 		res.render('frontend/index',{layout:false}); 
 	});
 
@@ -29,6 +33,10 @@ module.exports = function(app, passport, models) {
 	});
 
 	app.get('/blog-details/:id', function (req,res){
+		res.render('frontend/index',{layout:false}); 
+	});
+
+	app.get('/signup', function (req,res){
 		res.render('frontend/index',{layout:false}); 
 	});
 

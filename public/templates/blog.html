@@ -52,7 +52,7 @@
 		
 	   <div class="row">
 	   
-		<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 bb" ng-repeat="blog in blog_content">
+		<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 bb" ng-repeat="blog in blog_content1">
 		 <div class="panel" >
 		  <a href="/blog-details/{{blog.id}}" class="caption-link">
 		   <div class="caption">
@@ -68,7 +68,7 @@
 		 <div class="panel-body">
 		  <h4>{{blog.blog_name}}</h4>
 		   <div class="date">{{blog.createdAt | date : "fullDate"}}</div>
-	  	   <p>{{blog.short_description}}</p>
+	  	   <p ng-bind-html="blog.short_description_limit"></p>
 		   <hr/>
 		   <ul class="bottom_data">
 		    <li>By Admin</li>
