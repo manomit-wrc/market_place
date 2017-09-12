@@ -4,6 +4,9 @@ module.exports = function(app, passport, models) {
 	// Login PAGE (with login links) ========
 	// =====================================
 	var fs = require('fs');
+	var md5 = require('md5');
+	var jwt = require('jwt-simple');
+	
 	app.get('/', function(req, res){
 		res.render('frontend/index',{layout:false}); 
 	});
@@ -147,6 +150,8 @@ module.exports = function(app, passport, models) {
 
 
 	app.post('/authenticate', function(req, res) {
+		console.log(req.body.email);
+
 		  models.user.findAll({
 		  	where: {
 		  		email: req.body.email,
@@ -155,21 +160,20 @@ module.exports = function(app, passport, models) {
 		  }).then(function(user){
 
 		  	if(user.length == 0) {
-		  		return res.status(403).send({success: false, msg: 'Authentication failed. Username or password not found.'});
+		  		return res.status(403).send({code:'300', success: false, msg: 'Authentication failed. Username or password not found.'});
 		  	}
 		  	else {
 		  		var token = jwt.encode(user, "W$q4=25*8%v-}UW");
-		  		res.json({success: true, token: 'Bearer ' + token});
+		  		res.json({code:'100', success: true, token: 'Bearer ' + token});
 		  	}
 		  });	
 		  
 	});
 
-	app.post('/signup', function(req, res){
-		
-	});
+	
 
 	app.get('/user-profile', passport.authenticate('jwt', { session: false}), function(req, res) {
+		
 	  var token = getToken(req.headers);
 	  if (token) {
 	    var decoded = jwt.decode(token, "W$q4=25*8%v-}UW");
