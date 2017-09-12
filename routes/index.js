@@ -177,6 +177,10 @@ module.exports = function(app, passport, models) {
 		  
 	});
 
+	app.post('/signup', function(req, res){
+		
+	});
+
 	app.get('/user-profile', passport.authenticate('jwt', { session: false}), function(req, res) {
 	  var token = getToken(req.headers);
 	  if (token) {

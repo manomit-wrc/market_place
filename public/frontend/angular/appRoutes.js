@@ -1,7 +1,7 @@
 var marketPlaceRoute = angular.module('marketPlaceRoute',['ngRoute']);
 
 marketPlaceRoute.config(function ($routeProvider, $locationProvider) {
-	$locationProvider.html5Mode(true);
+	$locationProvider.html5Mode(true).hashPrefix('#');
 	$routeProvider.when('/',{
 		templateUrl: '/templates/home.html'
 	}).when('/about', {

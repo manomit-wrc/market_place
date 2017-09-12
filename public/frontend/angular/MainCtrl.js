@@ -1,6 +1,6 @@
 var MainCtrl = angular.module('MainCtrl',['ngSanitize']);
 
-MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParams, $filter) {
+MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParams, $filter,$timeout) {
 	$scope.testimonials = {};
 	$scope.banner = [];
 	$scope.organization = {};
@@ -126,6 +126,23 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 			
 		});
 
+	};
+
+	$scope.showVideo = function() {
+		$timeout(function(){
+			$('.popup-with-zoom-anim').magnificPopup({
+	          type: 'inline',
+	          fixedContentPos: false,
+	          fixedBgPos: true,
+	          overflowY: 'auto',
+	          closeBtnInside: true,
+	          preloader: false,
+	          midClick: true,
+	          removalDelay: 300,
+	          mainClass: 'my-mfp-zoom-in'
+	        });
+	        alert("Hello");
+		});
 	};
 
 }).directive('testimonialSlider',function() {
