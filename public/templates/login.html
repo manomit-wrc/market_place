@@ -48,7 +48,7 @@
                 'has-success': myLogin.myPassword.$valid && (!myLogin.$pristine || myLogin.$submitted)
                 }">
 			  <div class="form-controls">
-			   <input name="myPassword" ng-model="myPassword" placeholder="Password" class="field" type="password" minlength="8" required>
+			   <input name="myPassword" ng-model="myPassword" placeholder="Password" class="field" type="password" minlength="6" required>
 
 			   <span class="help-block" ng-show="myLogin.myPassword.$error.required && (!myLogin.$pristine || myLogin.$submitted)" style="color: #fff;">Please Enter Password</span>
 			   <span class="help-block" ng-show="myLogin.myPassword.$error.minlength && (!myLogin.$pristine || myLogin.$submitted)" style="color: #fff;">Password must be 8 chararcter long</span>

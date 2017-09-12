@@ -1,6 +1,48 @@
-var MainCtrl = angular.module('MainCtrl',['ngSanitize']);
+var MainCtrl = angular.module('MainCtrl',['ngSanitize','ngStorage']);
 
-MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParams, $filter,$timeout) {
+
+MainCtrl.factory('AuthToken', function($localStorage){
+	var authTokenFactory = {};
+
+	authTokenFactory.getToken = function() {
+		return $localStorage.token;
+	};
+
+	authTokenFactory.setToken = function(token) {
+		if(token)
+			$localStorage.token = token;
+		else
+			delete $localStorage.token;
+	}
+
+	return authTokenFactory;
+});
+
+MainCtrl.factory('AuthInterceptor', function ($q, $location, $localStorage) {
+    return {
+        'request': function (config) {
+            config.headers = config.headers || {};
+            if ($localStorage.token) {
+                config.headers.Authorization = $localStorage.token;
+            }
+            
+            return config;
+        },
+        'responseError': function (response) {
+        	
+
+            if (response.status === 401 || response.status === 403 || response.status === 500) {
+                $location.path("/");
+            }
+            return $q.reject(response);
+        }
+    };
+}).config(function($httpProvider) {
+  $httpProvider.interceptors.push('AuthInterceptor');
+});
+
+
+MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParams, $filter,$timeout, AuthToken) {
 	$scope.testimonials = {};
 	$scope.banner = [];
 	$scope.organization = {};
@@ -139,6 +181,32 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 		
 	};
 
+	$scope.doLogin = function (valid){
+		//using headers line for sending angular to node with post method
+		if(valid){
+			$http.post('/authenticate',{
+				email: $scope.myUsername,
+				password: $scope.myPassword
+			},{
+				headers: 
+				{
+					'Content-Type':'application/json'
+				}
+			}).then(function(response){
+				if(response.data.code == "100") {
+					AuthToken.setToken(response.data.token);
+					$http.get('/user-profile').then(function(response){
+						
+					});
+				}
+
+			}).catch(function(reason){
+			
+			});
+		}
+		
+	};
+
 	$scope.blogDetails = function (){
 		$http.get('/blog_details',{params:{id:$routeParams.id}}).then(function(response){
 			$scope.blog_details = response.data.blog_details[0];
@@ -261,3 +329,4 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
         }
     };
 });
+
