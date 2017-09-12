@@ -3,9 +3,7 @@ module.exports = function(app, passport, models) {
 	// =====================================
 	// Login PAGE (with login links) ========
 	// =====================================
-	var fs  = require('fs');
-	var jwt = require('jwt-simple');
-	var md5 = require('md5');
+	var fs = require('fs');
 	app.get('/', function(req, res){
 		res.render('frontend/index',{layout:false}); 
 	});
@@ -40,7 +38,7 @@ module.exports = function(app, passport, models) {
 		res.render('frontend/index',{layout:false}); 
 	});
 
-	app.get('/work-details', function (req,res){
+	app.get('/login',function (req,res){
 		res.render('frontend/index',{layout:false}); 
 	});
 
@@ -107,7 +105,6 @@ module.exports = function(app, passport, models) {
 			models.faqcategory.findAll()
 		]).then(function(values){
 			var result = JSON.parse(JSON.stringify(values));
-			//console.log(result);
 			res.send({faq_category:result[0]});
 		});
 	});
@@ -178,6 +175,7 @@ module.exports = function(app, passport, models) {
 		});*/
 	});
 
+
 	app.post('/authenticate', function(req, res) {
 		  models.user.findAll({
 		  	where: {
@@ -195,6 +193,10 @@ module.exports = function(app, passport, models) {
 		  	}
 		  });	
 		  
+	});
+
+	app.post('/signup', function(req, res){
+		
 	});
 
 	app.get('/user-profile', passport.authenticate('jwt', { session: false}), function(req, res) {
@@ -255,7 +257,6 @@ module.exports = function(app, passport, models) {
     });
 
 	
-
 	
 };
 
