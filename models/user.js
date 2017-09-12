@@ -11,6 +11,7 @@ module.exports = function(sequelize, DataTypes) {
     city: DataTypes.STRING,
     pincode: DataTypes.STRING,
     image: DataTypes.STRING,
+    type: DataTypes.STRING,
     status: DataTypes.INTEGER
   }, {
     classMethods: {

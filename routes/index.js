@@ -3,9 +3,7 @@ module.exports = function(app, passport, models) {
 	// =====================================
 	// Login PAGE (with login links) ========
 	// =====================================
-	var fs  = require('fs');
-	var jwt = require('jwt-simple');
-	var md5 = require('md5');
+	var fs = require('fs');
 	app.get('/', function(req, res){
 		res.render('frontend/index',{layout:false}); 
 	});
@@ -40,7 +38,7 @@ module.exports = function(app, passport, models) {
 		res.render('frontend/index',{layout:false}); 
 	});
 
-	app.get('/work-details', function (req,res){
+	app.get('/login',function (req,res){
 		res.render('frontend/index',{layout:false}); 
 	});
 
@@ -105,18 +103,7 @@ module.exports = function(app, passport, models) {
 			models.faqcategory.findAll()
 		]).then(function(values){
 			var result = JSON.parse(JSON.stringify(values));
-			//console.log(result);
 			res.send({faq_category:result[0]});
-		});
-	});
-
-	app.get("/work-content", function(req, res){
-		Promise.all([
-			models.work.findAll()
-		]).then(function(values){
-			var result = JSON.parse(JSON.stringify(values));
-			//console.log(result[0]);
-			res.send({work_details:result[0]});
 		});
 	});
 
@@ -156,59 +143,6 @@ module.exports = function(app, passport, models) {
 		
 	});
 
-
-
-	app.post('/authenticate', function(req, res) {
-		  models.user.findAll({
-		  	where: {
-		  		email: req.body.email,
-	    		password: md5(req.body.password)
-		  	}
-		  }).then(function(user){
-
-		  	if(user.length == 0) {
-		  		return res.status(403).send({success: false, msg: 'Authentication failed. Username or password not found.'});
-		  	}
-		  	else {
-		  		var token = jwt.encode(user, "W$q4=25*8%v-}UW");
-		  		res.json({success: true, token: 'Bearer ' + token});
-		  	}
-		  });	
-		  
-	});
-
-	app.get('/user-profile', passport.authenticate('jwt', { session: false}), function(req, res) {
-	  var token = getToken(req.headers);
-	  if (token) {
-	    var decoded = jwt.decode(token, "W$q4=25*8%v-}UW");
-
-	    models.user.findAll({ where: {
-	      email: decoded[0].email
-	    } }).then(function(user) {
-	        if (user.length == 0) {
-	          return res.status(403).send({success: false, msg: 'Authentication failed. User not found.'});
-	        } else {
-	          res.json({success: true, msg: 'Welcome in the member area ' + user[0].fname + '!'});
-	        }
-	    });
-	  } else {
-	    return res.status(403).send({success: false, msg: 'No token provided.'});
-	  }
-	});
- 
-	getToken = function (headers) {
-	  if (headers && headers.authorization) {
-	    var parted = headers.authorization.split(' ');
-	    if (parted.length === 2) {
-	      return parted[1];
-	    } else {
-	      return null;
-	    }
-	  } else {
-	    return null;
-  	}
-  }
-
 	app.get('/admin', function(req, res) {
 
 		var msg = req.flash('loginMessage')[0];
@@ -235,7 +169,6 @@ module.exports = function(app, passport, models) {
     });
 
 	
-
 	
 };
 
