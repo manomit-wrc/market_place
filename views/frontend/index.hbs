@@ -41,19 +41,40 @@
         <link href="/frontend/css/style.css" rel="stylesheet" type="text/css" />
 		<!-- Vegas 2.2.1 CSS-->
         <link href="/frontend/js/vegas/vegas.css" rel="stylesheet" type="text/css" />
+        <link href="/frontend/css/popuo-box.css" rel="stylesheet" type="text/css" />
 				
 		<!-- ==============================================
 		Feauture Detection
 		=============================================== -->
-		<script src="/frontend/js/modernizr-custom.js"></script>
 		
+		<script src="/frontend/js/modernizr-custom.js"></script>
+        
+
+		<script src="/frontend/js/jquery.magnific-popup.min.js" type="text/javascript"></script>
 		<!--[if lt IE 9]>
 		 <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-		<![endif]-->		
+		<![endif]-->	
+
+		<script type="text/javascript">
+        $(document).ready(function() {
+        $('.popup-with-zoom-anim').magnificPopup({
+          type: 'inline',
+          fixedContentPos: false,
+          fixedBgPos: true,
+          overflowY: 'auto',
+          closeBtnInside: true,
+          preloader: false,
+          midClick: true,
+          removalDelay: 300,
+          mainClass: 'my-mfp-zoom-in'
+        });
+                                        
+        });
+    </script>	
 		
 </head>
 
-<body ng-app="marketPlaceApp" ng-controller="MainController">
+<body ng-app="marketPlaceApp" ng-controller="MainController" ng-init="homeContent(); aboutContent();">
 
 	{{!-- <div id="loader_image" style=" width: 100%; height: 800px; position: absolute; top: 0; left: 0; padding-top: 15%; text-align: center; overflow-y: hidden !important; overflow-x: hidden !important; background: #fff; z-index: 99999999999">
         <img style="width: 100px; height:100px" src="/frontend/img/Custom-loader-ABT.gif" alt="" class="" />
@@ -74,19 +95,18 @@
 	    <div class="col-md-4 col-sm-6 text-left">
 	     <h4 class="heading no-margin">About Us</h4>
 		 <hr class="mint">
-		 <p>The Kafe. Template is the Ultimate Freelance Marketplace Template for employers and freelancers to connect, collaborate, and get work done.</p>
-		 <p>We work hard to build a great product that is beautifully designed, simple to use, user friendly with great focus on user experience and customer service.</p>
+		 <p ng-bind-html="about"></p>
 	    </div><!-- /.col-md-4 -->
 	   
 	    <div class="col-md-2 col-sm-6 text-left">
 	     <h4 class="heading no-margin">Company</h4>
 		 <hr class="mint">
 		 <div class ="no-padding">
-		  <a href="index.html">Home</a>
-		  <a href="about.html">About</a>
-		  <a href="jobs.html">Jobs</a>
-		  <a href="services.html">Freelancers</a>
-		  <a href="how-1.html">How it works</a>
+		  <a href="/">Home</a>
+		  <a href="/about">About</a>
+		  <a href="/jobs">Jobs</a>
+		  <!-- <a href="services.html">Freelancers</a>
+		  <a href="how-1.html">How it works</a> -->
 		  <a href="contact.html">Contact</a>		 
 		 </div>
 	    </div><!-- /.col-md-2 -->	
@@ -126,8 +146,8 @@
 	  <div class="container">
 	   <div class="row">
 		<div class="col-lg-10 col-lg-offset-1 text-center">
-		 <h4 class="made-with-love">The Kafe. Template</h4>
-		 <p class="made-with-love-1">Handcrafted with <i class="fa fa-heart"></i> &amp; Much <i class="fa fa-coffee"></i> In Nairobi, Kenya.</p>
+		 <h4 class="made-with-love">PLMA - Market Place</h4>
+		 <p class="made-with-love-1">\{{organization[0].address}}</p>
 		</div>
 		<!-- /.col-lg-10 -->
 	   </div><!-- /.row -->
@@ -143,11 +163,9 @@
 	   
 	    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
 		 <ul class="social-links">
-		  <li class="revealOnScroll" data-animation="slideInLeft" data-timeout="800"><a href="#link"><i class="fa fa-facebook fa-fw"></i></a></li>
-		  <li class="revealOnScroll" data-animation="slideInLeft" data-timeout="600"><a href="#link"><i class="fa fa-twitter fa-fw"></i></a></li>
-		  <li class="revealOnScroll" data-animation="slideInLeft" data-timeout="400"><a href="#link"><i class="fa fa-google-plus fa-fw"></i></a></li>
-		  <li class="revealOnScroll" data-animation="slideInLeft" data-timeout="200"><a href="#link"><i class="fa fa-pinterest fa-fw"></i></a></li>
-		  <li class="revealOnScroll" data-animation="slideInLeft"><a href="#link"><i class="fa fa-linkedin fa-fw"></i></a></li>
+		  <li class="revealOnScroll" data-animation="slideInLeft" data-timeout="800"><a href="\{{organization[0].facebook}}"" target="_blank"><i class="fa fa-facebook fa-fw"></i></a></li>
+		  <li class="revealOnScroll" data-animation="slideInLeft" data-timeout="600"><a href="\{{organization[0].twitter}}" target="_blank"><i class="fa fa-twitter fa-fw"></i></a></li>
+		  <li class="revealOnScroll" data-animation="slideInLeft"><a href="\{{organization[0].linkedin}}" target="_blank"><i class="fa fa-linkedin fa-fw"></i></a></li>
 		 </ul>
 		</div>
 	    <!-- /.col-sm-4 -->
@@ -174,7 +192,7 @@
 	 =============================================== -->
 	 
      <!-- jQuery 2.1.4 -->
-     <script src="/frontend/js/jQuery-2.1.4.min.js" type="text/javascript"></script>
+    <script src="/frontend/js/jQuery-2.1.4.min.js"></script>
      <!-- Bootstrap 3.3.6 JS -->
      <script src="/frontend/js/bootstrap.min.js" type="text/javascript"></script>
      <!-- Waypoints JS -->

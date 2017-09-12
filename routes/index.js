@@ -10,12 +10,36 @@ module.exports = function(app, passport, models) {
 	app.get('/about', function(req, res){
 		res.render('frontend/index',{layout:false}); 
 	});
+	app.get('/jobs', function(req, res){
+		res.render('frontend/index',{layout:false}); 
+	});
+
+	app.get('/faq', function(req, res){
+		res.render('frontend/index',{layout:false}); 
+	});
+
+	app.get('/register', function(req, res){
+		res.render('frontend/index',{layout:false}); 
+	});
+
+	app.get('/blog', function(req, res){
+		res.render('frontend/index',{layout:false}); 
+	});
+
+	app.get('/blog-details', function (req,res){
+		res.render('frontend/index',{layout:false}); 
+	});
+
+	app.get('/work-details', function (req,res){
+		res.render('frontend/index',{layout:false}); 
+	});
 
 	app.get('/home-content', function(req, res){
 		Promise.all([
 		    models.testimonial.findAll(),
 		    models.banner.findAll(),
-		    models.jobcategory.findAll()
+		    models.jobcategory.findAll(),
+		    models.organization.findAll()
 		  ]).then(function(values) {
 		    var result = JSON.parse(JSON.stringify(values));
 		    var bannerArray = [];
@@ -31,7 +55,7 @@ module.exports = function(app, passport, models) {
 		    		image_url: "/job_category_image/"+result[2][i].background_image
 		    	});
 		    }
-		    res.send({testimonials: result[0], banner: bannerArray, jobcategories:jobCategoryArr});
+		    res.send({testimonials: result[0], banner: bannerArray, jobcategories:jobCategoryArr, organization:result[3]});
 		  });
 	});
 
@@ -64,6 +88,40 @@ module.exports = function(app, passport, models) {
 			
 			res.send({team:teamArr,stories:result[1], about:result[2][0].full_description});
 		});
+	});
+
+	app.get("/faq-content", function(req, res){
+		Promise.all([
+			models.faqcategory.findAll()
+		]).then(function(values){
+			var result = JSON.parse(JSON.stringify(values));
+			//console.log(result);
+			res.send({faq_category:result[0]});
+		});
+	});
+
+	app.get("/work-content", function(req, res){
+		Promise.all([
+			models.work.findAll()
+		]).then(function(values){
+			var result = JSON.parse(JSON.stringify(values));
+			//console.log(result[0]);
+			res.send({work_details:result[0]});
+		});
+	});
+
+	app.get("/blog-content", function (req,res){
+		Promise.all([
+			models.blog.findAll(),
+			models.blogcategory.findAll()
+		]).then(function(values){
+			var result = JSON.parse(JSON.stringify(values));
+			res.send({
+				blog_content: result[0],
+				blogcategory: result[1]
+			});
+		});
+
 	});
 
 	app.get('/admin', function(req, res) {

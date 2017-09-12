@@ -1,4 +1,4 @@
-<div ng-init="homeContent();">
+<div >
 <header id="header" class="header-two">
       <div class="container">
 	   <div class="content">
@@ -75,33 +75,33 @@
 				
 		<div class="col-lg-3 col-sm-6 pro">
 		 <h5>Clients</h5>
-		 <h1><span class="number-animator" data-value="505" data-animation-duration="800">0</span></h1>
+		 <h1><span class="number-animator" data-value="{{organization[0].client}}" data-animation-duration="800">0</span></h1>
 		  <div class="progress transparent progress-small no-radius">
-		   <div class="progress-bar progress-bar-black animated-progress-bar" data-percentage="45%" ></div>
+		   <div class="progress-bar progress-bar-black animated-progress-bar" data-percentage="{{client_parcentage}}%" ></div>
 		  </div><!-- /.progress -->
 		</div><!-- /.col-lg-3 -->
 				
 		<div class="col-lg-3 col-sm-6 pro">
 		 <h5>Freelancers</h5>					
-		 <h1><span class="number-animator" data-value="4500" data-animation-duration="800">0</span></h1>
+		 <h1><span class="number-animator" data-value="{{organization[0].freelancers}}" data-animation-duration="800">0</span></h1>
 		  <div class="progress transparent progress-small no-radius">
-		   <div class="progress-bar progress-bar-black animated-progress-bar " data-percentage="79%"></div>
+		   <div class="progress-bar progress-bar-black animated-progress-bar " data-percentage="{{freelancer_parcentage}}%"></div>
 		  </div><!-- /.progress -->
 		</div><!-- /.col-lg-3 -->
 				
 		<div class="col-lg-3 col-sm-6 pro">
 		 <h5>Jobs Completed</h5>
-		 <h1><span class="number-animator" data-value="14000" data-animation-duration="800">0</span></h1>
+		 <h1><span class="number-animator" data-value="{{organization[0].jobs_completed}}" data-animation-duration="800">0</span></h1>
 		  <div class="progress transparent progress-small no-radius">
-		   <div class="progress-bar progress-bar-black animated-progress-bar" data-percentage="85%"></div>
+		   <div class="progress-bar progress-bar-black animated-progress-bar" data-percentage="{{jobs_completed_parcentage}}%"></div>
 		  </div><!-- /.progress -->
 		</div><!-- /.col-lg-3 -->
 
 	   	<div class="col-lg-3 col-sm-6 pro">
 		 <h5>Payed To Freelancers</h5>
-		 <h1><i class="fa fa-usd"></i><span class="number-animator" data-value="500K" data-animation-duration="800">0</span></h1>
+		 <h1><i class="fa fa-usd"></i><span class="number-animator" data-value="{{organization[0].payed_to_freelancers}}" data-animation-duration="800">0</span></h1>
 		  <div class="progress transparent progress-small no-radius">
-		   <div class="progress-bar progress-bar-black animated-progress-bar" data-percentage="85%"></div>
+		   <div class="progress-bar progress-bar-black animated-progress-bar" data-percentage="{{payed_to_freelancers_parcentage}}%"></div>
 		  </div><!-- /.progress -->
 		</div><!-- /.col-lg-3 -->
 				

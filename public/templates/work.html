@@ -1,0 +1,68 @@
+<div ng-init="workContent();">
+<header class="header-about">
+    <div class="container">
+	    <div class="content">
+        <div class="row">
+	      <h1 class="revealOnScroll" data-animation="fadeInDown"><i class="fa fa-coffee"></i> How it works</h1>
+		    <p>Get the job done right.</p>
+        </div><!-- /.row -->
+      </div><!-- /.content -->
+	  </div><!-- /.container -->
+</header><!-- /header -->
+	 
+     <!-- ==============================================
+	 Hello Section
+	 =============================================== -->
+     
+ 
+
+	 <!-- ==============================================
+	 Timeline Section
+	 =============================================== -->	  
+<!-- /section -->
+
+     <!-- ==============================================
+	 White Section
+	 =============================================== -->		  
+<section class="whitebg">
+    <div class="container">
+     <div class="row">
+    <div class="col-lg-8 col-lg-offset-2" ng-repeat="value in work_details">
+     <h3 class="text-center">{{value.description}}
+    </div><!-- /.col-lg-8 -->
+     </div><!-- /.row -->
+    </div><!-- /container -->
+   </section><!-- /w -->
+	
+	 <!-- ==============================================
+	 Team Section
+	 =============================================== -->	
+
+     <!-- End About Section -->
+	
+	 <!-- ==============================================
+	 Join Section
+	 =============================================== -->		  
+<section class="join">
+	  <div class="container">
+	   <div class="row">
+	    <div class="col-lg-8 col-lg-offset-2" ng-repeat="data in work_details">
+        <div id="small-dialog" class="mfp-hide">
+
+		     <iframe src="https://player.vimeo.com/video/132613118?title=0&amp;byline=0&amp;portrait=1"  class="embed-responsive-item" allowfullscreen></iframe>
+        </div>
+        <div id="price" class="video">
+          <a class="play popup-with-zoom-anim" href="#small-dialog"><span></span></a>
+        </div>
+       <!--<video width="100%" height="300" controls>
+          <source src="/work/vedio/{{data.video}}" type="video/mp4">
+       </video>-->
+		</div><!-- /.col-lg-8 -->
+	   </div><!-- /.row -->
+	  </div><!-- /container -->
+</section><!-- /w -->	
+</div>
+
+
+<!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.js"></script>--> 
+     
