@@ -65,7 +65,6 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 		$http({
 			  method  : 'POST',
 			  url     : '/vendor/register',
-			  processData: false,  
 			  data : {
 				email:$scope.myEmail,
 		        fname:$scope.myFisrtname,
@@ -73,7 +72,7 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 		        password:$scope.myPassword
 			},
 			  headers: {
-			         'Content-Type': 'application/x-www-form-urlencoded'
+			         'Content-Type': 'application/json'
 			  }
 		   }).then(function (response) {
 

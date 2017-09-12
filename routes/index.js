@@ -157,9 +157,7 @@ module.exports = function(app, passport, models) {
 	});
 
 	app.post("/vendor/register", function(req, res){
-		  var data = JSON.parse(JSON.stringify(req.body));	
-		  console.log(data);
-		  console.log(data[0].email);
+		  console.log(req.body.email);
 		  
 		  //alert(req.email);
 		  //console.log(lastname);
