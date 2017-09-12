@@ -22,5 +22,7 @@ marketPlaceRoute.config(function ($routeProvider, $locationProvider) {
 		templateUrl: '/templates/work.html'
 	}).when('/signup', {
 		templateUrl: '/templates/signup.html'
+	}).when('/login', {
+		templateUrl: '/templates/login.html'
 	});
 });

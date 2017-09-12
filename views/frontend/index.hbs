@@ -42,10 +42,16 @@
 		<!-- Vegas 2.2.1 CSS-->
         <link href="/frontend/js/vegas/vegas.css" rel="stylesheet" type="text/css" />
         <link href="/frontend/css/popuo-box.css" rel="stylesheet" type="text/css" />
+
+		<!--[if lt IE 9]>
+		 <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->	
+
 		
 		<!--[if lt IE 9]>
 		 <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->	
+
 </head>
 
 <body ng-app="marketPlaceApp" ng-controller="MainController" ng-init="homeContent(); aboutContent();" class="greybg">
@@ -69,7 +75,7 @@
 	    <div class="col-md-4 col-sm-6 text-left">
 	     <h4 class="heading no-margin">About Us</h4>
 		 <hr class="mint">
-		 <p ng-bind-html="about"></p>
+		 <p ng-bind-html="about_short"></p>
 	    </div><!-- /.col-md-4 -->
 	   
 	    <div class="col-md-2 col-sm-6 text-left">

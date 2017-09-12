@@ -36,6 +36,7 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 			$scope.team = response.data.team;
 			$scope.stories = response.data.stories;
 			$scope.about = $sce.trustAsHtml(response.data.about);
+			$scope.about_short = $filter('limitTo')($scope.about, 50, 0);
 			
 		}).catch(function(reason){
 
