@@ -59,6 +59,26 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 		});
 	};
 
+	$scope.doRegister=function(){
+		$http({
+			  method  : 'POST',
+			  url     : '/vendor/register',
+			  processData: false,  
+			  data : {
+				email:$scope.myEmail,
+		        fname:$scope.myFisrtname,
+		        lname:$scope.myLastname,
+		        password:$scope.myPassword
+			},
+			  headers: {
+			         'Content-Type': 'application/x-www-form-urlencoded'
+			  }
+		   }).then(function (response) {
+
+           });
+		
+	};
+
 	$scope.blogContent = function() {
 		$http.get('/blog-content').then(function (response){
 			$scope.blog_content = response.data.blog_content;
@@ -87,6 +107,7 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 
 		});
 	};
+	
 
 	$scope.filterPortFolio = function(value) {
 		var tempArr = [];
