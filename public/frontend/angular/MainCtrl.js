@@ -75,7 +75,8 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 			         'Content-Type': 'application/json'
 			  }
 		   }).then(function (response) {
-
+               req.flash('successMsg', 'Added successfully');
+			   res.redirect('/templates/register');
            });
 		
 	};

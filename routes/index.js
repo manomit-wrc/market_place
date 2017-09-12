@@ -1,5 +1,7 @@
 module.exports = function(app, passport, models) {
-
+  
+   var md5=require('md5');
+   var jwt=require('jwt-simple');
 	// =====================================
 	// Login PAGE (with login links) ========
 	// =====================================
@@ -157,20 +159,21 @@ module.exports = function(app, passport, models) {
 	});
 
 	app.post("/vendor/register", function(req, res){
-		  console.log(req.body.email);
+		  //console.log(req.body.email);
 		  
-		  //alert(req.email);
-		  //console.log(lastname);
-		  /*user.create({
+		    models.user.create({
 			email:req.body.email,
 			fname:req.body.fname,
 			lname:req.body.lname,
-			password:req.body.password
+			type:'v',
+			status:1,
+			password:md5(req.body.password)
 		}).then(function(result){
-			
+			res.json({success: true, msg: 'Registration successfully'});
+
 		}).catch(function(err){
-			
-		});*/
+			alert('fail');
+		});
 	});
 
 
