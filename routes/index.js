@@ -161,8 +161,6 @@ module.exports = function(app, passport, models) {
 		});
 	});
 
-<<<<<<< HEAD
-=======
 	app.post("/vendor/register", function(req, res){
 		  console.log(req.body.email);
 		  
@@ -180,8 +178,6 @@ module.exports = function(app, passport, models) {
 		});*/
 	});
 
-
->>>>>>> 49b7655f9fdb831fbe2ab7753a4ebe9864f76033
 	app.post('/authenticate', function(req, res) {
 		console.log(req.body.email);
 
@@ -193,7 +189,8 @@ module.exports = function(app, passport, models) {
 		  }).then(function(user){
 
 		  	if(user.length == 0) {
-		  		return res.status(403).send({code:'300', success: false, msg: 'Authentication failed. Username or password not found.'});
+		  		// return res.status(403).send({code:'300', success: false, msg: 'Authentication failed. Username or password not found.'});
+		  		res.json({code:'300', success: false, token: 'Bearer ' + token});
 		  	}
 		  	else {
 		  		var token = jwt.encode(user, "W$q4=25*8%v-}UW");
@@ -214,9 +211,10 @@ module.exports = function(app, passport, models) {
 	      email: decoded[0].email
 	    } }).then(function(user) {
 	        if (user.length == 0) {
-	          return res.status(403).send({success: false, msg: 'Authentication failed. User not found.'});
+	          	return res.status(403).send({success: false, msg: 'Authentication failed. User not found.'});
 	        } else {
-	          res.json({success: true, msg: 'Welcome in the member area ' + user[0].fname + '!'});
+	        	var user_details = JSON.parse(JSON.stringify(user[0]));
+	          	res.json({success: true, user_details: user_details});
 	        }
 	    });
 	  } else {
@@ -259,7 +257,6 @@ module.exports = function(app, passport, models) {
         res.redirect('/admin');
     });
 
-<<<<<<< HEAD
 	app.post('/register-submit', function(req, res) {
 		//alert(config);
 		user.create({
@@ -273,10 +270,6 @@ module.exports = function(app, passport, models) {
 			alert(err);
 		});
 	});
-
-=======
-	
->>>>>>> 49b7655f9fdb831fbe2ab7753a4ebe9864f76033
 	
 };
 

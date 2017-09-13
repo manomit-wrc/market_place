@@ -201,9 +201,11 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 			}).then(function(response){
 				if(response.data.code == "100") {
 					AuthToken.setToken(response.data.token);
-					$http.get('/user-profile').then(function(response){
-						$window.location.href = "/freelancer-profile";
-					});
+
+					$window.location.href = "/freelancer-profile";
+				}
+				if(response.data.code == "300"){
+					$scope.wraning_message = "Username or Password is wrong.";
 				}
 
 			}).catch(function(reason){
@@ -211,6 +213,19 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 			});
 		}
 		
+	};
+
+	$scope.profileDetails = function(){
+		$http.get('/user-profile').then(function(response){
+			$scope.email = response.data.user_details.email;
+			$scope.first_name = response.data.user_details.fname;
+			$scope.last_name = response.data.user_details.lname;
+			$scope.mobile_no = response.data.user_details.mobile_no;
+			$scope.pincode = response.data.user_details.pincode;
+			$scope.state = response.data.user_details.state;
+			$scope.city = response.data.user_details.city;
+			$scope.address = response.data.user_details.address;			
+		});
 	};
 
 	$scope.blogDetails = function (){
