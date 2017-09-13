@@ -47,6 +47,7 @@ module.exports = function (app, user) {
 	});
 
 	app.post('/admin/user/add', upload.single('image'), function(req, res) {
+		console.log(req.body);
 	    if (req.file) {
             photo = fileName;
             // save thumbnail -- should this part go elsewhere?
@@ -71,6 +72,7 @@ module.exports = function (app, user) {
 			city: req.body.city,
 			pincode: req.body.pincode,
 			image: fileName,
+			type: req.body.reg_type,
 			status: req.body.status
 		}).then(function(result) {
 			req.flash('successMsg', 'Added successfully');
