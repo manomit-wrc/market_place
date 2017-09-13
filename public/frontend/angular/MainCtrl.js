@@ -42,7 +42,7 @@ MainCtrl.factory('AuthInterceptor', function ($q, $location, $localStorage) {
 });
 
 
-MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParams, $filter,$timeout, AuthToken) {
+MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParams, $filter,$timeout, AuthToken, $window) {
 	$scope.testimonials = {};
 	$scope.banner = [];
 	$scope.organization = {};
@@ -193,10 +193,16 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 					'Content-Type':'application/json'
 				}
 			}).then(function(response){
+				//console.log(response);
 				if(response.data.code == "100") {
+					//console.log(response.data.token);
 					AuthToken.setToken(response.data.token);
 					$http.get('/user-profile').then(function(response){
-						
+						//console.log(response);
+						//$location.path('/about');
+						$window.location.href = "/about";
+					}).catch(function(err){
+
 					});
 				}
 
@@ -209,6 +215,8 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 
 	$scope.blogDetails = function (){
 		$http.get('/blog_details',{params:{id:$routeParams.id}}).then(function(response){
+			$scope.get_token = AuthToken.getToken();
+			//console.log($scope.get_token);
 			$scope.blog_details = response.data.blog_details[0];
 			
 			$scope.short_description = $sce.trustAsHtml($scope.blog_details.short_description);

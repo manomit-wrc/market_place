@@ -72,7 +72,7 @@ module.exports = function (app, user) {
 			city: req.body.city,
 			pincode: req.body.pincode,
 			image: fileName,
-			type: req.body.reg_type,
+			type: 'v',
 			status: req.body.status
 		}).then(function(result) {
 			req.flash('successMsg', 'Added successfully');

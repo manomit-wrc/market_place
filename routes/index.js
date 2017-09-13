@@ -157,8 +157,6 @@ module.exports = function(app, passport, models) {
 		});
 	});
 
-<<<<<<< HEAD
-=======
 	app.post("/vendor/register", function(req, res){
 		  console.log(req.body.email);
 		  
@@ -176,10 +174,8 @@ module.exports = function(app, passport, models) {
 		});*/
 	});
 
-
->>>>>>> 49b7655f9fdb831fbe2ab7753a4ebe9864f76033
 	app.post('/authenticate', function(req, res) {
-		console.log(req.body.email);
+		//console.log(req.body.email);
 
 		  models.user.findAll({
 		  	where: {
@@ -197,8 +193,6 @@ module.exports = function(app, passport, models) {
 		  	}
 		  });	
 	});
-
-	
 
 	app.get('/user-profile', passport.authenticate('jwt', { session: false}), function(req, res) {
 		
@@ -255,7 +249,6 @@ module.exports = function(app, passport, models) {
         res.redirect('/admin');
     });
 
-<<<<<<< HEAD
 	app.post('/register-submit', function(req, res) {
 		//alert(config);
 		user.create({
@@ -269,10 +262,6 @@ module.exports = function(app, passport, models) {
 			alert(err);
 		});
 	});
-
-=======
-	
->>>>>>> 49b7655f9fdb831fbe2ab7753a4ebe9864f76033
 	
 };
 
