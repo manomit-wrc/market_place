@@ -1,6 +1,48 @@
-var MainCtrl = angular.module('MainCtrl',['ngSanitize']);
+var MainCtrl = angular.module('MainCtrl',['ngSanitize','ngStorage']);
 
-MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParams, $filter) {
+
+MainCtrl.factory('AuthToken', function($localStorage){
+	var authTokenFactory = {};
+
+	authTokenFactory.getToken = function() {
+		return $localStorage.token;
+	};
+
+	authTokenFactory.setToken = function(token) {
+		if(token)
+			$localStorage.token = token;
+		else
+			delete $localStorage.token;
+	}
+
+	return authTokenFactory;
+});
+
+MainCtrl.factory('AuthInterceptor', function ($q, $location, $localStorage) {
+    return {
+        'request': function (config) {
+            config.headers = config.headers || {};
+            if ($localStorage.token) {
+                config.headers.Authorization = $localStorage.token;
+            }
+            
+            return config;
+        },
+        'responseError': function (response) {
+        	
+
+            if (response.status === 401 || response.status === 403 || response.status === 500) {
+                $location.path("/");
+            }
+            return $q.reject(response);
+        }
+    };
+}).config(function($httpProvider) {
+  $httpProvider.interceptors.push('AuthInterceptor');
+});
+
+
+MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParams, $filter,$timeout, AuthToken) {
 	$scope.testimonials = {};
 	$scope.banner = [];
 	$scope.organization = {};
@@ -36,6 +78,8 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 			$scope.team = response.data.team;
 			$scope.stories = response.data.stories;
 			$scope.about = $sce.trustAsHtml(response.data.about);
+			$scope.about_short = $filter('limitTo')(response.data.about, 30, 0);
+			$scope.about_short_limit = $sce.trustAsHtml($scope.about_short);
 			
 		}).catch(function(reason){
 
@@ -57,6 +101,25 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 		}).catch(function(reason){
 
 		});
+	};
+
+	$scope.doRegister=function(){
+		$http({
+			  method  : 'POST',
+			  url     : '/vendor/register',
+			  data : {
+				email:$scope.myEmail,
+		        fname:$scope.myFisrtname,
+		        lname:$scope.myLastname,
+		        password:$scope.myPassword
+			},
+			  headers: {
+			         'Content-Type': 'application/json'
+			  }
+		   }).then(function (response) {
+
+           });
+		
 	};
 
 	$scope.blogContent = function() {
@@ -87,6 +150,7 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 
 		});
 	};
+	
 
 	$scope.filterPortFolio = function(value) {
 		var tempArr = [];
@@ -114,6 +178,32 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 			$scope.blog_content = angular.copy(tempArr);
 		}
 		$scope.active_class = value;
+		
+	};
+
+	$scope.doLogin = function (valid){
+		//using headers line for sending angular to node with post method
+		if(valid){
+			$http.post('/authenticate',{
+				email: $scope.myUsername,
+				password: $scope.myPassword
+			},{
+				headers: 
+				{
+					'Content-Type':'application/json'
+				}
+			}).then(function(response){
+				if(response.data.code == "100") {
+					AuthToken.setToken(response.data.token);
+					$http.get('/user-profile').then(function(response){
+						
+					});
+				}
+
+			}).catch(function(reason){
+			
+			});
+		}
 		
 	};
 
@@ -146,6 +236,23 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 			
 		});
 	}
+
+	$scope.showVideo = function() {
+		$timeout(function(){
+			$('.popup-with-zoom-anim').magnificPopup({
+	          type: 'inline',
+	          fixedContentPos: false,
+	          fixedBgPos: true,
+	          overflowY: 'auto',
+	          closeBtnInside: true,
+	          preloader: false,
+	          midClick: true,
+	          removalDelay: 300,
+	          mainClass: 'my-mfp-zoom-in'
+	        });
+	        alert("Hello");
+		});
+	};
 
 }).directive('testimonialSlider',function() {
     var linker = function($scope, element, attr) {
@@ -241,3 +348,4 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
         }
     };
 });
+

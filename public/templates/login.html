@@ -1,0 +1,75 @@
+
+	 
+     <!-- ==============================================
+	 Header
+	 =============================================== -->	 
+	 <header class="header-login">
+      <div class="container">
+	   <div class="content">
+	    <div class="row">
+	     <h1 class="revealOnScroll" data-animation="fadeInDown"><i class="fa fa-coffee"></i> Login</h1>
+		 <p>Log in and get to work.</p>
+        </div><!-- /.row -->
+       </div><!-- /.content -->
+	  </div><!-- /.container -->
+     </header><!-- /header -->
+	 
+     <!-- ==============================================
+     Banner Login Section
+     =============================================== -->
+	 <section class="banner-login">
+	  <div class="container">
+	   <div class="row">
+	   
+	    <main class="main main-signup col-lg-12">
+	     <div class="col-lg-6 col-lg-offset-3 text-center">
+		  <div class="form-sign" ng-controller="MainController">
+		   <form name="myLogin" method="post" ng-submit="doLogin(myLogin.$valid)" novalidate="novalidate">
+		    <div class="form-head">
+			 <h3>Login</h3>
+			</div><!-- /.form-head -->
+            <div class="form-body">
+			
+			 <div class="form-row"  ng-class="{
+	            'has-error':!myLogin.myUsername.$valid && (!myLogin.$pristine || myLogin.$submitted), 
+	            'has-success': myLogin.myUsername.$valid && (!myLogin.$pristine || myLogin.$submitted)
+	            }">
+			  <div class="form-controls">
+			   <input name="myUsername" ng-model="myUsername" placeholder="Username" class="field" type="email" required>
+			  </div><!-- /.form-controls -->
+
+			  <span class="help-block" ng-show="myLogin.myUsername.$error.required && (!myLogin.$pristine || myLogin.$submitted)" style="color: #fff;">Please Enter Username</span>
+                <span class="help-block" ng-show="myLogin.myUsername.$error.email && (!myLogin.$pristine || myLogin.$submitted)" style="color: #fff;">Please Enter Valid Username</span>
+
+			 </div><!-- /.form-row -->
+
+			 <div class="form-row" ng-class="{
+                'has-error':!myLogin.myPassword.$valid && (!myLogin.$pristine || myLogin.$submitted), 
+                'has-success': myLogin.myPassword.$valid && (!myLogin.$pristine || myLogin.$submitted)
+                }">
+			  <div class="form-controls">
+			   <input name="myPassword" ng-model="myPassword" placeholder="Password" class="field" type="password" minlength="6" required>
+
+			   <span class="help-block" ng-show="myLogin.myPassword.$error.required && (!myLogin.$pristine || myLogin.$submitted)" style="color: #fff;">Please Enter Password</span>
+			   <span class="help-block" ng-show="myLogin.myPassword.$error.minlength && (!myLogin.$pristine || myLogin.$submitted)" style="color: #fff;">Password must be 8 chararcter long</span>
+			  </div><!-- /.form-controls -->
+			 </div><!-- /.form-row -->
+		    </div><!-- /.form-body -->
+
+			<div class="form-foot">
+			 <div class="form-actions">					
+			  <input value="Login" class="form-btn" type="submit">
+			 </div><!-- /.form-actions -->
+             <div class="form-head">
+			  <a href="#" class="more-link">Forgot Password?</a>
+			 </div>
+			</div><!-- /.form-foot -->
+		   </form>
+		   
+		  </div><!-- /.form-sign -->
+	     </div><!-- /.col-lg-6 -->
+        </main>
+		
+	   </div><!-- /.row -->
+	  </div><!-- /.container -->
+     </section><!-- /section -->
