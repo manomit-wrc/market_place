@@ -13,8 +13,14 @@ MainCtrl.factory('AuthToken', function($localStorage){
 			$localStorage.token = token;
 		else
 			delete $localStorage.token;
-	}
+	};
 
+	authTokenFactory.isLoggedIn = function() {
+		if(authTokenFactory.getToken())
+			return true;
+		else
+			return false;
+	};
 	return authTokenFactory;
 });
 
@@ -42,7 +48,7 @@ MainCtrl.factory('AuthInterceptor', function ($q, $location, $localStorage) {
 });
 
 
-MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParams, $filter,$timeout, AuthToken) {
+MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParams, $filter,$timeout, AuthToken, $window) {
 	$scope.testimonials = {};
 	$scope.banner = [];
 	$scope.organization = {};
@@ -196,7 +202,7 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 				if(response.data.code == "100") {
 					AuthToken.setToken(response.data.token);
 					$http.get('/user-profile').then(function(response){
-						
+						$window.location.href = "/freelancer-profile";
 					});
 				}
 

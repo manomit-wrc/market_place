@@ -45,6 +45,10 @@ module.exports = function(app, passport, models) {
 		res.render('frontend/index',{layout:false}); 
 	});
 
+	app.get('/freelancer-profile',function (req,res){
+		res.render('frontend/index',{layout:false}); 
+	});
+
 
 
 	app.get('/home-content', function(req, res){
