@@ -13,8 +13,14 @@ MainCtrl.factory('AuthToken', function($localStorage){
 			$localStorage.token = token;
 		else
 			delete $localStorage.token;
-	}
+	};
 
+	authTokenFactory.isLoggedIn = function() {
+		if(authTokenFactory.getToken())
+			return true;
+		else
+			return false;
+	};
 	return authTokenFactory;
 });
 
@@ -42,7 +48,7 @@ MainCtrl.factory('AuthInterceptor', function ($q, $location, $localStorage) {
 });
 
 
-MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParams, $filter,$timeout, AuthToken) {
+MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParams, $filter,$timeout, AuthToken, $window) {
 	$scope.testimonials = {};
 	$scope.banner = [];
 	$scope.organization = {};
@@ -197,7 +203,7 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 				if(response.data.code == "100") {
 					AuthToken.setToken(response.data.token);
 					$http.get('/user-profile').then(function(response){
-						
+						$window.location.href = "/freelancer-profile";
 					});
 				}
 
@@ -216,8 +222,27 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 			$scope.long_description = $sce.trustAsHtml($scope.blog_details.long_description);
 			
 		});
-
 	};
+
+	$scope.doRegister = function() {
+		$http({
+			method: 'POST',
+			url: '/vendor/register',
+			data: {
+				email: $scope.myEmail,
+				fname: $scope.myFisrtname,
+				lname: $scope.myLastname,
+				password: $scope.myPassword
+			},
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		}).then(function(response) {
+			
+		}).catch(function(reason) {
+			
+		});
+	}
 
 	$scope.showVideo = function() {
 		$timeout(function(){

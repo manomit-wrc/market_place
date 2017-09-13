@@ -47,6 +47,10 @@ module.exports = function(app, passport, models) {
 		res.render('frontend/index',{layout:false}); 
 	});
 
+	app.get('/freelancer-profile',function (req,res){
+		res.render('frontend/index',{layout:false}); 
+	});
+
 
 
 	app.get('/home-content', function(req, res){
@@ -136,7 +140,6 @@ module.exports = function(app, passport, models) {
 				blogcategory: result[1]
 			});
 		});
-
 	});
 
 	app.get('/blog_details', function (req,res){
@@ -158,9 +161,10 @@ module.exports = function(app, passport, models) {
 				blog_details: blog_detailsArr
 			});
 		});
-		
 	});
 
+<<<<<<< HEAD
+=======
 	app.post("/vendor/register", function(req, res){
 		  //console.log(req.body.email);
 		  
@@ -180,6 +184,7 @@ module.exports = function(app, passport, models) {
 	});
 
 
+>>>>>>> 49b7655f9fdb831fbe2ab7753a4ebe9864f76033
 	app.post('/authenticate', function(req, res) {
 		console.log(req.body.email);
 
@@ -198,7 +203,6 @@ module.exports = function(app, passport, models) {
 		  		res.json({code:'100', success: true, token: 'Bearer ' + token});
 		  	}
 		  });	
-		  
 	});
 
 	
@@ -233,16 +237,13 @@ module.exports = function(app, passport, models) {
 	    }
 	  } else {
 	    return null;
-  	}
-  }
+	  }
+    }
 
 	app.get('/admin', function(req, res) {
-
 		var msg = req.flash('loginMessage')[0];
 		res.render('admin/login',{layout:'login',message: msg}); 
 	});
-
-	
 
 	// process the login form
 	app.post('/admin', passport.authenticate('local-login', {
@@ -261,7 +262,24 @@ module.exports = function(app, passport, models) {
         res.redirect('/admin');
     });
 
+<<<<<<< HEAD
+	app.post('/register-submit', function(req, res) {
+		//alert(config);
+		user.create({
+			fname: req.body.fname,
+			lname: req.body.lname,
+			email: req.body.email,
+			password: req.body.password
+		}).then(function(result) {
+			res.redirect('/register-submit');
+		}).catch(function(err) {
+			alert(err);
+		});
+	});
+
+=======
 	
+>>>>>>> 49b7655f9fdb831fbe2ab7753a4ebe9864f76033
 	
 };
 
