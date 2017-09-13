@@ -1,5 +1,7 @@
 module.exports = function(app, passport, models) {
-
+  
+   var md5=require('md5');
+   var jwt=require('jwt-simple');
 	// =====================================
 	// Login PAGE (with login links) ========
 	// =====================================
@@ -179,10 +181,21 @@ module.exports = function(app, passport, models) {
 		});
 	});
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+
+>>>>>>> 374e9693b2ff64bc5d5bf28e11f506a63d2ec09c
+>>>>>>> 0aa0040b4cca58d1c865babf9736bbed699ccb67
 	app.post("/vendor/register", function(req, res){
-		  console.log(req.body.email);
+		  //console.log(req.body.email);
 		  
+<<<<<<< HEAD
 		  models.user.create({
+=======
+		    models.user.create({
+>>>>>>> 0aa0040b4cca58d1c865babf9736bbed699ccb67
 			email:req.body.email,
 			fname:req.body.fname,
 			lname:req.body.lname,
@@ -190,12 +203,25 @@ module.exports = function(app, passport, models) {
 			status:1,
 			password:md5(req.body.password)
 		}).then(function(result){
-			
+			res.json({success: true, msg: 'Registration successfully'});
+
 		}).catch(function(err){
+<<<<<<< HEAD
 			
 		});
 	});
 
+=======
+			alert('fail');
+		});
+	});
+
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 374e9693b2ff64bc5d5bf28e11f506a63d2ec09c
+>>>>>>> 0aa0040b4cca58d1c865babf9736bbed699ccb67
 	app.post('/authenticate', function(req, res) {
 		//console.log(req.body.email);
 
@@ -207,7 +233,8 @@ module.exports = function(app, passport, models) {
 		  }).then(function(user){
 
 		  	if(user.length == 0) {
-		  		return res.status(403).send({code:'300', success: false, msg: 'Authentication failed. Username or password not found.'});
+		  		// return res.status(403).send({code:'300', success: false, msg: 'Authentication failed. Username or password not found.'});
+		  		res.json({code:'300', success: false, token: 'Bearer ' + token});
 		  	}
 		  	else {
 		  		var token = jwt.encode(user, "W$q4=25*8%v-}UW");
@@ -226,9 +253,10 @@ module.exports = function(app, passport, models) {
 	      email: decoded[0].email
 	    } }).then(function(user) {
 	        if (user.length == 0) {
-	          return res.status(403).send({success: false, msg: 'Authentication failed. User not found.'});
+	          	return res.status(403).send({success: false, msg: 'Authentication failed. User not found.'});
 	        } else {
-	          res.json({success: true, msg: 'Welcome in the member area ' + user[0].fname + '!'});
+	        	var user_details = JSON.parse(JSON.stringify(user[0]));
+	          	res.json({success: true, user_details: user_details});
 	        }
 	    });
 	  } else {
@@ -300,6 +328,29 @@ module.exports = function(app, passport, models) {
             }
         res.redirect('/admin');
     });
+<<<<<<< HEAD
+=======
+
+<<<<<<< HEAD
+	app.post('/register-submit', function(req, res) {
+		//alert(config);
+		user.create({
+			fname: req.body.fname,
+			lname: req.body.lname,
+			email: req.body.email,
+			password: req.body.password
+		}).then(function(result) {
+			res.redirect('/register-submit');
+		}).catch(function(err) {
+			alert(err);
+		});
+	});
+=======
+
+	
+
+>>>>>>> 374e9693b2ff64bc5d5bf28e11f506a63d2ec09c
+>>>>>>> 0aa0040b4cca58d1c865babf9736bbed699ccb67
 	
 };
 
