@@ -24,5 +24,42 @@ marketPlaceRoute.config(function ($routeProvider, $locationProvider) {
 		templateUrl: '/templates/signup.html'
 	}).when('/login', {
 		templateUrl: '/templates/login.html'
+	}).when("/freelancer-profile", {
+		templateUrl: '/templates/freelancer-profile.html',
+		authenticated: true
+	});
+});
+
+marketPlaceRoute.run(function($rootScope,$location,AuthToken){
+	$rootScope.$on('$routeChangeStart',function(event,next,current){
+		if(next.$$route.authenticated) {
+			
+			/*if(!AuthToken.isLoggedIn() && !$cookieStore.get('remember_token')) {
+				$location.path("/");
+			}*/
+			/*AuthToken.returnType().then(function(response){
+				if(response == next.$$route.type) {
+					
+					if(next.$$route.originalPath == "/") {
+	                    if(AuthToken.isLoggedIn()) {
+	                        $location.path(current.$$route.originalPath);
+	                        
+	                    }
+            		}
+				}
+				else {
+					$location.path("/");
+				}
+			});*/
+
+			if(AuthToken.isLoggedIn()) {
+				$location.path(current.$$route.originalPath);
+				
+			}
+			else {
+				$location.path("/");
+			}
+			
+		}
 	});
 });

@@ -13,8 +13,14 @@ MainCtrl.factory('AuthToken', function($localStorage){
 			$localStorage.token = token;
 		else
 			delete $localStorage.token;
-	}
+	};
 
+	authTokenFactory.isLoggedIn = function() {
+		if(authTokenFactory.getToken())
+			return true;
+		else
+			return false;
+	};
 	return authTokenFactory;
 });
 
@@ -195,14 +201,11 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 			}).then(function(response){
 				//console.log(response);
 				if(response.data.code == "100") {
-					//console.log(response.data.token);
 					AuthToken.setToken(response.data.token);
 					$http.get('/user-profile').then(function(response){
-						//console.log(response);
-						//$location.path('/about');
-						$window.location.href = "/about";
+						//$window.location.href = "/freelancer-profile";
 					}).catch(function(err){
-
+						$window.location.href = "/freelancer-profile";
 					});
 				}
 
@@ -215,14 +218,44 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 
 	$scope.blogDetails = function (){
 		$http.get('/blog_details',{params:{id:$routeParams.id}}).then(function(response){
+			//AuthToken.setToken();
 			$scope.get_token = AuthToken.getToken();
 			//console.log($scope.get_token);
 			$scope.blog_details = response.data.blog_details[0];
 			
 			$scope.short_description = $sce.trustAsHtml($scope.blog_details.short_description);
 			$scope.long_description = $sce.trustAsHtml($scope.blog_details.long_description);
+			$scope.blog_comments = [];
+			$scope.blog_comments = response.data.blog_comments;
+			$scope.comment_count = response.data.blog_comments.length;
 			
 		});
+	};
+
+	$scope.doComment = function (valid){
+		//using headers line for sending angular to node with post method
+		if(valid){
+			$http.get('/fetch-user').then(function(response){
+				var user_id = response.data.user_id;
+				$http({
+					method: 'POST',
+					url: '/do-comment',
+					data: {
+						user_id: user_id,
+						comments: $scope.comments,
+						blog_id:$routeParams.id
+					},
+					headers: 
+					{
+						'Content-Type':'application/json'
+					}
+				}).then(function(response){
+					//console.log(response);
+				}).catch(function(reason){
+				
+				});
+			});
+		}
 	};
 
 	$scope.doRegister = function() {
