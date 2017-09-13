@@ -136,7 +136,10 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 			         'Content-Type': 'application/json'
 			  }
 		   }).then(function (response) {
-
+		   	  console.log(AuthToken.getToken());
+		   	  //AuthToken.setToken(response.data.token);
+               res.json({success: true, msg: 'Registration successfully'});
+			   //res.redirect('/templates/register');
            });
 		
 	};
@@ -260,7 +263,10 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 		});
 	};
 
-	$scope.doRegister = function() {
+	$scope.doRegister = function(valid) {
+		
+		if(valid)
+		{
 		$http({
 			method: 'POST',
 			url: '/vendor/register',
@@ -278,6 +284,8 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 		}).catch(function(reason) {
 			
 		});
+
+	  }	
 	}
 
 	$scope.showVideo = function() {
