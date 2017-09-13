@@ -1,6 +1,6 @@
 var marketPlaceRoute = angular.module('marketPlaceRoute',['ngRoute']);
 
-marketPlaceRoute.config(function ($routeProvider, $locationProvider) {
+marketPlaceRoute.config(function ($routeProvider, $locationProvider, $qProvider) {
 	$locationProvider.html5Mode(true).hashPrefix('#');
 	$routeProvider.when('/',{
 		templateUrl: '/templates/home.html'
@@ -28,38 +28,27 @@ marketPlaceRoute.config(function ($routeProvider, $locationProvider) {
 		templateUrl: '/templates/freelancer-profile.html',
 		authenticated: true
 	});
+
+	$qProvider.errorOnUnhandledRejections(false);
 });
 
 marketPlaceRoute.run(function($rootScope,$location,AuthToken){
 	$rootScope.$on('$routeChangeStart',function(event,next,current){
 		if(next.$$route.authenticated) {
-			
-			/*if(!AuthToken.isLoggedIn() && !$cookieStore.get('remember_token')) {
-				$location.path("/");
-			}*/
-			/*AuthToken.returnType().then(function(response){
-				if(response == next.$$route.type) {
-					
-					if(next.$$route.originalPath == "/") {
-	                    if(AuthToken.isLoggedIn()) {
-	                        $location.path(current.$$route.originalPath);
-	                        
-	                    }
-            		}
-				}
-				else {
-					$location.path("/");
-				}
-			});*/
-
 			if(AuthToken.isLoggedIn()) {
-				$location.path(current.$$route.originalPath);
-				
+				$location.path(next.$$route.originalPath);
 			}
 			else {
 				$location.path("/");
 			}
 			
 		}
+		if($location.path() == "/login") {
+			if(AuthToken.isLoggedIn()) {
+				$location.path("/freelancer-profile");
+			}
+			
+		}
+
 	});
 });

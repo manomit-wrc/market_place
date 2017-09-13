@@ -48,7 +48,7 @@ MainCtrl.factory('AuthInterceptor', function ($q, $location, $localStorage) {
 });
 
 
-MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParams, $filter,$timeout, AuthToken, $window) {
+MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParams, $filter,$timeout, AuthToken, $window, $location) {
 	$scope.testimonials = {};
 	$scope.banner = [];
 	$scope.organization = {};
@@ -57,7 +57,20 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 	$scope.blog_details = {};
 	$scope.work_details = {};
 	$scope.active_class = 0;
+	$scope.user = {};
 
+	$scope.init = function() {
+		$http.get('/user-profile').then(function(response){
+			$scope.user = response.data.user_details;
+			
+						
+		});
+
+	}
+	if(AuthToken.isLoggedIn()) {
+		$scope.init();
+	}
+	
 	
 	$scope.homeContent = function() {
 		$http.get('/home-content').then(function(response){
@@ -128,6 +141,21 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 		
 	};
 
+	$scope.editProfile = function () {
+		console.log($scope.user);
+		$htttp({
+			method : "POST",
+			url : '/edit-profile',
+			data:{
+				all: $scope.user
+			},
+			headers: {
+		         'Content-Type': 'application/json'
+		  	}
+		});
+
+	};
+
 	$scope.blogContent = function() {
 		$http.get('/blog-content').then(function (response){
 			$scope.blog_content = response.data.blog_content;
@@ -187,6 +215,12 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 		
 	};
 
+	$scope.doLogout = function() {
+		AuthToken.setToken();
+		$scope.user = {};
+		$location.path("/");
+	};
+
 	$scope.doLogin = function (valid){
 		//using headers line for sending angular to node with post method
 		if(valid){
@@ -201,8 +235,9 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 			}).then(function(response){
 				if(response.data.code == "100") {
 					AuthToken.setToken(response.data.token);
-
+					
 					$window.location.href = "/freelancer-profile";
+										
 				}
 				if(response.data.code == "300"){
 					$scope.wraning_message = "Username or Password is wrong.";
@@ -213,19 +248,6 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 			});
 		}
 		
-	};
-
-	$scope.profileDetails = function(){
-		$http.get('/user-profile').then(function(response){
-			$scope.email = response.data.user_details.email;
-			$scope.first_name = response.data.user_details.fname;
-			$scope.last_name = response.data.user_details.lname;
-			$scope.mobile_no = response.data.user_details.mobile_no;
-			$scope.pincode = response.data.user_details.pincode;
-			$scope.state = response.data.user_details.state;
-			$scope.city = response.data.user_details.city;
-			$scope.address = response.data.user_details.address;			
-		});
 	};
 
 	$scope.blogDetails = function (){
