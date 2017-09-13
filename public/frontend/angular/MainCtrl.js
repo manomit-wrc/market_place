@@ -125,8 +125,27 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 			$scope.long_description = $sce.trustAsHtml($scope.blog_details.long_description);
 			
 		});
-
 	};
+
+	$scope.doRegister = function() {
+		$http({
+			method: 'POST',
+			url: '/vendor/register',
+			data: {
+				email: $scope.myEmail,
+				fname: $scope.myFisrtname,
+				lname: $scope.myLastname,
+				password: $scope.myPassword
+			},
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		}).then(function(response) {
+			
+		}).catch(function(reason) {
+			
+		});
+	}
 
 }).directive('testimonialSlider',function() {
     var linker = function($scope, element, attr) {

@@ -131,7 +131,6 @@ module.exports = function(app, passport, models) {
 				blogcategory: result[1]
 			});
 		});
-
 	});
 
 	app.get('/blog_details', function (req,res){
@@ -153,10 +152,7 @@ module.exports = function(app, passport, models) {
 				blog_details: blog_detailsArr
 			});
 		});
-		
 	});
-
-
 
 	app.post('/authenticate', function(req, res) {
 		  models.user.findAll({
@@ -174,7 +170,6 @@ module.exports = function(app, passport, models) {
 		  		res.json({success: true, token: 'Bearer ' + token});
 		  	}
 		  });	
-		  
 	});
 
 	app.get('/user-profile', passport.authenticate('jwt', { session: false}), function(req, res) {
@@ -206,16 +201,13 @@ module.exports = function(app, passport, models) {
 	    }
 	  } else {
 	    return null;
-  	}
-  }
+	  }
+    }
 
 	app.get('/admin', function(req, res) {
-
 		var msg = req.flash('loginMessage')[0];
 		res.render('admin/login',{layout:'login',message: msg}); 
 	});
-
-	
 
 	// process the login form
 	app.post('/admin', passport.authenticate('local-login', {
@@ -234,7 +226,19 @@ module.exports = function(app, passport, models) {
         res.redirect('/admin');
     });
 
-	
+	app.post('/register-submit', function(req, res) {
+		//alert(config);
+		user.create({
+			fname: req.body.fname,
+			lname: req.body.lname,
+			email: req.body.email,
+			password: req.body.password
+		}).then(function(result) {
+			res.redirect('/register-submit');
+		}).catch(function(err) {
+			alert(err);
+		});
+	});
 
 	
 };
