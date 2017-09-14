@@ -36,7 +36,7 @@
                       <td>{{this.blog_name}}</td>
                       <td>{{this.blogcategory.name}}</td>
                       <td>{{this.short_description}}</td>
-                      <td><a href="/admin/blog/edit/{{this.id}}" >Edit</a>&nbsp;|&nbsp;<a href="/admin/blog/delete/{{this.id}}" onclick="return confirm('Are you sure?')">Delete</a></td>
+                      <td><a href="/admin/blog/comments/{{this.id}}">Comments</a>&nbsp;|&nbsp;<a href="/admin/blog/edit/{{this.id}}" >Edit</a>&nbsp;|&nbsp;<a href="/admin/blog/delete/{{this.id}}" onclick="return confirm('Are you sure?')">Delete</a></td>
                     </tr>
                      {{/each}}
                 </tbody>

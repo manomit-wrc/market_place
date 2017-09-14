@@ -25,30 +25,30 @@ MainCtrl.factory('AuthToken', function($localStorage){
 });
 
 MainCtrl.factory('AuthInterceptor', function ($q, $location, $localStorage) {
-    return {
-        'request': function (config) {
-            config.headers = config.headers || {};
-            if ($localStorage.token) {
-                config.headers.Authorization = $localStorage.token;
-            }
-            
-            return config;
-        },
-        'responseError': function (response) {
-        	
+	return {
+		'request': function (config) {
+			config.headers = config.headers || {};
+			if ($localStorage.token) {
+				config.headers.Authorization = $localStorage.token;
+			}
+			
+			return config;
+		},
+		'responseError': function (response) {
+			
 
-            if (response.status === 401 || response.status === 403 || response.status === 500) {
-                $location.path("/");
-            }
-            return $q.reject(response);
-        }
-    };
+			if (response.status === 401 || response.status === 403 || response.status === 500) {
+				$location.path("/login");
+			}
+			return $q.reject(response);
+		}
+	};
 }).config(function($httpProvider) {
-  $httpProvider.interceptors.push('AuthInterceptor');
+	$httpProvider.interceptors.push('AuthInterceptor');
 });
 
 
-MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParams, $filter,$timeout, AuthToken, $window) {
+MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParams, $filter,$timeout, AuthToken, $window, $location) {
 	$scope.testimonials = {};
 	$scope.banner = [];
 	$scope.organization = {};
@@ -57,8 +57,21 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 	$scope.blog_details = {};
 	$scope.work_details = {};
 	$scope.active_class = 0;
+	$scope.user = {};
 
+	$scope.init = function() {
+		$http.get('/user-profile').then(function(response){
+			$scope.user = response.data.user_details;
+		}).catch(function(err){
+			
+		});
+	};
+
+	if(AuthToken.isLoggedIn()) {
+		$scope.init();
+	}
 	
+
 	$scope.homeContent = function() {
 		$http.get('/home-content').then(function(response){
 			
@@ -111,20 +124,20 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 
 	$scope.doRegister=function(){
 		$http({
-			  method  : 'POST',
-			  url     : '/vendor/register',
-			  data : {
+			method  : 'POST',
+			url     : '/vendor/register',
+			data : {
 				email:$scope.myEmail,
-		        fname:$scope.myFisrtname,
-		        lname:$scope.myLastname,
-		        password:$scope.myPassword
+				fname:$scope.myFisrtname,
+				lname:$scope.myLastname,
+				password:$scope.myPassword
 			},
-			  headers: {
-			         'Content-Type': 'application/json'
-			  }
-		   }).then(function (response) {
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		}).then(function (response) {
 
-           });
+		});
 		
 	};
 
@@ -182,19 +195,19 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 		if(value != 0) {
 			$scope.blog_details = angular.copy($scope.blog_content);
 			for(var i=0;i<$scope.blog_details.length;i++) {
-					if(value == $scope.blog_content[i].blog_category_id) {
-						tempArr.push(
-							{
-								id:$scope.blog_content[i].id,
-								blog_name: $scope.blog_content[i].blog_name,
-								long_description: $scope.blog_content[i].long_description,
-								short_description: $scope.blog_content[i].short_description,
-								blog_image: $scope.blog_content[i].blog_image,
-								blog_category_id: $scope.blog_content[i].blog_category_id,
-								createdAt: $scope.blog_content[i].createdAt
-							});
-					}
+				if(value == $scope.blog_content[i].blog_category_id) {
+					tempArr.push(
+					{
+						id:$scope.blog_content[i].id,
+						blog_name: $scope.blog_content[i].blog_name,
+						long_description: $scope.blog_content[i].long_description,
+						short_description: $scope.blog_content[i].short_description,
+						blog_image: $scope.blog_content[i].blog_image,
+						blog_category_id: $scope.blog_content[i].blog_category_id,
+						createdAt: $scope.blog_content[i].createdAt
+					});
 				}
+			}
 			
 			$scope.blog_content = angular.copy(tempArr);
 		}
@@ -217,15 +230,12 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 				//console.log(response);
 				if(response.data.code == "100") {
 					AuthToken.setToken(response.data.token);
-					$http.get('/user-profile').then(function(response){
-						//$window.location.href = "/freelancer-profile";
-					}).catch(function(err){
-						$window.location.href = "/freelancer-profile";
-					});
+					$window.location.href = "/freelancer-profile";
+					
 				}
 
 			}).catch(function(reason){
-			
+				
 			});
 		}
 		
@@ -267,7 +277,7 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 				}).then(function(response){
 					//console.log(response);
 				}).catch(function(reason){
-				
+					
 				});
 			});
 		}
@@ -276,112 +286,118 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 	$scope.showVideo = function() {
 		$timeout(function(){
 			$('.popup-with-zoom-anim').magnificPopup({
-	          type: 'inline',
-	          fixedContentPos: false,
-	          fixedBgPos: true,
-	          overflowY: 'auto',
-	          closeBtnInside: true,
-	          preloader: false,
-	          midClick: true,
-	          removalDelay: 300,
-	          mainClass: 'my-mfp-zoom-in'
-	        });
-	        alert("Hello");
+				type: 'inline',
+				fixedContentPos: false,
+				fixedBgPos: true,
+				overflowY: 'auto',
+				closeBtnInside: true,
+				preloader: false,
+				midClick: true,
+				removalDelay: 300,
+				mainClass: 'my-mfp-zoom-in'
+			});
+			alert("Hello");
 		});
 	};
 
+	$scope.doLogout = function() {
+		AuthToken.setToken();
+		$scope.user = {};
+		$location.path("/login");
+	};
+
 }).directive('testimonialSlider',function() {
-    var linker = function($scope, element, attr) {
-        $scope.$watch('testimonials', function () {
+	var linker = function($scope, element, attr) {
+		$scope.$watch('testimonials', function () {
 			element.ready(function(){
-            $scope.$apply(function(){
+				$scope.$apply(function(){
 
-            	$('.testimonials-slider').flexslider({
-					animation: "fade",
-					controlsContainer: $(".custom-controls-container"),
-					customDirectionNav: $(".custom-navigation a")
-				});
+					$('.testimonials-slider').flexslider({
+						animation: "fade",
+						controlsContainer: $(".custom-controls-container"),
+						customDirectionNav: $(".custom-navigation a")
+					});
 
-             	$('.number-animator').appear();
-	        	$('.number-animator').on('appear', function () {
-            		$(this).animateNumbers($(this).attr("data-value"), true, parseInt($(this).attr("data-animation-duration")));
-	        	});
+					$('.number-animator').appear();
+					$('.number-animator').on('appear', function () {
+						$(this).animateNumbers($(this).attr("data-value"), true, parseInt($(this).attr("data-animation-duration")));
+					});
 
-	        	$('.animated-progress-bar').appear();
-	        	$('.animated-progress-bar').on('appear', function () {
-	            	$(this).css('width','0%').animate({ 'width': $(this).attr("data-percentage") }, 1000);
-	        	});
+					$('.animated-progress-bar').appear();
+					$('.animated-progress-bar').on('appear', function () {
+						$(this).css('width','0%').animate({ 'width': $(this).attr("data-percentage") }, 1000);
+					});
 
-	        	$('.animate-number').each(function () {
-            		$(this).animateNumbers($(this).attr("data-value"), true, parseInt($(this).attr("data-animation-duration")));
-        		});
-	        	$("#header").vegas({
-					slides: $scope.banner,
-			        transition: 'fade',
-			        preloadImage: true,
-			        timer: true,
-			        shuffle: true,
-			        delay: 5000,
-			        animation: 'kenburns',
-			        cover: true
-				});
-	        	//$('#loader_image').delay(2000).fadeOut(1000);
-	        	
-            	});
-          	});
-        });
-    };
-    return {
-        restrict: "A",
-        link: linker
-    }
+					$('.animate-number').each(function () {
+						$(this).animateNumbers($(this).attr("data-value"), true, parseInt($(this).attr("data-animation-duration")));
+					});
+					$("#header").vegas({
+						slides: $scope.banner,
+						transition: 'fade',
+						preloadImage: true,
+						timer: true,
+						shuffle: true,
+						delay: 5000,
+						animation: 'kenburns',
+						cover: true
+					});
+				//$('#loader_image').delay(2000).fadeOut(1000);
+				
+			});
+			});
+		});
+	};
+	return {
+		restrict: "A",
+		link: linker
+	}
 }).directive('sideBar',function() {
-    var linker = function($scope, element, attr) {
-        $scope.$watch('faq_category', function () {
+	var linker = function($scope, element, attr) {
+		$scope.$watch('faq_category', function () {
 			element.ready(function(){
-            $scope.$apply(function(){
-            	  var $sideBar = $('#sidebar .panel');
-				  $sideBar.affix({
-					offset: {
-					  top: function () {
-						var offsetTop      = $sideBar.offset().top;
+				$scope.$apply(function(){
+					var $sideBar = $('#sidebar .panel');
+					$sideBar.affix({
+						offset: {
+							top: function () {
+								var offsetTop      = $sideBar.offset().top;
 
-						return (this.top = offsetTop - 50)
-					  },
-					 bottom: ($('.footer').outerHeight(true) + $('.made').outerHeight(true)) + 130
-					}
-				  });
-            	});
-          	});
-        });
-    };
-    return {
-        restrict: "A",
-        link: linker
-    }
+								return (this.top = offsetTop - 50)
+							},
+							bottom: ($('.footer').outerHeight(true) + $('.made').outerHeight(true)) + 130
+						}
+					});
+				});
+			});
+		});
+	};
+	return {
+		restrict: "A",
+		link: linker
+	}
 }).directive('ngMatch', function($parse){
-  return {
-        restrict: 'A',
-        require: '?ngModel',
-        link: function (scope, elem, attrs, ctrl) {
-            if (!ctrl) return;
-            if (!attrs['ngMatch']) return;
+	return {
+		restrict: 'A',
+		require: '?ngModel',
+		link: function (scope, elem, attrs, ctrl) {
+			if (!ctrl) return;
+			if (!attrs['ngMatch']) return;
 
-            var firstPassword = $parse(attrs['ngMatch']);
+			var firstPassword = $parse(attrs['ngMatch']);
 
-            var validator = function (value) {
-              var temp = firstPassword(scope),
-              v = value === temp;
-              ctrl.$setValidity('match', v);
-              return value;
-          }
+			var validator = function (value) {
+				var temp = firstPassword(scope),
+				v = value === temp;
+				ctrl.$setValidity('match', v);
+				return value;
+			}
 
-          ctrl.$parsers.unshift(validator);
-          ctrl.$formatters.push(validator);
-          attrs.$observe('ngMatch', function () {
-          validator(ctrl.$viewValue);
-          });
-        }
-    };
+			ctrl.$parsers.unshift(validator);
+			ctrl.$formatters.push(validator);
+			attrs.$observe('ngMatch', function () {
+				validator(ctrl.$viewValue);
+			});
+		}
+	};
 });
 
