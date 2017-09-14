@@ -64,29 +64,22 @@
 		 <h3>Comments<span>({{comment_count}})</span></h3>
 	   <div class="row">
 
-	   	<div ng-repeat="blog_data in blog_comments">
+	   	<div ng-repeat="blog_data in blog_comments | orderBy:'date'">
 		   <div class="col-lg-12 comment revealOnScroll" data-animation="slideInUp" data-timeout="800">
 		    <div class="row">
-		    	<div ng-if="$even">
-				 <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 comment-logo">
-				  <a href="#"><img src="/frontend/img/users/2.png" class="img-responsive" width="65" height="66" alt=""></a>
-				 </div>
-				 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 comment-body">
-				  <h6>{{blog_data.name}} <a href="#" class="pull-right">Reply</a></h6>
-				  <span class="comment-date">{{blog_data.date | date:'dd MMM yy'}}</span>		 
-				  <p class="comment-text">{{blog_data.blog_comment}}</p>
-				 </div><!-- /.col-lg-10 -->
+				<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 comment-logo">
+					<div ng-if="blog_data.image !== ''">
+						<img src="/user/thumbs/{{blog_data.image}}" class="img-responsive" width="65" height="66" alt="">
+					</div>
+					<div ng-if="blog_data.image === ''">
+						<img src="/frontend/img/users/2.png" class="img-responsive" width="65" height="66" alt="">
+					</div>
 				</div>
-				<div ng-if="$odd">
-				 <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 col-sm-push-2 comment-logo">
-				  <a href="#"><img src="/frontend/img/users/2.png" class="img-responsive" width="65" height="66" alt=""></a>
-				 </div>
-				 <div class="comment-body-one col-sm-8 col-md-8 col-sm-12 col-xs-12 col-sm-push-2">
-				  <h6>{{blog_data.name}} <a href="#" class="pull-right">Reply</a></h6>
-				  <span class="comment-date">{{blog_data.date | date:'dd MMM yy'}}</span>		 
-				  <p class="comment-text">{{blog_data.blog_comment}}</p>
-				 </div><!-- /.col-lg-10 -->
-				</div>
+				<div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 comment-body">
+					<h6>{{blog_data.name}}</h6>
+					<span class="comment-date">{{blog_data.date | date:'dd MMM yy'}}</span>		 
+					<p class="comment-text">{{blog_data.blog_comment}}</p>
+				</div><!-- /.col-lg-10 -->
 			</div><!-- /.row -->
 		   </div><!-- /.col-lg-12 -->
 	  	</div>
@@ -115,8 +108,9 @@
 		  <div class="col-md-12">
 		   <!-- Comments / Message -->
 		   <label for="comments" accesskey="C"><i class="fa fa-comment"></i></label>
-	  	   <textarea name="comments" id="comments" ng-model="comments" required></textarea>
+	  	   <textarea name="comments" id="comments" ng-model="comments" required ng-pattern="/^[a-zA-Z0-9 ]*$/"></textarea>
 		   <span class="help-block" ng-show="contactform.comments.$error.required && (!contactform.$pristine || contactform.$submitted)">Please Enter Your Comments</span>
+		   <span class="help-block" ng-show="(!contactform.comments.$error.required && (contactform.$pristine || contactform.$submitted)) && contactform.comments.$invalid">Your Comments are incorrect</span>
 		  </div>
 		  <div class="col-lg-12 text-center">
 		   <!-- Send button -->
@@ -130,37 +124,4 @@
 	 </section><!--./section -->
 	</div>
 
-	 
-	<!--<div ng-show="get_user_id">
-	 <section class="contact">
-	  <div class="container">
-	   <div class="row">
-	   
-	   <div class="text-center">
-		<h3>Post Comment</h3>
-		<hr class="mint">
-	   </div>
-	   
-        
-		<form method="post" name="commentform" id="commentform" ng-submit="doComment(commentform.$valid)" method="post" novalidate="novalidate">
-		 <fieldset>
-		  <div class="col-lg-12">
-		   
-		   <label for="comments" accesskey="C"><i class="fa fa-comment"></i> Comments</label>
-		   <input type="text" id="user_id" name="user_id" ng-model="user_id" value="{{get_user_id}}">
-		   <textarea name="comments" id="comments" ng-model="comments" required></textarea>
-		   <span class="help-block" ng-show="commentform.comments.$error.required && (!commentform.$pristine || commentform.$submitted)">Please Enter Your Comments</span>
-		  </div>
-		  <div class="col-lg-12 text-center">
-		   
-		   <button type="submit" class="kafe-btn kafe-btn-mint full-width">Submit</button>
-          </div>
-		 </fieldset>
-		</form>
-		
-	   </div>
-	  </div>
-	 </section>
-	 </div>-->
-	 
 </div>

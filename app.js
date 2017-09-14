@@ -130,7 +130,7 @@ require('./routes/faq')(app, models.faq, models.faqcategory);
 require('./routes/testimonial')(app, models.testimonial);
 require('./routes/cms')(app, models.cms);
 require('./routes/blog-category')(app, models.blogcategory);
-require('./routes/blog')(app,models.blog, models.blogcategory, models.blogcomment);
+require('./routes/blog')(app,models.blog, models.blogcategory, models.blogcomment, models.user);
 require('./routes/organization')(app, models.organization);
 
 require('./routes/stories')(app, models.story);

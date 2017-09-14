@@ -126,7 +126,6 @@ module.exports = function(app, passport, models) {
 		});
 	});
 
-
 	app.get("/blog-content", function (req,res){
 		Promise.all([
 			models.blog.findAll(),
@@ -171,7 +170,8 @@ module.exports = function(app, passport, models) {
 		    	blog_commentsArr.push({
 		    		blog_comment: result[1][i].blog_comment,
 		    		date: result[1][i].createdAt,
-		    		name: result[1][i].user.fname+" "+result[1][i].user.lname
+		    		name: result[1][i].user.fname+" "+result[1][i].user.lname,
+		    		image: result[1][i].user.image
 		    	});
 		    }
 			res.send({

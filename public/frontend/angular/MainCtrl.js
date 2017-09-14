@@ -71,7 +71,6 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 		$scope.init();
 	}
 	
-
 	$scope.homeContent = function() {
 		$http.get('/home-content').then(function(response){
 			
@@ -137,8 +136,7 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 			}
 		}).then(function (response) {
 
-		});
-		
+		});	
 	};
 
 	$scope.editProfile = function (valid) {
@@ -185,7 +183,6 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 		});
 	};
 	
-
 	$scope.filterPortFolio = function(value) {
 		var tempArr = [];
 		if($scope.blog_details.length > 0) {
@@ -211,8 +208,7 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 			
 			$scope.blog_content = angular.copy(tempArr);
 		}
-		$scope.active_class = value;
-		
+		$scope.active_class = value;	
 	};
 
 	$scope.doLogin = function (valid){
@@ -238,7 +234,6 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 				
 			});
 		}
-		
 	};
 
 	$scope.blogDetails = function (){
@@ -276,6 +271,7 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 					}
 				}).then(function(response){
 					//console.log(response);
+					$window.location.href = "/blog-details/$routeParams.id";
 				}).catch(function(reason){
 					
 				});
