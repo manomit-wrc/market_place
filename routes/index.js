@@ -159,7 +159,7 @@ module.exports = function(app, passport, models) {
 			var result = JSON.parse(JSON.stringify(values));
 			var blog_detailsArr = [];
 			var blog_commentsArr = [];
-			console.log(result[1]);
+			//console.log(result[1]);
 	    	blog_detailsArr.push({
 	    		blog_name: result[0].blog_name,
 	    		short_description: result[0].short_description,
@@ -181,21 +181,9 @@ module.exports = function(app, passport, models) {
 		});
 	});
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-
->>>>>>> 374e9693b2ff64bc5d5bf28e11f506a63d2ec09c
->>>>>>> 0aa0040b4cca58d1c865babf9736bbed699ccb67
 	app.post("/vendor/register", function(req, res){
-		  //console.log(req.body.email);
-		  
-<<<<<<< HEAD
-		  models.user.create({
-=======
-		    models.user.create({
->>>>>>> 0aa0040b4cca58d1c865babf9736bbed699ccb67
+		//console.log(req.body.email);
+		models.user.create({
 			email:req.body.email,
 			fname:req.body.fname,
 			lname:req.body.lname,
@@ -204,43 +192,29 @@ module.exports = function(app, passport, models) {
 			password:md5(req.body.password)
 		}).then(function(result){
 			res.json({success: true, msg: 'Registration successfully'});
-
 		}).catch(function(err){
-<<<<<<< HEAD
-			
+
 		});
 	});
 
-=======
-			alert('fail');
-		});
-	});
-
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 374e9693b2ff64bc5d5bf28e11f506a63d2ec09c
->>>>>>> 0aa0040b4cca58d1c865babf9736bbed699ccb67
 	app.post('/authenticate', function(req, res) {
 		//console.log(req.body.email);
 
-		  models.user.findAll({
+		models.user.findAll({
 		  	where: {
 		  		email: req.body.email,
 	    		password: md5(req.body.password)
 		  	}
-		  }).then(function(user){
+		}).then(function(user){
 
-		  	if(user.length == 0) {
+		  	if (user.length == 0) {
 		  		// return res.status(403).send({code:'300', success: false, msg: 'Authentication failed. Username or password not found.'});
 		  		res.json({code:'300', success: false, token: 'Bearer ' + token});
-		  	}
-		  	else {
+		  	} else {
 		  		var token = jwt.encode(user, "W$q4=25*8%v-}UW");
 		  		res.json({code:'100', success: true, token: 'Bearer ' + token});
 		  	}
-		  });	
+		});	
 	});
 
 	app.get('/user-profile', passport.authenticate('jwt', { session: false}), function(req, res) {
@@ -328,10 +302,7 @@ module.exports = function(app, passport, models) {
             }
         res.redirect('/admin');
     });
-<<<<<<< HEAD
-=======
 
-<<<<<<< HEAD
 	app.post('/register-submit', function(req, res) {
 		//alert(config);
 		user.create({
@@ -345,12 +316,6 @@ module.exports = function(app, passport, models) {
 			alert(err);
 		});
 	});
-=======
-
-	
-
->>>>>>> 374e9693b2ff64bc5d5bf28e11f506a63d2ec09c
->>>>>>> 0aa0040b4cca58d1c865babf9736bbed699ccb67
 	
 };
 
