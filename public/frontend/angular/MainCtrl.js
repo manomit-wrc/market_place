@@ -128,6 +128,21 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 		
 	};
 
+	$scope.editProfile = function (valid) {
+		if(valid){
+			$http({
+				method: "post",
+				url: "/edit_profile",
+				data:{
+					all : $scope.user
+				},
+				headers: {
+		         	'Content-Type': 'application/json'
+			  	}
+			});
+		}
+	};
+
 	$scope.blogContent = function() {
 		$http.get('/blog-content').then(function (response){
 			$scope.blog_content = response.data.blog_content;
@@ -257,26 +272,6 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 			});
 		}
 	};
-
-	$scope.doRegister = function() {
-		$http({
-			method: 'POST',
-			url: '/vendor/register',
-			data: {
-				email: $scope.myEmail,
-				fname: $scope.myFisrtname,
-				lname: $scope.myLastname,
-				password: $scope.myPassword
-			},
-			headers: {
-				'Content-Type': 'application/json'
-			}
-		}).then(function(response) {
-			
-		}).catch(function(reason) {
-			
-		});
-	}
 
 	$scope.showVideo = function() {
 		$timeout(function(){

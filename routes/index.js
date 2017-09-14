@@ -182,8 +182,8 @@ module.exports = function(app, passport, models) {
 	});
 
 	app.post("/vendor/register", function(req, res){
-		//console.log(req.body.email);
-		models.user.create({
+	    models.user.create({
+
 			email:req.body.email,
 			fname:req.body.fname,
 			lname:req.body.lname,
@@ -236,6 +236,16 @@ module.exports = function(app, passport, models) {
 	  } else {
 	    return res.status(403).send({success: false, msg: 'No token provided.'});
 	  }
+	});
+
+	app.post('/edit_profile', passport.authenticate('jwt', { session: false}), function (req, res) {
+		
+		// models.user.findById(req.body.all.id).then(function(result){
+		// 	console.log(result);
+		// 	models.user.update({
+
+		// 	});
+		// });
 	});
  
 	getToken = function (headers) {
@@ -316,6 +326,7 @@ module.exports = function(app, passport, models) {
 			alert(err);
 		});
 	});
+
 	
 };
 
