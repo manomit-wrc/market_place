@@ -224,7 +224,9 @@ module.exports = function(app, passport, models) {
 			//console.log(user);
 		  	if (user.length == 0) {
 		  		// return res.status(403).send({code:'300', success: false, msg: 'Authentication failed. Username or password not found.'});
+
 		  		res.json({code:'300', success: false, token: 'Bearer ' + token});
+
 		  	} else {
 		  		var token = jwt.encode(user, "W$q4=25*8%v-}UW");
 		  		res.json({code:'100', success: true, token: 'Bearer ' + token, type: user[0].type});
@@ -259,7 +261,7 @@ module.exports = function(app, passport, models) {
 			models.user.update({
 				fname: req.body.all.fname,
 				lname: req.body.all.lname,
-				email: req.body.all.email,
+				// email: req.body.all.email,
 				mobile_no: req.body.all.mobile_no,
 				address: req.body.all.address,
 				state: req.body.all.state,
