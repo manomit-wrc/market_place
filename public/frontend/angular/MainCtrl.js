@@ -128,19 +128,19 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 		
 	};
 
-	$scope.editProfile = function () {
-		console.log($scope.user);
-		$http({
-			method: "post",
-			url: "/edit_profile",
-			data:{
-				all : $scope.user
-			},
-			headers: {
-	         	'Content-Type': 'application/json'
-		  	}
-		});
-
+	$scope.editProfile = function (valid) {
+		if(valid){
+			$http({
+				method: "post",
+				url: "/edit_profile",
+				data:{
+					all : $scope.user
+				},
+				headers: {
+		         	'Content-Type': 'application/json'
+			  	}
+			});
+		}
 	};
 
 	$scope.blogContent = function() {
@@ -247,9 +247,6 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 		});
 	};
 
-<<<<<<< HEAD
-	
-=======
 	$scope.doComment = function (valid){
 		//using headers line for sending angular to node with post method
 		if(valid){
@@ -275,27 +272,6 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 			});
 		}
 	};
-
-	$scope.doRegister = function() {
-		$http({
-			method: 'POST',
-			url: '/vendor/register',
-			data: {
-				email: $scope.myEmail,
-				fname: $scope.myFisrtname,
-				lname: $scope.myLastname,
-				password: $scope.myPassword
-			},
-			headers: {
-				'Content-Type': 'application/json'
-			}
-		}).then(function(response) {
-			
-		}).catch(function(reason) {
-			
-		});
-	}
->>>>>>> a1a6381c14d6de6bd69d4e2db44c76d11b104f75
 
 	$scope.showVideo = function() {
 		$timeout(function(){

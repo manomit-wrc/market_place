@@ -183,7 +183,7 @@ module.exports = function(app, passport, models) {
 
 
 	app.post("/vendor/register", function(req, res){
-		    models.user.create({
+	    models.user.create({
 			email:req.body.email,
 			fname:req.body.fname,
 			lname:req.body.lname,
@@ -194,9 +194,6 @@ module.exports = function(app, passport, models) {
 			res.json({success: true, msg: 'Registration successfully'});
 
 		}).catch(function(err){
-		});
-	});
-			alert('fail');
 		});
 	});
 
