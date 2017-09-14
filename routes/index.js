@@ -51,6 +51,10 @@ module.exports = function(app, passport, models) {
 		res.render('frontend/index',{layout:false}); 
 	});
 
+	app.get('/jobpost' , function (req, res){
+		res.render('frontend/index',{layout:false}); 
+	});
+
 	app.get('/home-content', function(req, res){
 		Promise.all([
 		    models.testimonial.findAll(),

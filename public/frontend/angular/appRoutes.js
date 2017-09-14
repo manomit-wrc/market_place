@@ -27,6 +27,9 @@ marketPlaceRoute.config(function ($routeProvider, $locationProvider, $qProvider)
 	}).when("/freelancer-profile", {
 		templateUrl: '/templates/freelancer-profile.html',
 		authenticated: true
+	}).when('/jobpost', {
+		templateUrl: '/templates/jobspost.html',
+		authenticated: true
 	});
 
 	$qProvider.errorOnUnhandledRejections(false);
