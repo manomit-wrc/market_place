@@ -181,47 +181,28 @@ module.exports = function(app, passport, models) {
 		});
 	});
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
 
->>>>>>> 374e9693b2ff64bc5d5bf28e11f506a63d2ec09c
->>>>>>> 0aa0040b4cca58d1c865babf9736bbed699ccb67
 	app.post("/vendor/register", function(req, res){
 		  //console.log(req.body.email);
-		  
-<<<<<<< HEAD
 		  models.user.create({
-=======
-		    models.user.create({
->>>>>>> 0aa0040b4cca58d1c865babf9736bbed699ccb67
-			email:req.body.email,
+            email:req.body.email,
 			fname:req.body.fname,
 			lname:req.body.lname,
-			type:'v',
+			type:'V',
 			status:1,
 			password:md5(req.body.password)
 		}).then(function(result){
 			res.json({success: true, msg: 'Registration successfully'});
 
 		}).catch(function(err){
-<<<<<<< HEAD
+
 			
 		});
 	});
-
-=======
-			alert('fail');
-		});
-	});
-
-<<<<<<< HEAD
-=======
+         
+	
 
 
->>>>>>> 374e9693b2ff64bc5d5bf28e11f506a63d2ec09c
->>>>>>> 0aa0040b4cca58d1c865babf9736bbed699ccb67
 	app.post('/authenticate', function(req, res) {
 		//console.log(req.body.email);
 
@@ -328,10 +309,7 @@ module.exports = function(app, passport, models) {
             }
         res.redirect('/admin');
     });
-<<<<<<< HEAD
-=======
 
-<<<<<<< HEAD
 	app.post('/register-submit', function(req, res) {
 		//alert(config);
 		user.create({
@@ -345,12 +323,7 @@ module.exports = function(app, passport, models) {
 			alert(err);
 		});
 	});
-=======
 
-	
-
->>>>>>> 374e9693b2ff64bc5d5bf28e11f506a63d2ec09c
->>>>>>> 0aa0040b4cca58d1c865babf9736bbed699ccb67
 	
 };
 

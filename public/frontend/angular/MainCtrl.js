@@ -109,24 +109,7 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 		});
 	};
 
-	$scope.doRegister=function(){
-		$http({
-			  method  : 'POST',
-			  url     : '/vendor/register',
-			  data : {
-				email:$scope.myEmail,
-		        fname:$scope.myFisrtname,
-		        lname:$scope.myLastname,
-		        password:$scope.myPassword
-			},
-			  headers: {
-			         'Content-Type': 'application/json'
-			  }
-		   }).then(function (response) {
-
-           });
-		
-	};
+	
 
 	$scope.blogContent = function() {
 		$http.get('/blog-content').then(function (response){
@@ -218,7 +201,7 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 
 	$scope.blogDetails = function (){
 		$http.get('/blog_details',{params:{id:$routeParams.id}}).then(function(response){
-			//AuthToken.setToken();
+		    //AuthToken.setToken();
 			$scope.get_token = AuthToken.getToken();
 			//console.log($scope.get_token);
 			$scope.blog_details = response.data.blog_details[0];
@@ -258,7 +241,10 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 		}
 	};
 
-	$scope.doRegister = function() {
+	$scope.doRegister = function(valid) {
+       
+       if(valid)
+       {
 		$http({
 			method: 'POST',
 			url: '/vendor/register',
@@ -276,6 +262,7 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 		}).catch(function(reason) {
 			
 		});
+	  }	
 	}
 
 	$scope.showVideo = function() {
