@@ -241,12 +241,12 @@ module.exports = function(app, passport, models) {
 
 	app.post('/edit_profile', passport.authenticate('jwt', { session: false}), function (req, res) {
 		
-		// models.user.findById(req.body.all.id).then(function(result){
-		// 	console.log(result);
-		// 	models.user.update({
+		models.user.findById(req.body.all.id).then(function(result){
+			console.log(result);
+			models.user.update({
 
-		// 	});
-		// });
+			});
+		});
 	});
  
 	getToken = function (headers) {
@@ -313,9 +313,6 @@ module.exports = function(app, passport, models) {
             }
         res.redirect('/admin');
     });
-<<<<<<< HEAD
-=======
-
 	app.post('/register-submit', function(req, res) {
 		//alert(config);
 		user.create({
@@ -329,15 +326,6 @@ module.exports = function(app, passport, models) {
 			alert(err);
 		});
 	});
-<<<<<<< HEAD
-=======
-=======
-
-	
-
->>>>>>> 374e9693b2ff64bc5d5bf28e11f506a63d2ec09c
->>>>>>> 0aa0040b4cca58d1c865babf9736bbed699ccb67
->>>>>>> a1a6381c14d6de6bd69d4e2db44c76d11b104f75
 	
 };
 
