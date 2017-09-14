@@ -1,4 +1,4 @@
-<div ng-init="blogDetails();">	 
+<div ng-init="blogDetails();" ng-controller="MainController">	 
 	 <header class="header-blogpage" style="background-image: url({{blog_details.blog_image}}) !important;">
       <div class="container">
 	   <div class="content">
@@ -13,6 +13,7 @@
      <!-- ==============================================
      Blog Page Section
      =============================================== -->
+    
      <section class="blogpage jobpost" id="blogpage">
 	  <div class="container text-left">
 	   <div class="row">
@@ -53,64 +54,40 @@
 	  </div><!-- /.container -->
 	 </section><!-- /section -->
 	 
-     	
-	 
+     
+	 <div ng-show="comment_count>0">
      <!-- ==============================================
      Comments Section
      =============================================== -->
      <section class="comments">
 	  <div class="container text-left">
-		 <h3>Comments<span>(3)</span></h3>
+		 <h3>Comments<span>({{comment_count}})</span></h3>
 	   <div class="row">
-	   
-	   <div class="col-lg-12 comment revealOnScroll" data-animation="slideInUp" data-timeout="800">
-	    <div class="row">
-		 <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 comment-logo">
-		  <a href="#"><img src="/frontend/img/users/2.png" class="img-responsive" width="65" height="66" alt=""></a>
-		 </div>
-		 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 comment-body">
-		  <h6>John Doe <a href="#" class="pull-right">Reply</a></h6>
-		  <span class="comment-date">16 Feb 16</span>		 
-		  <p class="comment-text">Pro munere assueverit id, debitis scaevola omittantur vim ex, qui meis tantas et. Vivendo ponderum id pro.</p>
-		 </div><!-- /.col-lg-10 -->
-		</div><!-- /.row -->
-	   </div><!-- /.col-lg-12 -->
-	   
-	   <div class="col-lg-12 comment revealOnScroll" data-animation="slideInUp" data-timeout="800">
-	    <div class="row">
-		 <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 col-sm-push-2 comment-logo">
-		  <a href="#"><img src="/frontend/img/users/3.png" class="img-responsive" width="65" height="66" alt=""></a>
-		 </div>
-		 <div class="comment-body-one col-sm-8 col-md-8 col-sm-12 col-xs-12 col-sm-push-2">
-		  <h6>John Doe <a href="#" class="pull-right">Reply</a></h6>
-		  <span class="comment-date">16 Feb 16</span>		 
-		  <p class="comment-text">Pro munere assueverit id, debitis scaevola omittantur vim ex, qui meis tantas et. Vivendo ponderum id pro.</p>
-		 </div><!-- /.col-lg-10 -->
-		</div><!-- /.row -->
-	   </div><!-- /.col-lg-12 -->
-	   
-	   <div class="col-lg-12 comment revealOnScroll" data-animation="slideInUp" data-timeout="800">
-	    <div class="row">
-		 <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 comment-logo">
-		  <a href="#"><img src="/frontend/img/users/4.png" class="img-responsive" width="65" height="66" alt=""></a>
-		 </div>
-		 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 comment-body">
-		  <h6>John Doe <a href="#" class="pull-right">Reply</a></h6>
-		  <span class="comment-date">16 Feb 16</span>		 
-		  <p class="comment-text">Pro munere assueverit id, debitis scaevola omittantur vim ex, qui meis tantas et. Vivendo ponderum id pro.</p>
-		 </div><!-- /.col-lg-10 -->
-		</div><!-- /.row -->
-	   </div><!-- /.col-lg-12 -->
-		 
+
+	   	<div ng-repeat="blog_data in blog_comments">
+		   <div class="col-lg-12 comment revealOnScroll" data-animation="slideInUp" data-timeout="800">
+		    <div class="row">
+			 <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 comment-logo">
+			  <a href="#"><img src="/frontend/img/users/2.png" class="img-responsive" width="65" height="66" alt=""></a>
+			 </div>
+			 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 comment-body">
+			  <h6>{{blog_data.name}} <a href="#" class="pull-right">Reply</a></h6>
+			  <span class="comment-date">{{blog_data.date | date:'dd MMM yy'}}</span>		 
+			  <p class="comment-text">{{blog_data.blog_comment}}</p>
+			 </div><!-- /.col-lg-10 -->
+			</div><!-- /.row -->
+		   </div><!-- /.col-lg-12 -->
+	  	</div>
+
 	   </div><!--./row -->	 
 	  </div><!--./container -->
-	 </section><!--./section -->  
-	 
-
+	 </section><!--./section -->
 	<!-- ==============================================
 	Comment Form
-	=============================================== -->		 	 
-	 
+	=============================================== -->		 	
+	</div>
+
+	<div ng-show="get_token">
 	 <section class="contact">
 	  <div class="container">
 	   <div class="row">
@@ -121,29 +98,13 @@
 	   </div>
 	   
         <!-- The contactform -->
-		<form method="post" name="contactform" id="contactform">
+		<form method="post" name="contactform" id="contactform" ng-submit="doComment(contactform.$valid)" novalidate="novalidate">
 		 <fieldset>
-		  <div class="col-lg-6">
-           <!-- Name -->
-		   <label for="name" accesskey="U"><i class="fa fa-user"></i></label>
-		   <input name="name" type="text" id="name" size="30" value="" />
-		   
-		   <!-- Email -->
-		   <label for="email" accesskey="E"><i class="fa fa-envelope-o"></i></label>
-		   <input name="email" type="text" id="email" size="30" value="" />
-		   
-		   <!-- Phone -->
-		   <label for="website" accesskey="P"><i class="fa fa-globe"></i></label>
-		   <input name="website" type="text" id="website" size="30" value="" />
-		  </div>
-		  <div class="col-lg-6">
+		  <div class="col-md-12">
 		   <!-- Comments / Message -->
 		   <label for="comments" accesskey="C"><i class="fa fa-comment"></i></label>
-		   <textarea name="comments" id="comments"></textarea>
-
-		   <!-- Verification -->
-		   <label for="verify" accesskey="V">3 * 15 =</label>
-		   <input name="verify" type="text" id="verify" size="4" value="" class="input-verify" />
+	  	   <textarea name="comments" id="comments" ng-model="comments" required></textarea>
+		   <span class="help-block" ng-show="contactform.comments.$error.required && (!contactform.$pristine || contactform.$submitted)">Please Enter Your Comments</span>
 		  </div>
 		  <div class="col-lg-12 text-center">
 		   <!-- Send button -->
@@ -151,8 +112,43 @@
           </div>
 		 </fieldset>
 		</form>		
-			
+		
 	   </div><!--./row -->
 	  </div><!--./container -->
 	 </section><!--./section -->
+	</div>
+
+	 
+	<!--<div ng-show="get_user_id">
+	 <section class="contact">
+	  <div class="container">
+	   <div class="row">
+	   
+	   <div class="text-center">
+		<h3>Post Comment</h3>
+		<hr class="mint">
+	   </div>
+	   
+        
+		<form method="post" name="commentform" id="commentform" ng-submit="doComment(commentform.$valid)" method="post" novalidate="novalidate">
+		 <fieldset>
+		  <div class="col-lg-12">
+		   
+		   <label for="comments" accesskey="C"><i class="fa fa-comment"></i> Comments</label>
+		   <input type="text" id="user_id" name="user_id" ng-model="user_id" value="{{get_user_id}}">
+		   <textarea name="comments" id="comments" ng-model="comments" required></textarea>
+		   <span class="help-block" ng-show="commentform.comments.$error.required && (!commentform.$pristine || commentform.$submitted)">Please Enter Your Comments</span>
+		  </div>
+		  <div class="col-lg-12 text-center">
+		   
+		   <button type="submit" class="kafe-btn kafe-btn-mint full-width">Submit</button>
+          </div>
+		 </fieldset>
+		</form>
+		
+	   </div>
+	  </div>
+	 </section>
+	 </div>-->
+	 
 </div>

@@ -48,7 +48,7 @@ MainCtrl.factory('AuthInterceptor', function ($q, $location, $localStorage) {
 });
 
 
-MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParams, $filter,$timeout, AuthToken, $window, $location) {
+MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParams, $filter,$timeout, AuthToken, $window) {
 	$scope.testimonials = {};
 	$scope.banner = [];
 	$scope.organization = {};
@@ -57,20 +57,7 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 	$scope.blog_details = {};
 	$scope.work_details = {};
 	$scope.active_class = 0;
-	$scope.user = {};
 
-	$scope.init = function() {
-		$http.get('/user-profile').then(function(response){
-			$scope.user = response.data.user_details;
-			
-						
-		});
-
-	}
-	if(AuthToken.isLoggedIn()) {
-		$scope.init();
-	}
-	
 	
 	$scope.homeContent = function() {
 		$http.get('/home-content').then(function(response){
@@ -136,10 +123,7 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 			         'Content-Type': 'application/json'
 			  }
 		   }).then(function (response) {
-		   	  console.log(AuthToken.getToken());
-		   	  //AuthToken.setToken(response.data.token);
-               res.json({success: true, msg: 'Registration successfully'});
-			   //res.redirect('/templates/register');
+
            });
 		
 	};
@@ -218,12 +202,6 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 		
 	};
 
-	$scope.doLogout = function() {
-		AuthToken.setToken();
-		$scope.user = {};
-		$location.path("/");
-	};
-
 	$scope.doLogin = function (valid){
 		//using headers line for sending angular to node with post method
 		if(valid){
@@ -236,14 +214,14 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 					'Content-Type':'application/json'
 				}
 			}).then(function(response){
+				//console.log(response);
 				if(response.data.code == "100") {
 					AuthToken.setToken(response.data.token);
-					
-					$window.location.href = "/freelancer-profile";
-										
-				}
-				if(response.data.code == "300"){
-					$scope.wraning_message = "Username or Password is wrong.";
+					$http.get('/user-profile').then(function(response){
+						//$window.location.href = "/freelancer-profile";
+					}).catch(function(err){
+						$window.location.href = "/freelancer-profile";
+					});
 				}
 
 			}).catch(function(reason){
@@ -255,15 +233,69 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 
 	$scope.blogDetails = function (){
 		$http.get('/blog_details',{params:{id:$routeParams.id}}).then(function(response){
+			//AuthToken.setToken();
+			$scope.get_token = AuthToken.getToken();
+			//console.log($scope.get_token);
 			$scope.blog_details = response.data.blog_details[0];
 			
 			$scope.short_description = $sce.trustAsHtml($scope.blog_details.short_description);
 			$scope.long_description = $sce.trustAsHtml($scope.blog_details.long_description);
+			$scope.blog_comments = [];
+			$scope.blog_comments = response.data.blog_comments;
+			$scope.comment_count = response.data.blog_comments.length;
 			
 		});
 	};
 
+<<<<<<< HEAD
 	
+=======
+	$scope.doComment = function (valid){
+		//using headers line for sending angular to node with post method
+		if(valid){
+			$http.get('/fetch-user').then(function(response){
+				var user_id = response.data.user_id;
+				$http({
+					method: 'POST',
+					url: '/do-comment',
+					data: {
+						user_id: user_id,
+						comments: $scope.comments,
+						blog_id:$routeParams.id
+					},
+					headers: 
+					{
+						'Content-Type':'application/json'
+					}
+				}).then(function(response){
+					//console.log(response);
+				}).catch(function(reason){
+				
+				});
+			});
+		}
+	};
+
+	$scope.doRegister = function() {
+		$http({
+			method: 'POST',
+			url: '/vendor/register',
+			data: {
+				email: $scope.myEmail,
+				fname: $scope.myFisrtname,
+				lname: $scope.myLastname,
+				password: $scope.myPassword
+			},
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		}).then(function(response) {
+			
+		}).catch(function(reason) {
+			
+		});
+	}
+>>>>>>> a1a6381c14d6de6bd69d4e2db44c76d11b104f75
 
 	$scope.showVideo = function() {
 		$timeout(function(){
