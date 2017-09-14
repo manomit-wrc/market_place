@@ -159,7 +159,7 @@ module.exports = function(app, passport, models) {
 			var result = JSON.parse(JSON.stringify(values));
 			var blog_detailsArr = [];
 			var blog_commentsArr = [];
-			console.log(result[1]);
+			//console.log(result[1]);
 	    	blog_detailsArr.push({
 	    		blog_name: result[0].blog_name,
 	    		short_description: result[0].short_description,
@@ -183,9 +183,10 @@ module.exports = function(app, passport, models) {
 
 
 	app.post("/vendor/register", function(req, res){
-		  //console.log(req.body.email);
-		  models.user.create({
-            email:req.body.email,
+	    models.user.create({
+
+			email:req.body.email,
+
 			fname:req.body.fname,
 			lname:req.body.lname,
 			type:'V',
@@ -193,8 +194,8 @@ module.exports = function(app, passport, models) {
 			password:md5(req.body.password)
 		}).then(function(result){
 			res.json({success: true, msg: 'Registration successfully'});
-
 		}).catch(function(err){
+
 
 			
 		});
@@ -203,25 +204,25 @@ module.exports = function(app, passport, models) {
 	
 
 
+
 	app.post('/authenticate', function(req, res) {
 		//console.log(req.body.email);
 
-		  models.user.findAll({
+		models.user.findAll({
 		  	where: {
 		  		email: req.body.email,
 	    		password: md5(req.body.password)
 		  	}
-		  }).then(function(user){
+		}).then(function(user){
 
-		  	if(user.length == 0) {
+		  	if (user.length == 0) {
 		  		// return res.status(403).send({code:'300', success: false, msg: 'Authentication failed. Username or password not found.'});
 		  		res.json({code:'300', success: false, token: 'Bearer ' + token});
-		  	}
-		  	else {
+		  	} else {
 		  		var token = jwt.encode(user, "W$q4=25*8%v-}UW");
 		  		res.json({code:'100', success: true, token: 'Bearer ' + token});
 		  	}
-		  });	
+		});	
 	});
 
 	app.get('/user-profile', passport.authenticate('jwt', { session: false}), function(req, res) {
@@ -243,6 +244,16 @@ module.exports = function(app, passport, models) {
 	  } else {
 	    return res.status(403).send({success: false, msg: 'No token provided.'});
 	  }
+	});
+
+	app.post('/edit_profile', passport.authenticate('jwt', { session: false}), function (req, res) {
+		
+		// models.user.findById(req.body.all.id).then(function(result){
+		// 	console.log(result);
+		// 	models.user.update({
+
+		// 	});
+		// });
 	});
  
 	getToken = function (headers) {

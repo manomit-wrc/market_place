@@ -1,4 +1,4 @@
-module.exports = function(app, blog,blogcategory) {
+module.exports = function(app, blog,blogcategory, blogcomment) {
  	
  	var blog = blog;
  	var blogcategory = blogcategory;
@@ -95,6 +95,21 @@ module.exports = function(app, blog,blogcategory) {
 	        });
 		});
 	});
+
+	app.get('/admin/blog/comments/:id', function(req, res) {
+		blogcomment.findAll({
+			where: {
+				blog_id: req.params['id']
+			}
+		}).then(function(blogcomment){
+			res.render('admin/blog/comments',{
+				layout:'dashboard',
+				title:'Admin - Blog',
+				blog:blog
+			});
+		});
+	});
+	
 
 	app.get('/admin/blog/edit/:id', function(req, res){
 		blog.findById(req.params['id']).then(function(blog){
