@@ -38,7 +38,7 @@ MainCtrl.factory('AuthInterceptor', function ($q, $location, $localStorage) {
 			
 
 			if (response.status === 401 || response.status === 403 || response.status === 500) {
-				$location.path("/");
+				$location.path("/login");
 			}
 			return $q.reject(response);
 		}
@@ -48,7 +48,7 @@ MainCtrl.factory('AuthInterceptor', function ($q, $location, $localStorage) {
 });
 
 
-MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParams, $filter,$timeout, AuthToken, $window) {
+MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParams, $filter,$timeout, AuthToken, $window, $location) {
 	$scope.testimonials = {};
 	$scope.banner = [];
 	$scope.organization = {};
@@ -57,8 +57,21 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 	$scope.blog_details = {};
 	$scope.work_details = {};
 	$scope.active_class = 0;
+	$scope.user = {};
 
+	$scope.init = function() {
+		$http.get('/user-profile').then(function(response){
+			$scope.user = response.data.user_details;
+		}).catch(function(err){
+			
+		});
+	};
+
+	if(AuthToken.isLoggedIn()) {
+		$scope.init();
+	}
 	
+
 	$scope.homeContent = function() {
 		$http.get('/home-content').then(function(response){
 			
@@ -217,11 +230,8 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 				//console.log(response);
 				if(response.data.code == "100") {
 					AuthToken.setToken(response.data.token);
-					$http.get('/user-profile').then(function(response){
-						//$window.location.href = "/freelancer-profile";
-					}).catch(function(err){
-						$window.location.href = "/freelancer-profile";
-					});
+					$window.location.href = "/freelancer-profile";
+					
 				}
 
 			}).catch(function(reason){
@@ -288,6 +298,12 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 			});
 			alert("Hello");
 		});
+	};
+
+	$scope.doLogout = function() {
+		AuthToken.setToken();
+		$scope.user = {};
+		$location.path("/login");
 	};
 
 }).directive('testimonialSlider',function() {
