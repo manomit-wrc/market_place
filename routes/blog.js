@@ -1,4 +1,4 @@
-module.exports = function(app, blog,blogcategory, blogcomment) {
+module.exports = function(app, blog,blogcategory, blogcomment, user) {
  	
  	var blog = blog;
  	var blogcategory = blogcategory;
@@ -55,7 +55,7 @@ module.exports = function(app, blog,blogcategory, blogcomment) {
 			{
 				status:'1'
 			}
-		}				
+		}
 		).then(function(blogcategory){
 
 			res.render('admin/blog/add',{layout:'dashboard', title:'Admin - Blog', blogcategory:blogcategory});
@@ -97,19 +97,25 @@ module.exports = function(app, blog,blogcategory, blogcomment) {
 	});
 
 	app.get('/admin/blog/comments/:id', function(req, res) {
-		blogcomment.findAll({
-			where: {
-				blog_id: req.params['id']
-			}
-		}).then(function(blogcomment){
-			res.render('admin/blog/comments',{
-				layout:'dashboard',
-				title:'Admin - Blog',
-				blog:blog
+		blog.findById(req.params['id']).then(function(blog){
+			blogcomment.belongsTo(user, {foreignKey: 'user_id'});
+			blogcomment.findAll({
+				include: [{
+					model: user
+				}],
+				where: {
+					blog_id: req.params['id']
+				}
+			}).then(function(blogcomment){
+				res.render('admin/blog/comments',{
+					layout:'dashboard',
+					title:'Admin - Blog',
+					blog:blog,
+					blogcomment:blogcomment,
+				});
 			});
 		});
 	});
-	
 
 	app.get('/admin/blog/edit/:id', function(req, res){
 		blog.findById(req.params['id']).then(function(blog){

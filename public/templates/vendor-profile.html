@@ -1,0 +1,134 @@
+
+     <!-- ==============================================
+	 Header
+	 =============================================== -->	 
+	 <header class="header-login">
+      <div class="container">
+	   <div class="content">
+        <div class="row">
+	     <h1 class="revealOnScroll" data-animation="fadeInDown"><i class="fa fa-coffee"></i> Profile</h1>
+<!-- 		 <p>New Here? Create Account.</p> -->
+        </div><!-- /.row -->
+       </div><!-- /.content -->
+	  </div><!-- /.container -->
+     </header><!-- /header -->
+	 
+     <!-- ==============================================
+     Banner Section
+     =============================================== -->
+	 <section class="banner-login">
+	  <div class="container">
+	   <div class="row">
+	   
+	    <main class="main main-signup col-lg-12">
+	     <div class="col-lg-6 col-lg-offset-3 text-center">
+		  <div class="form-sign" ng-controller="MainController">
+
+		   <form name="myProfileEdit" ng-submit="editvendorProfile(myProfileEdit.$valid)" method="post" novalidate="novalidate">
+
+		    <div class="form-head">
+			 <h3>Vendors Profile</h3>
+			</div><!-- /.form-head -->
+			
+            <div class="form-body">
+			<div class="form-row" style="color: #fff;">{{msg}}</div>
+             <div class="form-row" ng-class="{
+	            'has-error':!myProfileEdit.myEmail.$valid && (!myProfileEdit.$pristine || myProfileEdit.$submitted), 
+	            'has-success': myProfileEdit.myEmail.$valid && (!myProfileEdit.$pristine || myProfileEdit.$submitted)
+	            }">
+			  <div class="form-controls">
+			   <input type="email" name="myEmail" ng-model="user.email" required class="field"  placeholder="Email Address" readonly="readonly">
+			   <span class="help-block" ng-show="myProfileEdit.myEmail.$error.required && (!myProfileEdit.$pristine || myProfileEdit.$submitted)" style="color: #fff;">Please Enter Email ID</span>
+                <span class="help-block" ng-show="myProfileEdit.myEmail.$error.email && (!myProfileEdit.$pristine || myProfileEdit.$submitted)" style="color: #fff;">Please Enter Valid Email ID</span>
+			  </div><!-- /.form-controls -->
+             </div><!-- /.form-row -->
+
+		     <div class="form-row" ng-class="{
+            'has-error':!myProfileEdit.myFisrtname.$valid && (!myProfileEdit.$pristine || myProfileEdit.$submitted), 
+            'has-success': myProfileEdit.myFisrtname.$valid && (!myProfileEdit.$pristine || myProfileEdit.$submitted)
+            }">
+		      <div class="form-controls">
+			   <input type="text" name="myFisrtname" ng-model="user.fname" required class="field" placeholder="User first name">
+			   <span class="help-block" ng-show="myProfileEdit.myFisrtname.$error.required && (!myProfileEdit.$pristine || myProfileEdit.$submitted)" style="color: #fff;">Please Enter First Name</span>
+			  </div><!-- /.form-controls -->
+		     </div><!-- /.form-row -->
+
+		     <div class="form-row" ng-class="{
+                'has-error':!myProfileEdit.myLastname.$valid && (!myProfileEdit.$pristine || myProfileEdit.$submitted), 
+                'has-success': myProfileEdit.myLastname.$valid && (!myProfileEdit.$pristine || myProfileEdit.$submitted)
+                }">
+		      <div class="form-controls">
+			   <input type="text" name="myLastname" ng-model="user.lname" required class="field" placeholder="User last name">
+			   <span class="help-block" ng-show="myProfileEdit.myLastname.$error.required && (!myProfileEdit.$pristine || myProfileEdit.$submitted)" style="color: #fff;">Please Enter Last Name</span>
+			  </div><!-- /.form-controls -->
+		     </div><!-- /.form-row -->
+
+		     <div class="form-row" ng-class="{
+                'has-error':!myProfileEdit.myAddress.$valid && (!myProfileEdit.$pristine || myProfileEdit.$submitted), 
+                'has-success': myProfileEdit.myAddress.$valid && (!myProfileEdit.$pristine || myProfileEdit.$submitted)
+                }">
+		      <div class="form-controls">
+			   <input type="text" name="myAddress" ng-model="user.address" required class="field" placeholder="Address">
+			   <span class="help-block" ng-show="myProfileEdit.myAddress.$error.required && (!myProfileEdit.$pristine || myProfileEdit.$submitted)" style="color: #fff;">Please Enter Address</span>
+			  </div><!-- /.form-controls -->
+		     </div><!-- /.form-row -->
+
+		     <div class="form-row" ng-class="{
+                'has-error':!myProfileEdit.myMobileNo.$valid && (!myProfileEdit.$pristine || myProfileEdit.$submitted), 
+                'has-success': myProfileEdit.myMobileNo.$valid && (!myProfileEdit.$pristine || myProfileEdit.$submitted)
+                }">
+		      <div class="form-controls">
+			   <input type="text" name="myMobileNo" ng-model="user.mobile_no" required class="field" placeholder="Mobile Number" minlength="10" maxlength="10" ng-pattern="/^[0-9]*$/">
+			   <span class="help-block" ng-show="myProfileEdit.myMobileNo.$error.required && (!myProfileEdit.$pristine || myProfileEdit.$submitted)" style="color: #fff;">Please Enter Valid Mobile Number</span>
+
+			   <span class="help-block" ng-show="myProfileEdit.myMobileNo.$error.pattern && (!myContactus.$pristine || myContactus.$submitted)" style="color: #fff;">Mobile No Must Numeric</span>
+                <span class="help-block" ng-show="myProfileEdit.myMobileNo.$error.maxlength && (!myContactus.$pristine || myContactus.$submitted)" style="color: #fff;">Mobile No Must Have 10 Digits</span>
+                <span class="help-block" ng-show="myProfileEdit.myMobileNo.$error.minlength && (!myContactus.$pristine || myContactus.$submitted)" style="color: #fff;">Mobile No Must Have 10 Digits</span>
+			  </div><!-- /.form-controls -->
+		     </div><!-- /.form-row -->
+
+		     <div class="form-row" ng-class="{
+                'has-error':!myProfileEdit.myState.$valid && (!myProfileEdit.$pristine || myProfileEdit.$submitted), 
+                'has-success': myProfileEdit.myState.$valid && (!myProfileEdit.$pristine || myProfileEdit.$submitted)
+                }">
+		      <div class="form-controls">
+			   <input type="text" name="myState" ng-model="user.state" required class="field" placeholder="State">
+			   <span class="help-block" ng-show="myProfileEdit.myState.$error.required && (!myProfileEdit.$pristine || myProfileEdit.$submitted)" style="color: #fff;">Please Enter State Name</span>
+			  </div><!-- /.form-controls -->
+		     </div><!-- /.form-row -->
+
+		     <div class="form-row" ng-class="{
+                'has-error':!myProfileEdit.myCity.$valid && (!myProfileEdit.$pristine || myProfileEdit.$submitted), 
+                'has-success': myProfileEdit.myCity.$valid && (!myProfileEdit.$pristine || myProfileEdit.$submitted)
+                }">
+		      <div class="form-controls">
+			   <input type="text" name="myCity" ng-model="user.city" required class="field" placeholder="City">
+			   <span class="help-block" ng-show="myProfileEdit.myCity.$error.required && (!myProfileEdit.$pristine || myProfileEdit.$submitted)" style="color: #fff;">Please Enter City Name</span>
+			  </div><!-- /.form-controls -->
+		     </div><!-- /.form-row -->
+
+		     <div class="form-row" ng-class="{
+                'has-error':!myProfileEdit.myPincode.$valid && (!myProfileEdit.$pristine || myProfileEdit.$submitted), 
+                'has-success': myProfileEdit.myPincode.$valid && (!myProfileEdit.$pristine || myProfileEdit.$submitted)
+                }">
+		      <div class="form-controls">
+			   <input type="text" name="myPincode" ng-model="user.pincode" required class="field" placeholder="Pincode">
+			   <span class="help-block" ng-show="myProfileEdit.myPincode.$error.required && (!myProfileEdit.$pristine || myProfileEdit.$submitted)" style="color: #fff;">Please Enter Pincode</span>
+			  </div><!-- /.form-controls -->
+		     </div><!-- /.form-row -->
+			 </div><!-- /.form-body -->
+	
+			 <div class="form-foot">
+			  <div class="form-actions">
+			   <input value="Edit" class="form-btn" type="submit">
+			  </div><!-- /.form-actions -->
+			 </div><!-- /.form-foot -->
+			</form>
+		   </div><!-- /.form-sign -->
+		  </div><!-- /.shell -->
+		 </main>
+		
+	   </div><!-- /.row -->
+	  </div><!-- /.container -->
+	 </section><!-- /section -->
+

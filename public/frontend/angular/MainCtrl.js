@@ -71,7 +71,6 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 		$scope.init();
 	}
 	
-
 	$scope.homeContent = function() {
 		$http.get('/home-content').then(function(response){
 			
@@ -122,6 +121,7 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 		});
 	};
 
+
 	$scope.doRegister=function(){
 		$http({
 			method  : 'POST',
@@ -137,9 +137,9 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 			}
 		}).then(function (response) {
 
-		});
-		
+		});	
 	};
+
 
 	$scope.editProfile = function (valid) {
 		if(valid){
@@ -160,6 +160,27 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 			           $window.location.href = "/freelancer-profile";
 			        }, 2000 );
 
+				}
+			});
+		}
+	};
+
+	$scope.editvendorProfile = function (valid) {
+
+		
+		if(valid){
+			$http({
+				method: "post",
+				url: "/edit_vendorprofile",
+				data:{
+					all : $scope.user
+				},
+				headers: {
+		         	'Content-Type': 'application/json'
+			  	}
+			}).then(function(response){
+				if(response){
+			     $scope.msg = response.data.msg;
 				}
 			});
 		}
@@ -194,7 +215,6 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 		});
 	};
 	
-
 	$scope.filterPortFolio = function(value) {
 		var tempArr = [];
 		if($scope.blog_details.length > 0) {
@@ -220,8 +240,7 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 			
 			$scope.blog_content = angular.copy(tempArr);
 		}
-		$scope.active_class = value;
-		
+		$scope.active_class = value;	
 	};
 
 	$scope.doLogin = function (valid){
@@ -236,17 +255,20 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 					'Content-Type':'application/json'
 				}
 			}).then(function(response){
+
+				//console.log(response.data.type);
+                //$window.location.href = "/freelancer-profile";
 				if(response.data.code == "100") {
 					AuthToken.setToken(response.data.token);
+					//$window.location.href = "/freelancer-profile";
 					if(response.data.type == "V"){
 						$window.location.href = "/vendor-profile";
 					}else{
 						$window.location.href = "/freelancer-profile";	
 					}
 					
-					
 				}
-				if(response.data.code == "300"){
+                else if(response.data.code == "300"){
 					$scope.wraning_message = "Username or Password is wrong."
 				}
 
@@ -254,12 +276,11 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 				
 			});
 		}
-		
 	};
 
 	$scope.blogDetails = function (){
 		$http.get('/blog_details',{params:{id:$routeParams.id}}).then(function(response){
-			//AuthToken.setToken();
+		    //AuthToken.setToken();
 			$scope.get_token = AuthToken.getToken();
 			//console.log($scope.get_token);
 			$scope.blog_details = response.data.blog_details[0];
@@ -292,12 +313,14 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 					}
 				}).then(function(response){
 					//console.log(response);
+					$window.location.href = "/blog-details/$routeParams.id";
 				}).catch(function(reason){
 					
 				});
 			});
 		}
 	};
+
 
 	$scope.showVideo = function() {
 		$timeout(function(){
@@ -320,6 +343,12 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 		AuthToken.setToken();
 		$scope.user = {};
 		$location.path("/login");
+	};
+
+	$scope.changePassword = function() {
+		 //alert('ok');
+		 $location.path("/change-password");
+		//$window.location.href("/change-password");
 	};
 
 }).directive('testimonialSlider',function() {

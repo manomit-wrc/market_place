@@ -29,6 +29,11 @@ marketPlaceRoute.config(function ($routeProvider, $locationProvider, $qProvider)
 		authenticated: true
 	}).when('/jobpost', {
 		templateUrl: '/templates/jobspost.html',
+	}).when("/vendor-profile", {
+		templateUrl: '/templates/vendor-profile.html',
+		authenticated: true
+	}).when("/change-password", {
+		templateUrl: '/templates/change_password.html',
 		authenticated: true
 	});
 
