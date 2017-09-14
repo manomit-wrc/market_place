@@ -154,6 +154,31 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 				headers: {
 		         	'Content-Type': 'application/json'
 			  	}
+			}).then(function(response){
+				if(response){
+					$scope.msg = response.data.msg;
+				}
+			});
+		}
+	};
+
+	$scope.editvendorProfile = function (valid) {
+
+		
+		if(valid){
+			$http({
+				method: "post",
+				url: "/edit_vendorprofile",
+				data:{
+					all : $scope.user
+				},
+				headers: {
+		         	'Content-Type': 'application/json'
+			  	}
+			}).then(function(response){
+				if(response){
+			     $scope.msg = response.data.msg;
+				}
 			});
 		}
 	};
@@ -229,11 +254,21 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 					'Content-Type':'application/json'
 				}
 			}).then(function(response){
-				console.log(response);
+
+				//console.log(response.data.type);
+                //$window.location.href = "/freelancer-profile";
 				if(response.data.code == "100") {
 					AuthToken.setToken(response.data.token);
-					$window.location.href = "/freelancer-profile";
+					//$window.location.href = "/freelancer-profile";
+					if(response.data.type == "V"){
+						$window.location.href = "/vendor-profile";
+					}else{
+						$window.location.href = "/freelancer-profile";	
+					}
 					
+				}
+                else if(response.data.code == "300"){
+					$scope.wraning_message = "Username or Password is wrong."
 				}
 
 			}).catch(function(reason){
@@ -307,6 +342,12 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 		AuthToken.setToken();
 		$scope.user = {};
 		$location.path("/login");
+	};
+
+	$scope.changePassword = function() {
+		 //alert('ok');
+		 $location.path("/change-password");
+		//$window.location.href("/change-password");
 	};
 
 }).directive('testimonialSlider',function() {

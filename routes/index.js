@@ -51,6 +51,13 @@ module.exports = function(app, passport, models) {
 		res.render('frontend/index',{layout:false}); 
 	});
 
+	app.get('/vendor-profile',function (req,res){
+		res.render('frontend/index',{layout:false}); 
+	});
+	app.get('/change-password',function (req,res){
+		res.render('frontend/index',{layout:false}); 
+	});
+
 	app.get('/home-content', function(req, res){
 		Promise.all([
 		    models.testimonial.findAll(),
@@ -206,7 +213,7 @@ module.exports = function(app, passport, models) {
 
 
 	app.post('/authenticate', function(req, res) {
-		//console.log(req.body.email);
+		console.log(req.body.email);
 
 		models.user.findAll({
 		  	where: {
@@ -214,13 +221,13 @@ module.exports = function(app, passport, models) {
 	    		password: md5(req.body.password)
 		  	}
 		}).then(function(user){
-
+			//console.log(user);
 		  	if (user.length == 0) {
 		  		// return res.status(403).send({code:'300', success: false, msg: 'Authentication failed. Username or password not found.'});
 		  		res.json({code:'300', success: false, token: 'Bearer ' + token});
 		  	} else {
 		  		var token = jwt.encode(user, "W$q4=25*8%v-}UW");
-		  		res.json({code:'100', success: true, token: 'Bearer ' + token});
+		  		res.json({code:'100', success: true, token: 'Bearer ' + token, type: user[0].type});
 		  	}
 		});	
 	});
@@ -248,13 +255,51 @@ module.exports = function(app, passport, models) {
 
 	app.post('/edit_profile', passport.authenticate('jwt', { session: false}), function (req, res) {
 		
-		// models.user.findById(req.body.all.id).then(function(result){
-		// 	console.log(result);
-		// 	models.user.update({
-
-		// 	});
-		// });
+		models.user.findById(req.body.all.id).then(function(result){
+			models.user.update({
+				fname: req.body.all.fname,
+				lname: req.body.all.lname,
+				email: req.body.all.email,
+				mobile_no: req.body.all.mobile_no,
+				address: req.body.all.address,
+				state: req.body.all.state,
+				city: req.body.all.city,
+				pincode: req.body.all.pincode
+			},{
+				where: {
+					id: req.body.all.id
+				}
+			}).then(function(result){
+				res.json({success: true, msg: 'Freelancer profile edited successfully'});
+			});
+		});
 	});
+   
+
+  
+	app.post('/edit_vendorprofile', passport.authenticate('jwt', { session: false}), function (req, res) {
+		
+		models.user.findById(req.body.all.id).then(function(result){
+			//console.log(result);
+			models.user.update({
+				fname: req.body.all.fname,
+				lname: req.body.all.lname,
+				email: req.body.all.email,
+				mobile_no: req.body.all.mobile_no,
+				address: req.body.all.address,
+				state: req.body.all.state,
+				city: req.body.all.city,
+				pincode: req.body.all.pincode
+			},{
+				where: {
+					id: req.body.all.id
+				}
+			}).then(function(result){
+				res.json({success: true, msg: 'Vendor profile edited successfully'});
+			});
+		});
+	});
+
  
 	getToken = function (headers) {
 	  if (headers && headers.authorization) {
@@ -334,7 +379,6 @@ module.exports = function(app, passport, models) {
 			alert(err);
 		});
 	});
-
 	
 };
 
