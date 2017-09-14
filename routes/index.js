@@ -173,12 +173,20 @@ module.exports = function(app, passport, models) {
 	    		blog_image: "/blog/"+result[0].blog_image,
 	    		createdAt: result[0].createdAt
 	    	});
+
 	    	for(var i=0;i<result[1].length;i++) {
+
+	    		if (fs.existsSync("public/user/thumbs/"+result[1][i].user.image) && result[1][i].user.image != "") {
+      				image = "/user/thumbs/"+result[1][i].user.image;
+    			}
+			    else {
+			      	image = "/user2-160x160.jpg";
+			    }
 		    	blog_commentsArr.push({
 		    		blog_comment: result[1][i].blog_comment,
 		    		date: result[1][i].createdAt,
 		    		name: result[1][i].user.fname+" "+result[1][i].user.lname,
-		    		image: result[1][i].user.image
+		    		image: image
 		    	});
 		    }
 			res.send({
