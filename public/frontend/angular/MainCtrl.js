@@ -155,6 +155,11 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 			}).then(function(response){
 				if(response){
 					$scope.msg = response.data.msg;
+					
+			        $timeout( function(){
+			           $window.location.href = "/freelancer-profile";
+			        }, 2000 );
+
 				}
 			});
 		}
@@ -410,5 +415,37 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 			});
 		}
 	};
-});
+}).directive('uniqueEmail', ['$http', function($http){
+	return {
+        restrict: 'A',
+        require: 'ngModel',
+        link: function(scope, element, attrs, ctrl) {
+            //set the initial value as soon as the input comes into focus
+            element.on('focus', function() {
+                if (!scope.initialValue) {
+                    scope.initialValue = ctrl.$viewValue;
+                }
+            });
+            element.on('blur', function() {
+                if (ctrl.$viewValue != scope.initialValue) {
+                    // var dataUrl = attrs.url + "?email=" + ctrl.$viewValue;
+                    //you could also inject and use your 'Factory' to make call
+                    $http({
+                    	method: "post",
+						url: '/check-unique-email',
+						data:{
+							email : ctrl.$viewValue
+						},
+						headers: {
+				         	'Content-Type': 'application/json'
+					  	}
+                    }).then(function(response) {
+                    	console.log(response);
+                    	ctrl.$setValidity('isunique', response.data.success);
+                    });
+                }
+            });
+        }
+    };
+}]);
 

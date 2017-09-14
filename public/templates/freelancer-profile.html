@@ -35,7 +35,7 @@
 	            'has-success': myProfileEdit.myEmail.$valid && (!myProfileEdit.$pristine || myProfileEdit.$submitted)
 	            }">
 			  <div class="form-controls">
-			   <input type="email" name="myEmail" ng-model="user.email" required class="field"  placeholder="Email Address">
+			   <input class="field" type="email" placeholder="Email Address" name="myEmail" ng-model="user.email"required disabled="">
 			   <span class="help-block" ng-show="myProfileEdit.myEmail.$error.required && (!myProfileEdit.$pristine || myProfileEdit.$submitted)" style="color: #fff;">Please Enter Email ID</span>
                 <span class="help-block" ng-show="myProfileEdit.myEmail.$error.email && (!myProfileEdit.$pristine || myProfileEdit.$submitted)" style="color: #fff;">Please Enter Valid Email ID</span>
 			  </div><!-- /.form-controls -->
