@@ -121,6 +121,7 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 		});
 	};
 
+
 	$scope.doRegister=function(){
 		$http({
 			method  : 'POST',
@@ -139,6 +140,7 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 		});	
 	};
 
+
 	$scope.editProfile = function (valid) {
 		if(valid){
 			$http({
@@ -150,6 +152,36 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 				headers: {
 		         	'Content-Type': 'application/json'
 			  	}
+			}).then(function(response){
+				if(response){
+					$scope.msg = response.data.msg;
+					
+			        $timeout( function(){
+			           $window.location.href = "/freelancer-profile";
+			        }, 2000 );
+
+				}
+			});
+		}
+	};
+
+	$scope.editvendorProfile = function (valid) {
+
+		
+		if(valid){
+			$http({
+				method: "post",
+				url: "/edit_vendorprofile",
+				data:{
+					all : $scope.user
+				},
+				headers: {
+		         	'Content-Type': 'application/json'
+			  	}
+			}).then(function(response){
+				if(response){
+			     $scope.msg = response.data.msg;
+				}
 			});
 		}
 	};
@@ -223,11 +255,21 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 					'Content-Type':'application/json'
 				}
 			}).then(function(response){
-				//console.log(response);
+
+				//console.log(response.data.type);
+                //$window.location.href = "/freelancer-profile";
 				if(response.data.code == "100") {
 					AuthToken.setToken(response.data.token);
-					$window.location.href = "/freelancer-profile";
+					//$window.location.href = "/freelancer-profile";
+					if(response.data.type == "V"){
+						$window.location.href = "/vendor-profile";
+					}else{
+						$window.location.href = "/freelancer-profile";	
+					}
 					
+				}
+                else if(response.data.code == "300"){
+					$scope.wraning_message = "Username or Password is wrong."
 				}
 
 			}).catch(function(reason){
@@ -238,7 +280,7 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 
 	$scope.blogDetails = function (){
 		$http.get('/blog_details',{params:{id:$routeParams.id}}).then(function(response){
-			//AuthToken.setToken();
+		    //AuthToken.setToken();
 			$scope.get_token = AuthToken.getToken();
 			//console.log($scope.get_token);
 			$scope.blog_details = response.data.blog_details[0];
@@ -279,6 +321,7 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 		}
 	};
 
+
 	$scope.showVideo = function() {
 		$timeout(function(){
 			$('.popup-with-zoom-anim').magnificPopup({
@@ -300,6 +343,12 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 		AuthToken.setToken();
 		$scope.user = {};
 		$location.path("/login");
+	};
+
+	$scope.changePassword = function() {
+		 //alert('ok');
+		 $location.path("/change-password");
+		//$window.location.href("/change-password");
 	};
 
 }).directive('testimonialSlider',function() {
@@ -395,5 +444,37 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 			});
 		}
 	};
-});
+}).directive('uniqueEmail', ['$http', function($http){
+	return {
+        restrict: 'A',
+        require: 'ngModel',
+        link: function(scope, element, attrs, ctrl) {
+            //set the initial value as soon as the input comes into focus
+            element.on('focus', function() {
+                if (!scope.initialValue) {
+                    scope.initialValue = ctrl.$viewValue;
+                }
+            });
+            element.on('blur', function() {
+                if (ctrl.$viewValue != scope.initialValue) {
+                    // var dataUrl = attrs.url + "?email=" + ctrl.$viewValue;
+                    //you could also inject and use your 'Factory' to make call
+                    $http({
+                    	method: "post",
+						url: '/check-unique-email',
+						data:{
+							email : ctrl.$viewValue
+						},
+						headers: {
+				         	'Content-Type': 'application/json'
+					  	}
+                    }).then(function(response) {
+                    	console.log(response);
+                    	ctrl.$setValidity('isunique', response.data.success);
+                    });
+                }
+            });
+        }
+    };
+}]);
 

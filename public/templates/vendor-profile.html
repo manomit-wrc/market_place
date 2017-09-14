@@ -23,9 +23,11 @@
 	    <main class="main main-signup col-lg-12">
 	     <div class="col-lg-6 col-lg-offset-3 text-center">
 		  <div class="form-sign" ng-controller="MainController">
-		   <form name="myProfileEdit" ng-submit="editProfile(myProfileEdit.$valid)" method="post" novalidate="novalidate">
+
+		   <form name="myProfileEdit" ng-submit="editvendorProfile(myProfileEdit.$valid)" method="post" novalidate="novalidate">
+
 		    <div class="form-head">
-			 <h3>Profile</h3>
+			 <h3>Vendors Profile</h3>
 			</div><!-- /.form-head -->
 			
             <div class="form-body">
@@ -35,7 +37,7 @@
 	            'has-success': myProfileEdit.myEmail.$valid && (!myProfileEdit.$pristine || myProfileEdit.$submitted)
 	            }">
 			  <div class="form-controls">
-			   <input class="field" type="email" placeholder="Email Address" name="myEmail" ng-model="user.email"required disabled="">
+			   <input type="email" name="myEmail" ng-model="user.email" required class="field"  placeholder="Email Address" readonly="readonly">
 			   <span class="help-block" ng-show="myProfileEdit.myEmail.$error.required && (!myProfileEdit.$pristine || myProfileEdit.$submitted)" style="color: #fff;">Please Enter Email ID</span>
                 <span class="help-block" ng-show="myProfileEdit.myEmail.$error.email && (!myProfileEdit.$pristine || myProfileEdit.$submitted)" style="color: #fff;">Please Enter Valid Email ID</span>
 			  </div><!-- /.form-controls -->
