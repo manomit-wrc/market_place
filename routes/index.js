@@ -163,10 +163,6 @@ module.exports = function(app, passport, models) {
 		});
 	});
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 374e9693b2ff64bc5d5bf28e11f506a63d2ec09c
 	app.post("/vendor/register", function(req, res){
 		  //console.log(req.body.email);
 		  
@@ -185,11 +181,8 @@ module.exports = function(app, passport, models) {
 		});
 	});
 
-<<<<<<< HEAD
-=======
+	
 
-
->>>>>>> 374e9693b2ff64bc5d5bf28e11f506a63d2ec09c
 	app.post('/authenticate', function(req, res) {
 		console.log(req.body.email);
 
@@ -233,6 +226,16 @@ module.exports = function(app, passport, models) {
 	    return res.status(403).send({success: false, msg: 'No token provided.'});
 	  }
 	});
+
+	app.post('/edit_profile', passport.authenticate('jwt', { session: false}), function (req, res) {
+		
+		// models.user.findById(req.body.all.id).then(function(result){
+		// 	console.log(result);
+		// 	models.user.update({
+
+		// 	});
+		// });
+	});
  
 	getToken = function (headers) {
 	  if (headers && headers.authorization) {
@@ -269,7 +272,6 @@ module.exports = function(app, passport, models) {
         res.redirect('/admin');
     });
 
-<<<<<<< HEAD
 	app.post('/register-submit', function(req, res) {
 		//alert(config);
 		user.create({
@@ -283,11 +285,6 @@ module.exports = function(app, passport, models) {
 			alert(err);
 		});
 	});
-=======
-
-	
-
->>>>>>> 374e9693b2ff64bc5d5bf28e11f506a63d2ec09c
 	
 };
 

@@ -146,14 +146,14 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 
 	$scope.editProfile = function () {
 		console.log($scope.user);
-		$htttp({
-			method : "POST",
-			url : '/edit-profile',
+		$http({
+			method: "post",
+			url: "/edit_profile",
 			data:{
-				all: $scope.user
+				all : $scope.user
 			},
 			headers: {
-		         'Content-Type': 'application/json'
+	         	'Content-Type': 'application/json'
 		  	}
 		});
 
@@ -263,30 +263,7 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 		});
 	};
 
-	$scope.doRegister = function(valid) {
-		
-		if(valid)
-		{
-		$http({
-			method: 'POST',
-			url: '/vendor/register',
-			data: {
-				email: $scope.myEmail,
-				fname: $scope.myFisrtname,
-				lname: $scope.myLastname,
-				password: $scope.myPassword
-			},
-			headers: {
-				'Content-Type': 'application/json'
-			}
-		}).then(function(response) {
-			
-		}).catch(function(reason) {
-			
-		});
-
-	  }	
-	}
+	
 
 	$scope.showVideo = function() {
 		$timeout(function(){
