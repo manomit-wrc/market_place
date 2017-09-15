@@ -67,12 +67,8 @@
 		   <div class="col-lg-12 comment revealOnScroll" data-animation="slideInUp" data-timeout="800">
 		    <div class="row">
 				<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 comment-logo">
-					<div ng-if="blog_data.image !== ''">
-						<img src="/user/thumbs/{{blog_data.image}}" class="img-responsive" width="65" height="66" alt="">
-					</div>
-					<div ng-if="blog_data.image === ''">
-						<img src="/frontend/img/users/2.png" class="img-responsive" width="65" height="66" alt="">
-					</div>
+					
+					<img src="{{blog_data.image}}" class="img-responsive" width="65" height="66" alt="">
 				</div>
 				<div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 comment-body">
 					<h6>{{blog_data.name}}</h6>

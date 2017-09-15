@@ -27,6 +27,8 @@ marketPlaceRoute.config(function ($routeProvider, $locationProvider, $qProvider)
 	}).when("/freelancer-profile", {
 		templateUrl: '/templates/freelancer-profile.html',
 		authenticated: true
+	}).when('/jobpost', {
+		templateUrl: '/templates/jobspost.html',
 	}).when("/vendor-profile", {
 		templateUrl: '/templates/vendor-profile.html',
 		authenticated: true
