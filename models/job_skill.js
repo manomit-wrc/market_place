@@ -1,6 +1,6 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
-  var job_skill = sequelize.define('job-skill', {
+  var job_skill = sequelize.define('job_skill', {
     job_id: DataTypes.INTEGER,
     skill_id: DataTypes.INTEGER
   }, {

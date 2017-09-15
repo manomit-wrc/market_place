@@ -165,6 +165,44 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 		}
 	};
 
+	$scope.jobPostContent = function (){
+		$http.get('/job-details').then(function(response){
+			$scope.jobs_categories = response.data.jobs_category;
+			$scope.jobs_skill = response.data.jobs_skill;
+		});
+
+	};
+
+	$scope.jobPostSubmit = function (valid){
+		if(valid){
+			$http({
+				method: "POST",
+				url: '/job-post-submit',
+				data:{
+					job: $scope.job
+				},
+				headers:{
+					'Content-Type': 'application/json'
+				}
+
+			}).then(function(response){
+				if(response){
+					$window.location.href = "/jobpost";
+				}
+			});
+
+		}
+	};
+
+	$scope.fetch_jobPostContent = function (){
+		$http.get('/fetch_job_post_details').then(function(response){
+			console.log(response);
+			$scope.post_job_details = response.data.job_post;
+			$scope.post_job_skills = response.data.job_skill;
+		});
+
+	};
+
 	$scope.editvendorProfile = function (valid) {
 
 		
@@ -444,37 +482,5 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 			});
 		}
 	};
-}).directive('uniqueEmail', ['$http', function($http){
-	return {
-        restrict: 'A',
-        require: 'ngModel',
-        link: function(scope, element, attrs, ctrl) {
-            //set the initial value as soon as the input comes into focus
-            element.on('focus', function() {
-                if (!scope.initialValue) {
-                    scope.initialValue = ctrl.$viewValue;
-                }
-            });
-            element.on('blur', function() {
-                if (ctrl.$viewValue != scope.initialValue) {
-                    // var dataUrl = attrs.url + "?email=" + ctrl.$viewValue;
-                    //you could also inject and use your 'Factory' to make call
-                    $http({
-                    	method: "post",
-						url: '/check-unique-email',
-						data:{
-							email : ctrl.$viewValue
-						},
-						headers: {
-				         	'Content-Type': 'application/json'
-					  	}
-                    }).then(function(response) {
-                    	console.log(response);
-                    	ctrl.$setValidity('isunique', response.data.success);
-                    });
-                }
-            });
-        }
-    };
-}]);
+});
 
