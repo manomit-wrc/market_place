@@ -1,6 +1,5 @@
 var MainCtrl = angular.module('MainCtrl',['ngSanitize','ngStorage']);
 
-
 MainCtrl.factory('AuthToken', function($localStorage){
 	var authTokenFactory = {};
 
@@ -35,8 +34,6 @@ MainCtrl.factory('AuthInterceptor', function ($q, $location, $localStorage) {
 			return config;
 		},
 		'responseError': function (response) {
-			
-
 			if (response.status === 401 || response.status === 403 || response.status === 500) {
 				$location.path("/login");
 			}
@@ -78,9 +75,6 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 			$scope.banner = response.data.banner;
 			$scope.jobcategories = response.data.jobcategories;
 			$scope.organization = response.data.organization;
-
-			
-
 			$scope.client_parcentage = ($scope.organization[0].client) / 100;
 			$scope.freelancer_parcentage = ($scope.organization[0].freelancers) / 100;
 			$scope.jobs_completed_parcentage = ($scope.organization[0].jobs_completed) / 100;
@@ -121,7 +115,6 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 		});
 	};
 
-
 	$scope.doRegister=function(){
 		$http({
 			method  : 'POST',
@@ -139,7 +132,6 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 
 		});	
 	};
-
 
 	$scope.editProfile = function (valid) {
 		if(valid){
@@ -159,16 +151,13 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 			        $timeout( function(){
 			           $window.location.href = "/freelancer-profile";
 			        }, 2000 );
-
 				}
 			});
 		}
 	};
 
 	$scope.editvendorProfile = function (valid) {
-
-		
-		if(valid){
+		if (valid) {
 			$http({
 				method: "post",
 				url: "/edit_vendorprofile",
@@ -245,7 +234,7 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 
 	$scope.doLogin = function (valid){
 		//using headers line for sending angular to node with post method
-		if(valid){
+		if (valid) {
 			$http.post('/authenticate',{
 				email: $scope.myUsername,
 				password: $scope.myPassword
@@ -255,23 +244,20 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 					'Content-Type':'application/json'
 				}
 			}).then(function(response){
-
 				//console.log(response.data.type);
                 //$window.location.href = "/freelancer-profile";
-				if(response.data.code == "100") {
+				if (response.data.code == "100") {
 					AuthToken.setToken(response.data.token);
 					//$window.location.href = "/freelancer-profile";
-					if(response.data.type == "V"){
+					if (response.data.type == "V") {
 						$window.location.href = "/vendor-profile";
-					}else{
+					} else {
 						$window.location.href = "/freelancer-profile";	
 					}
-					
 				}
-                else if(response.data.code == "300"){
+                else if(response.data.code == "300") {
 					$scope.wraning_message = "Username or Password is wrong."
 				}
-
 			}).catch(function(reason){
 				
 			});
@@ -320,7 +306,6 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 			});
 		}
 	};
-
 
 	$scope.showVideo = function() {
 		$timeout(function(){
