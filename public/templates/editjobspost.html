@@ -1,4 +1,4 @@
-<div ng-init="jobPostContent();">
+<div ng-init="fetch_jobPostContent();">
      <!-- ==============================================
 	 Header
 	 =============================================== -->	 
@@ -6,7 +6,7 @@
       <div class="container">
 	   <div class="content">
         <div class="row">
-	     <h1 class="revealOnScroll" data-animation="fadeInDown"><i class="fa fa-coffee"></i> Jobs Post</h1>
+	     <h1 class="revealOnScroll" data-animation="fadeInDown"><i class="fa fa-coffee"></i>Edit Jobs Post</h1>
         </div><!-- /.row -->
        </div><!-- /.content -->
 	  </div><!-- /.container -->
@@ -24,7 +24,7 @@
 		  <div class="form-sign" ng-controller="MainController">
 		   <form name="jobsPost" ng-submit="jobPostSubmit(jobsPost.$valid)" method="post" novalidate="novalidate">
 		    <div class="form-head">
-			 <h3>Jobs Post</h3>
+			 <h3>Edit Jobs Post</h3>
 			</div><!-- /.form-head -->
 			
             <div class="form-body">
@@ -110,7 +110,7 @@
 	
 			 <div class="form-foot">
 			  <div class="form-actions">
-			   <input value="Submit" class="form-btn" type="submit">
+			   <input value="Edit" class="form-btn" type="submit">
 			  </div><!-- /.form-actions -->
 			 </div><!-- /.form-foot -->
 			</form>

@@ -37,6 +37,9 @@ marketPlaceRoute.config(function ($routeProvider, $locationProvider, $qProvider)
 	}).when("/change-password", {
 		templateUrl: '/templates/change_password.html',
 		authenticated: true
+	}).when('/editjobpost', {
+		templateUrl: '/templates/editjobspost.html',
+		authenticated: true
 	});
 
 	$qProvider.errorOnUnhandledRejections(false);

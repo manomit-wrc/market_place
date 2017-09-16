@@ -71,6 +71,10 @@ module.exports = function(app, passport, models) {
 		res.render('frontend/index',{layout:false}); 
 	});
 
+	app.get('/editjobpost', function (req,res){
+		res.render('frontend/index',{layout:false});
+	});
+
 	app.get('/home-content', function(req, res){
 		Promise.all([
 		    models.testimonial.findAll(),
@@ -220,9 +224,7 @@ module.exports = function(app, passport, models) {
 
 	app.post("/vendor/register", function(req, res){
 	    models.user.create({
-
 			email:req.body.email,
-
 			fname:req.body.fname,
 			lname:req.body.lname,
 			type:'V',
@@ -231,8 +233,6 @@ module.exports = function(app, passport, models) {
 		}).then(function(result){
 			res.json({success: true, msg: 'Registration successfully'});
 		}).catch(function(err){
-
-
 			
 		});
 	});
@@ -297,6 +297,69 @@ module.exports = function(app, passport, models) {
 				res.json({success: true, msg: 'Freelancer profile edited successfully'});
 			});
 		});
+	});
+
+	app.get('/job-details', passport.authenticate('jwt', { session: false}), function (req,res) {
+		Promise.all([
+			models.jobcategory.findAll(),
+			models.skill.findAll({attributes:['id','name']})
+		]).then(function(values){
+			var result = JSON.parse(JSON.stringify(values));
+			res.send({jobs_category: result[0], jobs_skill: result[1]});
+		});
+	});
+
+	app.post('/job-post-submit', passport.authenticate('jwt', { session: false}), function (req,res) {
+		var token = getToken(req.headers);
+		if(token){
+			var decoded = jwt.decode(token, "W$q4=25*8%v-}UW");
+			
+			models.job.create({
+				jobscategory_id: req.body.job.jobCategory,
+				title: req.body.job.jobTitle,
+				budget: req.body.job.jobBudget,
+				no_of_applicant: req.body.job.jobNoOfApplicant,
+				description: req.body.job.jobDescription,
+				user_id: decoded[0].id
+			}).then(function(result){
+				var job_id = result.id;
+				var job_skill = req.body.job.jobSkills.map(Number);
+
+				for(var i=0; i<job_skill.length; i++){
+					models.job_skill.create({
+						job_id: job_id,
+						skill_id: job_skill[i],
+					});
+				}
+				res.json({success: true});
+
+			});
+		}else{
+			return res.status(403).send({success: false, msg: 'No token provided.'});
+		}
+
+	});
+
+	app.get('/fetch_job_post_details', passport.authenticate('jwt', { session: false}), function(req,res){
+		var token = getToken(req.headers);
+		if(token){
+			var decoded = jwt.decode(token, "W$q4=25*8%v-}UW");
+
+			models.job.findAll({
+				where:{
+					user_id:decoded[0].id
+				}
+			}).then(function(result){
+				models.job_skill.findAll({
+					where:{
+						job_id:result[0].id
+					}
+				}).then(function(result1){
+					res.json({job_post: result,job_skill:result1});
+				});
+
+			});
+		}
 	});
   
 	app.post('/edit_vendorprofile', passport.authenticate('jwt', { session: false}), function (req, res) {
