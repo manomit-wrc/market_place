@@ -1,0 +1,97 @@
+<div ng-init="contactContent();" ng-controller="MainController">	
+	<!-- ==============================================
+	Header
+	=============================================== -->	 
+     <header class="header-contact">
+      <div class="container">
+	   <div class="content">
+	   
+        <div class="row">
+	     <h1 class="revealOnScroll" data-animation="fadeInDown"><i class="fa fa-coffee"></i> Contact</h1>
+		 <p>Get in touch with us.</p>
+        </div><!-- /.row -->
+	   
+	    <div class="row location revealOnScroll" data-animation="fadeInUp" data-timeout="200">
+		 <div class="col-lg-4">
+		  <i class="fa fa-map-marker fa-1x"></i>
+		  <p>{{organization.address}}</p>
+		 </div><!-- /.col-lg-4 -->
+		 <div class="col-lg-4">
+		  <i class="fa fa-phone fa-1x"></i>
+		  <p>{{organization.contact_no}}</p>
+		 </div><!-- /.col-lg-4 -->
+		 <div class="col-lg-4">
+		  <i class="fa fa-envelope fa-1x"></i>
+		  <p>{{organization.email}}</p>
+		 </div><!-- /.col-lg-4 -->
+	    </div><!-- /.row -->
+		
+       </div><!-- /.content -->
+	  </div><!-- /.container -->
+     </header><!-- /header -->
+	 
+     <!-- ==============================================
+     Map Section
+     =============================================== -->
+	 <div class="map">
+	  <div class="container-fluid">
+	   <div class="row">
+	   	{{map_url}}
+	   <!-- <div address-based-google-map address="map_address" zoom="16"></div> -->
+	   <iframe src="" width="600" height="450" style="border:0" allowfullscreen></iframe>
+	   </div><!-- /.row -->
+	  </div><!-- /.container-fluid -->
+	 </div><!-- /.map -->
+	 
+     <!-- ==============================================
+     Contact Section
+     =============================================== -->	  	 
+	 <section class="contact">
+	  <div class="container">
+	   <div class="row">
+	   
+	    <div class="text-center">
+		 <h3>Have More Questions?</h3>
+		 <hr class="mint">
+		 <p class="top-p">We're always connected. Get in touch using however you like.</p>
+		 <p ng-if="msg" class="top-p" style="font-weight: bold;">{{msg}}</p>
+	    </div>
+	   
+        <!-- The contactform -->
+		<form method="post" name="contactform" id="contactform" ng-submit="doContactSubmit(contactform.$valid)" class="animations fade-up d3" novalidate="novalidate">
+		 <fieldset>
+		  <div class="col-lg-6">
+           <!-- Name -->
+		   <label for="fullname"><i class="fa fa-user"></i></label>
+		   <input name="fullname" id="fullname" type="text" ng-model="fullname" size="30" placeholder="Name" required />
+		   <span class="help-block" style="color: red;" ng-show="contactform.fullname.$error.required && (!contactform.$pristine || contactform.$submitted)">Please Enter Your Name</span>
+		   
+		   <!-- Email -->
+		   <label for="email"><i class="fa fa-envelope-o"></i></label>
+		   <input name="email" type="email" id="email" ng-model="email" required size="30" placeholder="Email Address" />
+		   <span class="help-block" style="color: red;" ng-show="contactform.email.$error.required && (!contactform.$pristine || contactform.$submitted)">Please Enter Email Address</span>
+           <span class="help-block" style="color: red;" ng-show="contactform.email.$error.email && (!contactform.$pristine || contactform.$submitted)">Please Enter Valid Email Address</span>
+		   
+		   <!-- Phone -->
+		   <label for="phone"><i class="fa fa-phone"></i></label>
+		   <input name="phone" type="text" id="phone" ng-model="phone" size="30" placeholder="Contact No." />
+		  </div>
+		  <div class="col-lg-6">
+		   <!-- Comments / Message -->
+		   <label for="comments"><i class="fa fa-comment"></i></label>
+		   <textarea name="comments" id="comments" ng-model="comments" required placeholder="Comments" ng-pattern="/^[a-zA-Z0-9 ]*$/"></textarea>
+		   <span class="help-block" style="color: red;" ng-show="contactform.comments.$error.required && (!contactform.$pristine || contactform.$submitted)">Please Enter Your Comments</span>
+		   <span class="help-block" style="color: red;" ng-show="(!contactform.comments.$error.required && (contactform.$pristine || contactform.$submitted)) && contactform.comments.$invalid">Your Comments are Incorrect</span>
+		   <div vc-recaptcha key="'6LdtaSwUAAAAAEfrtnPa3mrbIJdR9Dl0M2ip6BbM'" ng-model="myRecaptchaResponse"></div>
+		  </div>
+		  <div class="col-lg-12 text-center">
+		   <!-- Send button -->
+		   <button type="submit" class="kafe-btn kafe-btn-mint full-width">Submit</button>
+          </div>
+		 </fieldset>
+		</form>		
+			
+	   </div><!-- /.row -->
+	  </div><!-- /.container -->
+	 </section><!-- /section -->
+</div>

@@ -45,7 +45,7 @@ MainCtrl.factory('AuthInterceptor', function ($q, $location, $localStorage) {
 });
 
 
-MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParams, $filter,$timeout, AuthToken, $window, $location) {
+MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParams, $filter, $timeout, AuthToken, $window, $location) {
 	$scope.testimonials = {};
 	$scope.banner = [];
 	$scope.organization = {};
@@ -64,7 +64,7 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 		});
 	};
 
-	if(AuthToken.isLoggedIn()) {
+	if (AuthToken.isLoggedIn()) {
 		$scope.init();
 	}
 	
@@ -91,8 +91,7 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 			$scope.stories = response.data.stories;
 			$scope.about = $sce.trustAsHtml(response.data.about);
 			$scope.about_short = $filter('limitTo')(response.data.about, 30, 0);
-			$scope.about_short_limit = $sce.trustAsHtml($scope.about_short);
-			
+			$scope.about_short_limit = $sce.trustAsHtml($scope.about_short);	
 		}).catch(function(reason){
 
 		});
@@ -100,7 +99,7 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 
 	$scope.faqContent = function() {
 		$http.get('/faq-content').then(function(response){
-			$scope.faq_category	=	response.data.faq_category;
+			$scope.faq_category	= response.data.faq_category;
 		}).catch(function(reason){
 
 		});
@@ -115,7 +114,20 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 		});
 	};
 
-	$scope.doRegister=function(){
+	$scope.contactContent = function() {
+		$http.get('/contact-content').then(function(response){
+			//console.log(response.data);
+			$scope.organization	= response.data.organization[0];
+			$scope.map_address = response.data.organization[0].address;
+			//console.log(response.data.organization[0].address);
+			$scope.map_url = "https://maps.google.com/maps?q="+$scope.map_address+"&z=16&output=embed";
+			//$scope.map_url = $scope.map_address;
+		}).catch(function(reason){
+
+		});
+	};
+
+	$scope.doRegister = function(){
 		$http({
 			method  : 'POST',
 			url     : '/vendor/register',
@@ -244,11 +256,8 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 					'Content-Type':'application/json'
 				}
 			}).then(function(response){
-				//console.log(response.data.type);
-                //$window.location.href = "/freelancer-profile";
 				if (response.data.code == "100") {
 					AuthToken.setToken(response.data.token);
-					//$window.location.href = "/freelancer-profile";
 					if (response.data.type == "V") {
 						$window.location.href = "/vendor-profile";
 					} else {
@@ -276,7 +285,6 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 			$scope.blog_comments = [];
 			$scope.blog_comments = response.data.blog_comments;
 			$scope.comment_count = response.data.blog_comments.length;
-			
 		});
 	};
 
@@ -298,11 +306,37 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 						'Content-Type':'application/json'
 					}
 				}).then(function(response){
-					//console.log(response);
-					$window.location.href = "/blog-details/$routeParams.id";
+					//$location.path("/blog-details/$routeParams.id");
+					//$window.location.href = "/blog-details/$routeParams.id";
 				}).catch(function(reason){
 					
 				});
+			});
+		}
+	};
+
+	$scope.doContactSubmit = function(valid) {
+		if (valid) {
+			$http({
+				method  : 'POST',
+				url     : '/do-contact-submit',
+				data : {
+					fullname:$scope.fullname,
+					email:$scope.email,
+					phone:$scope.phone,
+					comments:$scope.comments
+				},
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			}).then(function(response) {
+				if (response) {
+					$scope.msg = response.data.msg;
+					$scope.fullname = '';
+					$scope.email = '';
+					$scope.phone = '';
+					$scope.comments = '';
+				}
 			});
 		}
 	};
@@ -463,3 +497,49 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
     };
 }]);
 
+MainCtrl.directive('addressBasedGoogleMap', function () {
+    return {
+        restrict: "A",
+        template: "<div id='addressMap'></div>",
+        scope: {
+            Address: "=address",
+            zoom: "="
+        },
+        controller: function ($scope, $element, $attrs, $http) {
+            var geocoder;
+            var latlng;
+            var map;
+            var marker;
+            var lat;
+            var lng;
+            var addr;
+            var initialize = function () {
+                $http.get('/contact-content').then(function(response) {
+                	addr = response.data.organization[0].address;
+                	geocoder = new google.maps.Geocoder();
+	                geocoder.geocode({'address': addr }, 
+	                function (results, status) {
+	                    if (status == google.maps.GeocoderStatus.OK) {
+	                        lat = results[0].geometry.location.lat();
+	                        lng = results[0].geometry.location.lng();
+	                        latlng = new google.maps.LatLng(lat, lng);
+		                   	var mapOptions = {
+			                    zoom: $scope.zoom,
+			                    center: latlng,
+			                    mapTypeId: google.maps.MapTypeId.ROADMAP
+			                };
+	                		map = new google.maps.Map
+                       		(document.getElementById('addressMap'), mapOptions);
+                        	map.setCenter(results[0].geometry.location);
+                        	marker = new google.maps.Marker({
+                            	map: map,
+                            	position: results[0].geometry.location
+                        	});
+	                    }
+	                });  
+				});
+			};
+            initialize();
+        },
+    };
+});

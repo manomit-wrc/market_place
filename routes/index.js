@@ -23,6 +23,14 @@ module.exports = function(app, passport, models) {
 		res.render('frontend/index',{layout:false}); 
 	});
 
+	app.get('/work-details', function(req, res){
+		res.render('frontend/index',{layout:false}); 
+	});
+
+	app.get('/contact', function(req, res){
+		res.render('frontend/index',{layout:false}); 
+	});
+
 	app.get('/vendor/register', function(req, res){
 		res.render('frontend/index',{layout:false}); 
 	});
@@ -138,6 +146,16 @@ module.exports = function(app, passport, models) {
 		});
 	});
 
+	app.get("/contact-content", function(req, res){
+		Promise.all([
+			models.organization.findAll()
+		]).then(function(values){
+			var result = JSON.parse(JSON.stringify(values));
+			//console.log(result[0]);
+			res.send({organization:result[0]});
+		});
+	});
+
 	app.get("/blog-content", function (req,res){
 		Promise.all([
 			models.blog.findAll(),
@@ -179,8 +197,7 @@ module.exports = function(app, passport, models) {
 	    		createdAt: result[0].createdAt
 	    	});
 
-	    	for(var i=0;i<result[1].length;i++) {
-
+	    	for (var i=0;i<result[1].length;i++) {
 	    		if (fs.existsSync("public/user/thumbs/"+result[1][i].user.image) && result[1][i].user.image != "") {
       				image = "/user/thumbs/"+result[1][i].user.image;
     			}
@@ -201,7 +218,6 @@ module.exports = function(app, passport, models) {
 		});
 	});
 
-
 	app.post("/vendor/register", function(req, res){
 	    models.user.create({
 
@@ -220,10 +236,6 @@ module.exports = function(app, passport, models) {
 			
 		});
 	});
-         
-	
-
-
 
 	app.post('/authenticate', function(req, res) {
 		console.log(req.body.email);
@@ -248,28 +260,25 @@ module.exports = function(app, passport, models) {
 	});
 
 	app.get('/user-profile', passport.authenticate('jwt', { session: false}), function(req, res) {
-		
-	  var token = getToken(req.headers);
-	  if (token) {
-	    var decoded = jwt.decode(token, "W$q4=25*8%v-}UW");
-
-	    models.user.findAll({ where: {
-	      email: decoded[0].email
-	    } }).then(function(user) {
-	        if (user.length == 0) {
-	          	return res.status(403).send({success: false, msg: 'Authentication failed. User not found.'});
-	        } else {
-	        	var user_details = JSON.parse(JSON.stringify(user[0]));
-	          	res.json({success: true, user_details: user_details});
-	        }
-	    });
-	  } else {
-	    return res.status(403).send({success: false, msg: 'No token provided.'});
-	  }
+		var token = getToken(req.headers);
+		if (token) {
+	    	var decoded = jwt.decode(token, "W$q4=25*8%v-}UW");
+			models.user.findAll({ where: {
+				email: decoded[0].email
+			} }).then(function(user) {
+				if (user.length == 0) {
+				  	return res.status(403).send({success: false, msg: 'Authentication failed. User not found.'});
+				} else {
+					var user_details = JSON.parse(JSON.stringify(user[0]));
+				  	res.json({success: true, user_details: user_details});
+				}
+			});
+		} else {
+			return res.status(403).send({success: false, msg: 'No token provided.'});
+		}
 	});
 
 	app.post('/edit_profile', passport.authenticate('jwt', { session: false}), function (req, res) {
-		
 		models.user.findById(req.body.all.id).then(function(result){
 			models.user.update({
 				fname: req.body.all.fname,
@@ -289,11 +298,8 @@ module.exports = function(app, passport, models) {
 			});
 		});
 	});
-   
-
   
 	app.post('/edit_vendorprofile', passport.authenticate('jwt', { session: false}), function (req, res) {
-		
 		models.user.findById(req.body.all.id).then(function(result){
 			//console.log(result);
 			models.user.update({
@@ -315,7 +321,6 @@ module.exports = function(app, passport, models) {
 		});
 	});
 
- 
 	getToken = function (headers) {
 	  if (headers && headers.authorization) {
 	    var parted = headers.authorization.split(' ');
@@ -338,6 +343,20 @@ module.exports = function(app, passport, models) {
 			//console.log('success');
 		}).catch(function(err){
 			//console.log('failure');
+		});
+	});
+
+	app.post('/do-contact-submit', function(req, res) {
+		models.contact.create({
+			name:req.body.fullname,
+			email:req.body.email,
+			phone_no:req.body.phone,
+			comment:req.body.comments
+		}).then(function(result){
+			res.json({success: true, msg: 'Contact form submitted successfully!'});
+		}).catch(function(err){
+			//console.log('failure');
+			res.json({success: false, msg: 'Some error occured while submitting the form!'});
 		});
 	});
 
@@ -366,19 +385,17 @@ module.exports = function(app, passport, models) {
 
 	// process the login form
 	app.post('/admin', passport.authenticate('local-login', {
-            successRedirect : '/admin/dashboard', // redirect to the secure profile section
-            failureRedirect : '/admin', // redirect back to the signup page if there is an error
-            failureFlash : true // allow flash messages
-		}),
-        function(req, res) {
-            console.log("hello");
-
-            if (req.body.remember_me) {
-              req.session.cookie.maxAge = 1000 * 60 * 3;
-            } else {
-              req.session.cookie.expires = false;
-            }
-        res.redirect('/admin');
+        successRedirect : '/admin/dashboard', // redirect to the secure profile section
+        failureRedirect : '/admin', // redirect back to the signup page if there is an error
+        failureFlash : true // allow flash messages
+	}), function(req, res) {
+        //console.log("hello");
+        if (req.body.remember_me) {
+          req.session.cookie.maxAge = 1000 * 60 * 3;
+        } else {
+          req.session.cookie.expires = false;
+        }
+    	res.redirect('/admin');
     });
 
 	app.post('/register-submit', function(req, res) {
@@ -394,7 +411,6 @@ module.exports = function(app, passport, models) {
 			alert(err);
 		});
 	});
-	
 };
 
 // route middleware to make sure

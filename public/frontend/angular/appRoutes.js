@@ -8,6 +8,8 @@ marketPlaceRoute.config(function ($routeProvider, $locationProvider, $qProvider)
 		templateUrl: '/templates/about.html'
 	}).when('/faq', {
 		templateUrl: '/templates/faq.html'
+	}).when('/contact', {
+		templateUrl: '/templates/contact.html'
 	}).when('/jobs',{
 		templateUrl: '/templates/jobs.html'
 	}).when('/vendor/register',{
