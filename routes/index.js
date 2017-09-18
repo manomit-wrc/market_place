@@ -133,6 +133,22 @@ module.exports = function(app, passport, models) {
 		});
 	});
 
+    app.get("/get-type",function(res){
+          console.log('hello how r u');
+        var token = getToken(req.headers);
+		   
+		if (token) {
+	         var decoded = jwt.decode(token, "W$q4=25*8%v-}UW");
+	         var user_id=decoded[0].id;
+	         var user_type=decoded[0].type;
+	         console.log(user_type);
+	         res.json({code:'100', success: true,type:user_type});
+              /*models.user.findAll().then(function(user){
+							res.json({code:'100', success: true,type: user[0].type});
+						});*/
+           }
+
+     });
 
 	app.get("/blog-content", function (req,res){
 		Promise.all([
@@ -203,17 +219,57 @@ module.exports = function(app, passport, models) {
 			res.json({success: true, msg: 'Registration successfully'});
 		}).catch(function(err){
 
-
-			
-		});
+     });
 	});
          
-	
+	app.post('/change-password-check', passport.authenticate('jwt', { session: false}), function (req, res) {
+		   
+		   var oldPwd=req.body.oldpwd;
+		   var newPwd=req.body.newpwd;
+		   var confPwd=req.body.confpwd;
+		   var token = getToken(req.headers);
+		   
+		if (token) {
+	    var decoded = jwt.decode(token, "W$q4=25*8%v-}UW");
+	         
+	         var user_id=decoded[0].id;
+	      if(decoded[0].password==md5(oldPwd))
+	      {
+	      	
+			     if(newPwd==confPwd)
+			      {	
+			      		   models.user.update({
+							password: md5(newPwd),
+							
+						           },{
+							where: {
+								 id: user_id
+							}
+						}).then(function(result){
+							res.json({success: true, msg: 'Password Edited Successfully'});
+						});
+			     
+
+			      }
+			      else
+			      {
+			      	res.json({success: true, msg: 'New Password does not match with Confirm Password'});
+			      }
+	      }
+	      else
+	      {
+	      	
+	      		res.json({success: true, msg: 'Password does not match'});
+	      }
+		   
+        }
+		
+	});
 
 
 
 	app.post('/authenticate', function(req, res) {
-		console.log(req.body.email);
+		//console.log(req.body.email);
 
 		models.user.findAll({
 		  	where: {

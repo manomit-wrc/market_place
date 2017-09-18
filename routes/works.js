@@ -32,7 +32,7 @@ module.exports = function(app,work) {
 	  },
 	  filename: function (req, file, cb) {
 	 
-       fileExtvedio = file.mimetype.split('/')[1];
+        fileExtvedio = file.mimetype.split('/')[1];
 	    //fileExtvedio = file.req.body.video;
 	    fileNamevedio = req.user.id + '-' + Date.now() + '.' + fileExtvedio;
 

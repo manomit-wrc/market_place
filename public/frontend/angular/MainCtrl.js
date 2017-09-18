@@ -1,7 +1,7 @@
 var MainCtrl = angular.module('MainCtrl',['ngSanitize','ngStorage']);
 
 
-MainCtrl.factory('AuthToken', function($localStorage){
+MainCtrl.factory('AuthToken', function($localStorage, $q){
 	var authTokenFactory = {};
 
 	authTokenFactory.getToken = function() {
@@ -21,6 +21,29 @@ MainCtrl.factory('AuthToken', function($localStorage){
 		else
 			return false;
 	};
+	
+	authTokenFactory.getType = function() {
+		 //alert('gettype');
+		 var defer = $q.defer();
+		 $http.get('/get-type').then(function(response){
+                 console.log(response.data.type);
+                //defer.resolve(response.data.type);
+        }).catch(function(reason){
+
+		});
+		//return defer.promise;
+		/*var defer = $q.defer();
+		$http.get('/get-type',{
+    		//params: { token: AuthToken.getToken()}
+    		
+    		
+    	}).then(function(response){
+    		alert('getres');
+    		console.log(response.data.type);
+    		defer.resolve(response.data.type);
+    	});
+    	return defer.promise;*/
+	}
 	return authTokenFactory;
 });
 
@@ -61,18 +84,35 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 
 	$scope.init = function() {
 		$http.get('/user-profile').then(function(response){
+			
 			$scope.user = response.data.user_details;
+             //alert('ok');
+            /*var userType=response.data.user_details.type;
+			if(userType=='V')
+			{
+			   $location.path("/vendor-profile");
+              //$window.location.href("/vendor-profile");
+			}
+			else if(userType=='F')
+			{
+			  //$window.location.href("/freelancer-profile");
+               $location.path("/freelancer-profile");
+			}*/
 		}).catch(function(err){
 			
 		});
 	};
 
 	if(AuthToken.isLoggedIn()) {
-		$scope.init();
+		 //alert('ok');
+		 $scope.init();
 	}
+
+
 	
 
 	$scope.homeContent = function() {
+
 		$http.get('/home-content').then(function(response){
 			
 			$scope.testimonials = response.data.testimonials;
@@ -123,7 +163,10 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 	};
 
 
-	$scope.doRegister=function(){
+	$scope.doRegister=function(valid){
+
+	  if(valid)	
+	  {
 		$http({
 			method  : 'POST',
 			url     : '/vendor/register',
@@ -139,7 +182,30 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 		}).then(function (response) {
 
 		});
-		
+	  }
+	};
+
+   $scope.change_passwordsave=function(valid){
+      
+	  if(valid)	{
+	  	$http({
+			method  : 'POST',
+			url     : '/change-password-check',
+			data : {
+				oldpwd:$scope.old_password,
+				newpwd:$scope.new_password,
+				confpwd:$scope.confirm_password,
+			  },
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		}).then(function (response) {
+              
+               if(response){
+			      $scope.msg = response.data.msg;
+				}
+		});
+	  }
 	};
 
 
@@ -263,6 +329,7 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 				//console.log(response.data.type);
                 //$window.location.href = "/freelancer-profile";
 				if(response.data.code == "100") {
+					 
 					AuthToken.setToken(response.data.token);
 					//$window.location.href = "/freelancer-profile";
 					if(response.data.type == "V"){
@@ -339,7 +406,7 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 				removalDelay: 300,
 				mainClass: 'my-mfp-zoom-in'
 			});
-			alert("Hello");
+			//alert("Hello");
 		});
 	};
 
@@ -349,11 +416,14 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 		$location.path("/login");
 	};
 
-	$scope.changePassword = function() {
-		 //alert('ok');
+	/*$scope.changePassword = function() {
+		 
 		 $location.path("/change-password");
 		//$window.location.href("/change-password");
-	};
+	};*/
+	//$scope.userProfile=function(){
+       // $location.path("/vendor-profile");
+	//}
 
 }).directive('testimonialSlider',function() {
 	var linker = function($scope, element, attr) {

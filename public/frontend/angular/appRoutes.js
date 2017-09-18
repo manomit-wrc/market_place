@@ -24,13 +24,15 @@ marketPlaceRoute.config(function ($routeProvider, $locationProvider, $qProvider)
 		templateUrl: '/templates/signup.html'
 	}).when('/login', {
 		templateUrl: '/templates/login.html'
-	}).when("/freelancer-profile", {
+	}).when('/freelancer-profile', {
 		templateUrl: '/templates/freelancer-profile.html',
-		authenticated: true
-	}).when("/vendor-profile", {
+		authenticated: true,
+		type: 'F'
+	}).when('/vendor-profile', {
 		templateUrl: '/templates/vendor-profile.html',
-		authenticated: true
-	}).when("/change-password", {
+		authenticated: true,
+		type: 'V'
+	}).when('/change-password', {
 		templateUrl: '/templates/change_password.html',
 		authenticated: true
 	});
@@ -40,7 +42,7 @@ marketPlaceRoute.config(function ($routeProvider, $locationProvider, $qProvider)
 
 marketPlaceRoute.run(function($rootScope,$location,AuthToken){
 	$rootScope.$on('$routeChangeStart',function(event,next,current){
-		if(next.$$route.authenticated) {
+		if(next.$$route.authenticated && next.$$route.type == AuthToken.getType()) {
 			if(AuthToken.isLoggedIn()) {
 				$location.path(next.$$route.originalPath);
 			}
@@ -50,6 +52,7 @@ marketPlaceRoute.run(function($rootScope,$location,AuthToken){
 			
 		}
 		if($location.path() == "/login") {
+
 			if(AuthToken.isLoggedIn()) {
 				$location.path("/freelancer-profile");
 			}
