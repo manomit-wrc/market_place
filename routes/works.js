@@ -11,6 +11,7 @@ module.exports = function(app,work) {
 
 	var storage = multer.diskStorage({
 	  destination: function (req, file, cb) {
+	  	//console.log(file.fieldname);
 	  	if(file.fieldname=='image')
 	  	 {
 	      cb(null, 'public/work');

@@ -7,6 +7,7 @@ module.exports = function(sequelize, DataTypes) {
     password: DataTypes.STRING,
     mobile_no: DataTypes.STRING,
     address: DataTypes.TEXT,
+    country_id:DataTypes.INTEGER,
     state: DataTypes.STRING,
     city: DataTypes.STRING,
     pincode: DataTypes.STRING,

@@ -1,7 +1,8 @@
 var MainCtrl = angular.module('MainCtrl',['ngSanitize','ngStorage']);
 
 
-MainCtrl.factory('AuthToken', function($localStorage, $q){
+MainCtrl.factory('AuthToken', function($localStorage){
+
 	var authTokenFactory = {};
 
 	authTokenFactory.getToken = function() {
@@ -58,8 +59,6 @@ MainCtrl.factory('AuthInterceptor', function ($q, $location, $localStorage) {
 			return config;
 		},
 		'responseError': function (response) {
-			
-
 			if (response.status === 401 || response.status === 403 || response.status === 500) {
 				$location.path("/login");
 			}
@@ -71,7 +70,7 @@ MainCtrl.factory('AuthInterceptor', function ($q, $location, $localStorage) {
 });
 
 
-MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParams, $filter,$timeout, AuthToken, $window, $location) {
+MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParams, $filter, $timeout, AuthToken, $window, $location) {
 	$scope.testimonials = {};
 	$scope.banner = [];
 	$scope.organization = {};
@@ -81,6 +80,8 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 	$scope.work_details = {};
 	$scope.active_class = 0;
 	$scope.user = {};
+	$scope.image={};
+	$scope.files={};
 
 	$scope.init = function() {
 		$http.get('/user-profile').then(function(response){
@@ -103,14 +104,13 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 		});
 	};
 
-	if(AuthToken.isLoggedIn()) {
-		 //alert('ok');
-		 $scope.init();
+
+	if (AuthToken.isLoggedIn()) {
+		$scope.init();
 	}
 
 
 	
-
 	$scope.homeContent = function() {
 
 		$http.get('/home-content').then(function(response){
@@ -119,9 +119,6 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 			$scope.banner = response.data.banner;
 			$scope.jobcategories = response.data.jobcategories;
 			$scope.organization = response.data.organization;
-
-			
-
 			$scope.client_parcentage = ($scope.organization[0].client) / 100;
 			$scope.freelancer_parcentage = ($scope.organization[0].freelancers) / 100;
 			$scope.jobs_completed_parcentage = ($scope.organization[0].jobs_completed) / 100;
@@ -138,8 +135,7 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 			$scope.stories = response.data.stories;
 			$scope.about = $sce.trustAsHtml(response.data.about);
 			$scope.about_short = $filter('limitTo')(response.data.about, 30, 0);
-			$scope.about_short_limit = $sce.trustAsHtml($scope.about_short);
-			
+			$scope.about_short_limit = $sce.trustAsHtml($scope.about_short);	
 		}).catch(function(reason){
 
 		});
@@ -147,7 +143,7 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 
 	$scope.faqContent = function() {
 		$http.get('/faq-content').then(function(response){
-			$scope.faq_category	=	response.data.faq_category;
+			$scope.faq_category	= response.data.faq_category;
 		}).catch(function(reason){
 
 		});
@@ -162,11 +158,25 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 		});
 	};
 
+	$scope.contactContent = function() {
+		$http.get('/contact-content').then(function(response){
+			//console.log(response.data);
+			$scope.organization	= response.data.organization[0];
+			$scope.map_address = response.data.organization[0].address;
+			//console.log(response.data.organization[0].address);
+			$scope.map_url = "https://maps.google.com/maps?q="+$scope.map_address+"&z=16&output=embed";
+			//$scope.map_url = $scope.map_address;
+		}).catch(function(reason){
+
+		});
+	};
+
 
 	$scope.doRegister=function(valid){
 
 	  if(valid)	
 	  {
+
 		$http({
 			method  : 'POST',
 			url     : '/vendor/register',
@@ -180,6 +190,7 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 				'Content-Type': 'application/json'
 			}
 		}).then(function (response) {
+
 
 		});
 	  }
@@ -206,8 +217,8 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 				}
 		});
 	  }
-	};
 
+	};
 
 	$scope.editProfile = function (valid) {
 		if(valid){
@@ -227,25 +238,122 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 			        $timeout( function(){
 			           $window.location.href = "/freelancer-profile";
 			        }, 2000 );
-
 				}
 			});
 		}
 	};
 
-	$scope.editvendorProfile = function (valid) {
+	$scope.jobPostContent = function (){
+		$http.get('/job-details').then(function(response){
+			$scope.jobs_categories = response.data.jobs_category;
+			$scope.jobs_skill = response.data.jobs_skill;
+		});
 
-		
+	};
+
+	$scope.getCountryDetails=function(){
+		//alert('ok');
+        $http.get('/country-details').then(function(response){
+        	console.log(response.data.country_data);
+			$scope.country_data = response.data.country_data;
+			//$scope.jobs_skill = response.data.jobs_skill;
+		});
+
+	};
+
+	$scope.getJobsDetails=function(){
+		//alert('ok');
+        $http.get('/jobs-details').then(function(response){
+
+        	console.log(response.data.country_name);
+        	$scope.jobs_data=[];
+			$scope.jobs_data = response.data.jobs_data;
+			$scope.country_name = response.data.country_name;
+			//$scope.jobs_skill = response.data.jobs_skill;
+		});
+
+	};
+
+	$scope.jobPostSubmit = function (valid){
 		if(valid){
 			$http({
+				method: "POST",
+				url: '/job-post-submit',
+				data:{
+					job: $scope.job
+				},
+				headers:{
+					'Content-Type': 'application/json'
+				}
+
+			}).then(function(response){
+				if(response){
+					$window.location.href = "/jobpost";
+				}
+			});
+
+		}
+	};
+
+	$scope.fetch_jobPostContent = function (){
+
+		$http.get('/fetch_job_post_details').then(function(response){
+			console.log(response);
+			$scope.post_job_details = response.data.job_post;
+			$scope.post_job_skills = response.data.job_skill;
+		});
+
+	};
+
+	/*$scope.uploadedVendorImage = function(element) {
+		
+		   $scope.$apply(function($scope) {
+	       $scope.image = element.files[0];
+           console.log(element.files[0]);
+	       
+	      });
+	};*/
+
+	$scope.uploadedVendorImage = function(files) {
+    //alert(files);
+    $scope.files = files;
+    };
+
+	$scope.editvendorProfile = function (valid) {
+		
+		 //alert($scope.files);
+		 if(valid) {
+           $http({
 				method: "post",
 				url: "/edit_vendorprofile",
+				headers: { "Content-Type": undefined  },
+				//headers: { "Content-Type": 'application/json;charset = utf-8;'},
+				//headers: { "Content-Type": 'application/x-www-form-urlencoded'},
+				transformRequest: function(data) {
+	            var formData = new FormData();
+	            formData.append("user", angular.toJson(data.user));
+	            //formData.append("files", data.files);
+	            for (var i = 0; i < data.files.length; i++) {
+	                formData.append("files[" + i + "]", data.files[i]);
+	            }
+	              return formData;
+	          },
+	          data: { all: $scope.user,ctry_id:$scope.country_name,files: $scope.files }
+				/*processData: false,
+				  transformRequest: function (data) {
+				      var formData = new FormData();
+				      formData.append("image", $scope.image);  
+				      return formData;  
+				  },  
 				data:{
-					all : $scope.user
+					all : $scope.user,
+					ctry_id:$scope.country_name,
+					vendor_image:formData
 				},
 				headers: {
 		         	'Content-Type': 'application/json'
-			  	}
+			  	}*/
+			  	
 			}).then(function(response){
 				if(response){
 			     $scope.msg = response.data.msg;
@@ -283,7 +391,6 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 		});
 	};
 	
-
 	$scope.filterPortFolio = function(value) {
 		var tempArr = [];
 		if($scope.blog_details.length > 0) {
@@ -309,13 +416,12 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 			
 			$scope.blog_content = angular.copy(tempArr);
 		}
-		$scope.active_class = value;
-		
+		$scope.active_class = value;	
 	};
 
 	$scope.doLogin = function (valid){
 		//using headers line for sending angular to node with post method
-		if(valid){
+		if (valid) {
 			$http.post('/authenticate',{
 				email: $scope.myUsername,
 				password: $scope.myPassword
@@ -326,35 +432,29 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 				}
 			}).then(function(response){
 
-				//console.log(response.data.type);
-                //$window.location.href = "/freelancer-profile";
-				if(response.data.code == "100") {
-					 
+				if (response.data.code == "100") {
+
 					AuthToken.setToken(response.data.token);
-					//$window.location.href = "/freelancer-profile";
-					if(response.data.type == "V"){
+					if (response.data.type == "V") {
 						$window.location.href = "/vendor-profile";
-					}else{
+					} else {
 						$window.location.href = "/freelancer-profile";	
 					}
-					
 				}
-                else if(response.data.code == "300"){
+                else if(response.data.code == "300") {
 					$scope.wraning_message = "Username or Password is wrong."
 				}
-
 			}).catch(function(reason){
 				
 			});
 		}
-		
 	};
 
 	$scope.blogDetails = function (){
 		$http.get('/blog_details',{params:{id:$routeParams.id}}).then(function(response){
 		    //AuthToken.setToken();
 			$scope.get_token = AuthToken.getToken();
-			//console.log($scope.get_token);
+			//console.log($scope.response.data.blog_comments);
 			$scope.blog_details = response.data.blog_details[0];
 			
 			$scope.short_description = $sce.trustAsHtml($scope.blog_details.short_description);
@@ -362,7 +462,6 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 			$scope.blog_comments = [];
 			$scope.blog_comments = response.data.blog_comments;
 			$scope.comment_count = response.data.blog_comments.length;
-			
 		});
 	};
 
@@ -384,7 +483,8 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 						'Content-Type':'application/json'
 					}
 				}).then(function(response){
-					//console.log(response);
+					//$location.path("/blog-details/$routeParams.id");
+					//$window.location.href = "/blog-details/$routeParams.id";
 				}).catch(function(reason){
 					
 				});
@@ -392,6 +492,31 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 		}
 	};
 
+	$scope.doContactSubmit = function(valid) {
+		if (valid) {
+			$http({
+				method  : 'POST',
+				url     : '/do-contact-submit',
+				data : {
+					fullname:$scope.fullname,
+					email:$scope.email,
+					phone:$scope.phone,
+					comments:$scope.comments
+				},
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			}).then(function(response) {
+				if (response) {
+					$scope.msg = response.data.msg;
+					$scope.fullname = '';
+					$scope.email = '';
+					$scope.phone = '';
+					$scope.comments = '';
+				}
+			});
+		}
+	};
 
 	$scope.showVideo = function() {
 		$timeout(function(){
@@ -518,37 +643,51 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 			});
 		}
 	};
-}).directive('uniqueEmail', ['$http', function($http){
-	return {
-        restrict: 'A',
-        require: 'ngModel',
-        link: function(scope, element, attrs, ctrl) {
-            //set the initial value as soon as the input comes into focus
-            element.on('focus', function() {
-                if (!scope.initialValue) {
-                    scope.initialValue = ctrl.$viewValue;
-                }
-            });
-            element.on('blur', function() {
-                if (ctrl.$viewValue != scope.initialValue) {
-                    // var dataUrl = attrs.url + "?email=" + ctrl.$viewValue;
-                    //you could also inject and use your 'Factory' to make call
-                    $http({
-                    	method: "post",
-						url: '/check-unique-email',
-						data:{
-							email : ctrl.$viewValue
-						},
-						headers: {
-				         	'Content-Type': 'application/json'
-					  	}
-                    }).then(function(response) {
-                    	console.log(response);
-                    	ctrl.$setValidity('isunique', response.data.success);
-                    });
-                }
-            });
-        }
-    };
-}]);
+});
 
+MainCtrl.directive('addressBasedGoogleMap', function () {
+    return {
+        restrict: "A",
+        template: "<div id='addressMap'></div>",
+        scope: {
+            Address: "=address",
+            zoom: "="
+        },
+        controller: function ($scope, $element, $attrs, $http) {
+            var geocoder;
+            var latlng;
+            var map;
+            var marker;
+            var lat;
+            var lng;
+            var addr;
+            var initialize = function () {
+                $http.get('/contact-content').then(function(response) {
+                	addr = response.data.organization[0].address;
+                	geocoder = new google.maps.Geocoder();
+	                geocoder.geocode({'address': addr }, 
+	                function (results, status) {
+	                    if (status == google.maps.GeocoderStatus.OK) {
+	                        lat = results[0].geometry.location.lat();
+	                        lng = results[0].geometry.location.lng();
+	                        latlng = new google.maps.LatLng(lat, lng);
+		                   	var mapOptions = {
+			                    zoom: $scope.zoom,
+			                    center: latlng,
+			                    mapTypeId: google.maps.MapTypeId.ROADMAP
+			                };
+	                		map = new google.maps.Map
+                       		(document.getElementById('addressMap'), mapOptions);
+                        	map.setCenter(results[0].geometry.location);
+                        	marker = new google.maps.Marker({
+                            	map: map,
+                            	position: results[0].geometry.location
+                        	});
+	                    }
+	                });  
+				});
+			};
+            initialize();
+        },
+    };
+});

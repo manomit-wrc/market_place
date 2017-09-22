@@ -1,0 +1,125 @@
+<div ng-init="jobPostContent();">
+     <!-- ==============================================
+	 Header
+	 =============================================== -->	 
+	 <header class="header-login">
+      <div class="container">
+	   <div class="content">
+        <div class="row">
+	     <h1 class="revealOnScroll" data-animation="fadeInDown"><i class="fa fa-coffee"></i> Jobs Post</h1>
+        </div><!-- /.row -->
+       </div><!-- /.content -->
+	  </div><!-- /.container -->
+     </header><!-- /header -->
+	 
+     <!-- ==============================================
+     Banner Section
+     =============================================== -->
+	 <section class="banner-login">
+	  <div class="container">
+	   <div class="row">
+	   
+	    <main class="main main-signup col-lg-12">
+	     <div class="col-lg-6 col-lg-offset-3 text-center">
+		  <div class="form-sign" ng-controller="MainController">
+		   <form name="jobsPost" ng-submit="jobPostSubmit(jobsPost.$valid)" method="post" novalidate="novalidate">
+		    <div class="form-head">
+			 <h3>Jobs Post</h3>
+			</div><!-- /.form-head -->
+			
+            <div class="form-body">
+			<div class="form-row" style="color: #fff;">{{msg}}</div>
+             <div class="form-row" ng-class="{
+	            'has-error':!jobsPost.jobCategory.$valid && (!jobsPost.$pristine || jobsPost.$submitted), 
+	            'has-success': jobsPost.jobCategory.$valid && (!jobsPost.$pristine || jobsPost.$submitted)
+	            }">
+			  <div class="form-controls">
+			   <select class="field" name="jobCategory" ng-model="job.jobCategory" placeholder="Jobs Category" required>
+			   		<option value="" disabled selected>Select Jobs Category</option>
+
+			   		<option value="{{jobs_cat.id}}" ng-repeat="jobs_cat in jobs_categories">{{jobs_cat.name}}</option>
+			   </select>
+
+			   <span class="help-block" ng-show="jobsPost.jobCategory.$error.required && (jobsPost.$pristine || jobsPost.$submitted)" style="color: #fff;">Please Select Job Category</span>
+
+			  </div><!-- /.form-controls -->
+             </div><!-- /.form-row -->
+
+		     <div class="form-row" ng-class="{
+            'has-error':!jobsPost.jobTitle.$valid && (!jobsPost.$pristine || jobsPost.$submitted), 
+            'has-success': jobsPost.jobTitle.$valid && (!jobsPost.$pristine || jobsPost.$submitted)
+            }">
+		      <div class="form-controls">
+			   <input type="text" name="jobTitle" ng-model="job.jobTitle" required class="field" placeholder="Job Title">
+			   <span class="help-block" ng-show="jobsPost.jobTitle.$error.required && (jobsPost.$pristine || jobsPost.$submitted)" style="color: #fff;">Please Enter Job Title</span>
+			  </div><!-- /.form-controls -->
+		     </div><!-- /.form-row -->
+
+		     <div class="form-row" ng-class="{
+                'has-error':!jobsPost.jobBudget.$valid && (!jobsPost.$pristine || jobsPost.$submitted), 
+                'has-success': jobsPost.jobBudget.$valid && (!jobsPost.$pristine || jobsPost.$submitted)
+                }">
+		      <div class="form-controls">
+			   <input type="text" name="jobBudget" ng-model="job.jobBudget" required class="field" placeholder="Job Budget" ng-pattern="/^[0-9]*$/">
+			   <span class="help-block" ng-show="jobsPost.jobBudget.$error.required && (jobsPost.$pristine || jobsPost.$submitted)" style="color: #fff;">Please Enter Job Budget</span>
+
+			   <span class="help-block" ng-show="jobsPost.jobBudget.$error.pattern && (!jobsPost.$pristine || jobsPost.$submitted)" style="color: #fff;">Charectar not allowed.</span>
+			  </div><!-- /.form-controls -->
+		     </div><!-- /.form-row -->
+
+		     <div class="form-row" ng-class="{
+                'has-error':!jobsPost.jobDescription.$valid && (!jobsPost.$pristine || jobsPost.$submitted), 
+                'has-success': jobsPost.jobDescription.$valid && (!jobsPost.$pristine || jobsPost.$submitted)
+                }">
+		      <div class="form-controls">
+			   <textarea class="field" cols="" rows="" style="height: 100px;" name="jobDescription" ng-model="job.jobDescription" placeholder="Job Description" required></textarea>
+
+			   <span class="help-block" ng-show="jobsPost.jobDescription.$error.required && (jobsPost.$pristine || jobsPost.$submitted)" style="color: #fff;">Please Enter Job Description</span>
+			  </div><!-- /.form-controls -->
+		     </div><!-- /.form-row -->
+
+		     <div class="form-row" ng-class="{
+                'has-error':!jobsPost.jobNoOfApplicant.$valid && (!jobsPost.$pristine || jobsPost.$submitted), 
+                'has-success': jobsPost.jobNoOfApplicant.$valid && (!jobsPost.$pristine || jobsPost.$submitted)
+                }">
+		      <div class="form-controls">
+			   <input type="text" class="field" name="jobNoOfApplicant" ng-model="job.jobNoOfApplicant" placeholder="No of Applicant" ng-pattern="/^[0-9]*$/" required>
+
+			   <span class="help-block" ng-show="jobsPost.jobNoOfApplicant.$error.required && (jobsPost.$pristine || jobsPost.$submitted)" style="color: #fff;">Please Enter No Of Applicant</span>
+
+			   <span class="help-block" ng-show="jobsPost.jobNoOfApplicant.$error.pattern && (!jobsPost.$pristine || jobsPost.$submitted)" style="color: #fff;">Charectar not allowed.</span>
+			  </div><!-- /.form-controls -->
+		     </div>
+
+		     <div class="form-row" ng-class="{
+                'has-error':!jobsPost.jobSkills.$valid && (!jobsPost.$pristine || jobsPost.$submitted), 
+                'has-success': jobsPost.jobSkills.$valid && (!jobsPost.$pristine || jobsPost.$submitted)
+                }">
+		      <div class="form-controls">
+		      	<select class="field" name="jobSkills" multiple="multiple" ng-model="job.jobSkills" style="height: 100px;" required >
+			   		<option value="" disabled selected>Select Jobs Skill</option>
+
+			   		<option value="{{job_skill.id}}" ng-repeat="job_skill in jobs_skill">{{job_skill.name}} </option>
+			   </select>
+
+			   <span class="help-block" ng-show="jobsPost.jobSkills.$error.required && (jobsPost.$pristine || jobsPost.$submitted)" style="color: #fff;">Please Select Job Skill</span>
+			  </div><!-- /.form-controls -->
+		     </div><!-- /.form-row -->
+
+		     
+	
+			 <div class="form-foot">
+			  <div class="form-actions">
+			   <input value="Submit" class="form-btn" type="submit">
+			  </div><!-- /.form-actions -->
+			 </div><!-- /.form-foot -->
+			</form>
+		   </div><!-- /.form-sign -->
+		  </div><!-- /.shell -->
+		 </main>
+		
+	   </div><!-- /.row -->
+	  </div><!-- /.container -->
+	 </section><!-- /section -->
+
+</div>

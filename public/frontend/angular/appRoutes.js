@@ -8,6 +8,8 @@ marketPlaceRoute.config(function ($routeProvider, $locationProvider, $qProvider)
 		templateUrl: '/templates/about.html'
 	}).when('/faq', {
 		templateUrl: '/templates/faq.html'
+	}).when('/contact', {
+		templateUrl: '/templates/contact.html'
 	}).when('/jobs',{
 		templateUrl: '/templates/jobs.html'
 	}).when('/vendor/register',{
@@ -26,14 +28,24 @@ marketPlaceRoute.config(function ($routeProvider, $locationProvider, $qProvider)
 		templateUrl: '/templates/login.html'
 	}).when('/freelancer-profile', {
 		templateUrl: '/templates/freelancer-profile.html',
+
 		authenticated: true,
 		type: 'F'
 	}).when('/vendor-profile', {
+
+		authenticated: true
+	}).when('/jobpost', {
+		templateUrl: '/templates/jobspost.html',
+	}).when("/vendor-profile", {
+
 		templateUrl: '/templates/vendor-profile.html',
 		authenticated: true,
 		type: 'V'
 	}).when('/change-password', {
 		templateUrl: '/templates/change_password.html',
+		authenticated: true
+	}).when('/editjobpost', {
+		templateUrl: '/templates/editjobspost.html',
 		authenticated: true
 	});
 

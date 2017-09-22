@@ -1,5 +1,55 @@
 module.exports = function(app, passport, models) {
   
+    var user = user;
+
+	const encode = require('nodejs-base64-encode');
+
+	//for image
+ 	var multer = require('multer');
+
+ 	/*var express = require('express');
+	var http = require('http');
+	var path = require('path');
+	var fs = require('fs');
+	var https = require("https");*/
+
+	var im = require('imagemagick');
+	var fileExt = '';
+	var fileName = '';
+	var storage = multer.diskStorage({
+		destination: function (req, file, cb) {
+			console.log('hello');
+			console.log(file[0].fieldname);
+			cb(null, 'public/vendor');
+		},
+		filename: function (req, file, cb) {
+			fileExt = file.mimetype.split('/')[1];
+			if (fileExt == 'jpeg') { fileExt = 'jpg'; }
+			fileName = req.body.all.id + '-' + Date.now() + '.' + fileExt;
+			//fileName = req.user.id + '-' + Date.now() + '.' + fileExt;
+			cb(null, fileName);
+		}
+	});
+
+	var restrictImgType = function(req, file, cb) {
+	    var allowedTypes = ['image/jpeg','image/png','image/jpg'];
+		if (allowedTypes.indexOf(req.file.mimetype) !== -1) {
+			// To accept the file pass `true`
+			cb(null, true);
+		} else {
+	        // To reject this file pass `false`
+	        cb(null, false);
+	       //cb(new Error('File type not allowed'));// How to pass an error?
+		}
+	};
+
+	var upload = multer({ storage: storage, limits: {fileSize:2000000, fileFilter:restrictImgType} });   
+
+
+
+
+//----------file upload end-------------------------------
+
    var md5=require('md5');
    var jwt=require('jwt-simple');
 	// =====================================
@@ -20,6 +70,14 @@ module.exports = function(app, passport, models) {
 	});
 
 	app.get('/faq', function(req, res){
+		res.render('frontend/index',{layout:false}); 
+	});
+
+	app.get('/work-details', function(req, res){
+		res.render('frontend/index',{layout:false}); 
+	});
+
+	app.get('/contact', function(req, res){
 		res.render('frontend/index',{layout:false}); 
 	});
 
@@ -51,11 +109,20 @@ module.exports = function(app, passport, models) {
 		res.render('frontend/index',{layout:false}); 
 	});
 
+	app.get('/jobpost' , function (req, res){
+		res.render('frontend/index',{layout:false}); 
+	});
+
 	app.get('/vendor-profile',function (req,res){
 		res.render('frontend/index',{layout:false}); 
 	});
+
 	app.get('/change-password',function (req,res){
 		res.render('frontend/index',{layout:false}); 
+	});
+
+	app.get('/editjobpost', function (req,res){
+		res.render('frontend/index',{layout:false});
 	});
 
 	app.get('/home-content', function(req, res){
@@ -133,6 +200,7 @@ module.exports = function(app, passport, models) {
 		});
 	});
 
+
     app.get("/get-type",function(res){
           console.log('hello how r u');
         var token = getToken(req.headers);
@@ -149,6 +217,17 @@ module.exports = function(app, passport, models) {
            }
 
      });
+
+	app.get("/contact-content", function(req, res){
+		Promise.all([
+			models.organization.findAll()
+		]).then(function(values){
+			var result = JSON.parse(JSON.stringify(values));
+			//console.log(result[0]);
+			res.send({organization:result[0]});
+		});
+	});
+
 
 	app.get("/blog-content", function (req,res){
 		Promise.all([
@@ -182,6 +261,7 @@ module.exports = function(app, passport, models) {
 			var result = JSON.parse(JSON.stringify(values));
 			var blog_detailsArr = [];
 			var blog_commentsArr = [];
+			//console.log(result[0]);
 			//console.log(result[1]);
 	    	blog_detailsArr.push({
 	    		blog_name: result[0].blog_name,
@@ -190,11 +270,19 @@ module.exports = function(app, passport, models) {
 	    		blog_image: "/blog/"+result[0].blog_image,
 	    		createdAt: result[0].createdAt
 	    	});
-	    	for(var i=0;i<result[1].length;i++) {
+
+	    	for (var i=0;i<result[1].length;i++) {
+	    		if (fs.existsSync("public/user/thumbs/"+result[1][i].user.image) && result[1][i].user.image != "") {
+      				image = "/user/thumbs/"+result[1][i].user.image;
+    			}
+			    else {
+			      	image = "/user2-160x160.jpg";
+			    }
 		    	blog_commentsArr.push({
 		    		blog_comment: result[1][i].blog_comment,
 		    		date: result[1][i].createdAt,
-		    		name: result[1][i].user.fname+" "+result[1][i].user.lname
+		    		name: result[1][i].user.fname+" "+result[1][i].user.lname,
+		    		image: image
 		    	});
 		    }
 			res.send({
@@ -204,12 +292,98 @@ module.exports = function(app, passport, models) {
 		});
 	});
 
+   app.get('/jobs-details', passport.authenticate('jwt', { session: false}), function (req,res) {
+		
+		var token = getToken(req.headers);
+		var decoded = jwt.decode(token, "W$q4=25*8%v-}UW");
+	    var user_id=decoded[0].id;
+        
+        //models.user.belongsTo(models.country, {foreignKey: 'country_id'});
+       
+
+		models.job.belongsTo(models.user, {foreignKey:'user_id'});
+        models.job.belongsTo(models.jobcategory, {foreignKey: 'jobscategory_id'});
+
+		//models.job.belongsTo(models.job_skill, {foreignKey: 'job_id'});
+        //models.job_skill.hasMany(models.skill, {foreignKey: 'skill_id'});
+		//models.skill.belongsTo(models.job_skill, {foreignKey: 'id'});
+		
+         models.user.belongsTo(models.country, {foreignKey:'country_id'});
+
+         
+         models.job_skill.belongsTo(models.job, {foreignKey: 'job_id'});
+         models.job_skill.belongsTo(models.skill, {foreignKey: 'skill_id'});
+
+
+		Promise.all([
+
+			models.job.findAll({
+				include: [
+		            {
+		              model: models.user
+		            },
+                    {
+		              model: models.jobcategory
+		            },
+		           /* {
+		              model: models.job_skill
+		            },*/
+		            /*{
+		              model: models.skill
+		            }*/
+		        ],
+			  	where: {
+			  		user_id:user_id
+			  	}
+			}),
+
+			models.user.findAll({
+				include: [
+		            {
+		              model: models.country
+		            }
+                 ],
+			  	where: {
+			  		id:user_id
+			  	}
+			}),
+
+			models.job_skill.findAll({
+				include: [
+		            {
+		              model: models.job
+		            },
+		            {
+		              model: models.skill
+		            }
+                 ],
+			  	where: {
+			  		id:user_id
+			  	}
+			})
+			
+		]).then(function(values){
+
+			var result = JSON.parse(JSON.stringify(values));
+		     console.log(result[0]);
+		    //console.log(result[1]);
+             //console.log(result[2]);
+             res.send({
+				jobs_data: result[0],
+				country_name: result[1]
+			});
+
+		});
+	});
+
+
+
+
+
 
 	app.post("/vendor/register", function(req, res){
 	    models.user.create({
-
 			email:req.body.email,
-
 			fname:req.body.fname,
 			lname:req.body.lname,
 			type:'V',
@@ -218,6 +392,7 @@ module.exports = function(app, passport, models) {
 		}).then(function(result){
 			res.json({success: true, msg: 'Registration successfully'});
 		}).catch(function(err){
+
 
      });
 	});
@@ -291,28 +466,25 @@ module.exports = function(app, passport, models) {
 	});
 
 	app.get('/user-profile', passport.authenticate('jwt', { session: false}), function(req, res) {
-		
-	  var token = getToken(req.headers);
-	  if (token) {
-	    var decoded = jwt.decode(token, "W$q4=25*8%v-}UW");
-
-	    models.user.findAll({ where: {
-	      email: decoded[0].email
-	    } }).then(function(user) {
-	        if (user.length == 0) {
-	          	return res.status(403).send({success: false, msg: 'Authentication failed. User not found.'});
-	        } else {
-	        	var user_details = JSON.parse(JSON.stringify(user[0]));
-	          	res.json({success: true, user_details: user_details});
-	        }
-	    });
-	  } else {
-	    return res.status(403).send({success: false, msg: 'No token provided.'});
-	  }
+		var token = getToken(req.headers);
+		if (token) {
+	    	var decoded = jwt.decode(token, "W$q4=25*8%v-}UW");
+			models.user.findAll({ where: {
+				email: decoded[0].email
+			} }).then(function(user) {
+				if (user.length == 0) {
+				  	return res.status(403).send({success: false, msg: 'Authentication failed. User not found.'});
+				} else {
+					var user_details = JSON.parse(JSON.stringify(user[0]));
+				  	res.json({success: true, user_details: user_details});
+				}
+			});
+		} else {
+			return res.status(403).send({success: false, msg: 'No token provided.'});
+		}
 	});
 
 	app.post('/edit_profile', passport.authenticate('jwt', { session: false}), function (req, res) {
-		
 		models.user.findById(req.body.all.id).then(function(result){
 			models.user.update({
 				fname: req.body.all.fname,
@@ -332,13 +504,102 @@ module.exports = function(app, passport, models) {
 			});
 		});
 	});
-   
 
-  
-	app.post('/edit_vendorprofile', passport.authenticate('jwt', { session: false}), function (req, res) {
-		
-		models.user.findById(req.body.all.id).then(function(result){
+	app.get('/job-details', passport.authenticate('jwt', { session: false}), function (req,res) {
+		Promise.all([
+			models.jobcategory.findAll(),
+			models.skill.findAll({attributes:['id','name']})
+		]).then(function(values){
+			var result = JSON.parse(JSON.stringify(values));
+			res.send({jobs_category: result[0], jobs_skill: result[1]});
+		});
+	});
+    
+    app.get('/country-details', passport.authenticate('jwt', { session: false}), function (req,res) {
+		Promise.all([
+			models.country.findAll({attributes:['id','code','name']})
+		]).then(function(values){
+
+			var result = JSON.parse(JSON.stringify(values));
 			//console.log(result);
+			res.send({country_data: result[0]});
+		});
+	});
+
+
+
+	app.post('/job-post-submit', passport.authenticate('jwt', { session: false}), function (req,res) {
+		var token = getToken(req.headers);
+		if(token){
+			var decoded = jwt.decode(token, "W$q4=25*8%v-}UW");
+			
+			models.job.create({
+				jobscategory_id: req.body.job.jobCategory,
+				title: req.body.job.jobTitle,
+				budget: req.body.job.jobBudget,
+				no_of_applicant: req.body.job.jobNoOfApplicant,
+				description: req.body.job.jobDescription,
+				user_id: decoded[0].id
+			}).then(function(result){
+				var job_id = result.id;
+				var job_skill = req.body.job.jobSkills.map(Number);
+
+				for(var i=0; i<job_skill.length; i++){
+					models.job_skill.create({
+						job_id: job_id,
+						skill_id: job_skill[i],
+					});
+				}
+				res.json({success: true});
+
+			});
+		}else{
+			return res.status(403).send({success: false, msg: 'No token provided.'});
+		}
+
+	});
+
+	app.get('/fetch_job_post_details', passport.authenticate('jwt', { session: false}), function(req,res){
+		var token = getToken(req.headers);
+		if(token){
+			var decoded = jwt.decode(token, "W$q4=25*8%v-}UW");
+
+			models.job.findAll({
+				where:{
+					user_id:decoded[0].id
+				}
+			}).then(function(result){
+				models.job_skill.findAll({
+					where:{
+						job_id:result[0].id
+					}
+				}).then(function(result1){
+					res.json({job_post: result,job_skill:result1});
+				});
+
+			});
+		}
+	});
+  
+	app.post('/edit_vendorprofile',upload.single('image') ,passport.authenticate('jwt', { session: false}), function (req, res) {
+		models.user.findById(req.body.all.id).then(function(result){
+			
+
+
+			if (req.files) {
+             photo = fileName;
+            // save thumbnail -- should this part go elsewhere?
+		        im.crop({
+					srcPath: 'public/vendor/'+ fileName,
+					dstPath: 'public/vendor/thumbs/'+ fileName,
+					width: 100,
+					height: 100
+		        }, function(err, stdout, stderr) {
+					if (err) throw err;
+		        });
+	        }
+		    console.log(req.body.fileName);
+		    console.log(req.body.ctry_id);
 			models.user.update({
 				fname: req.body.all.fname,
 				lname: req.body.all.lname,
@@ -347,7 +608,9 @@ module.exports = function(app, passport, models) {
 				address: req.body.all.address,
 				state: req.body.all.state,
 				city: req.body.all.city,
-				pincode: req.body.all.pincode
+				pincode: req.body.all.pincode,
+				country_id: req.body.ctry_id,
+				image: fileName
 			},{
 				where: {
 					id: req.body.all.id
@@ -358,7 +621,6 @@ module.exports = function(app, passport, models) {
 		});
 	});
 
- 
 	getToken = function (headers) {
 	  if (headers && headers.authorization) {
 	    var parted = headers.authorization.split(' ');
@@ -381,6 +643,20 @@ module.exports = function(app, passport, models) {
 			//console.log('success');
 		}).catch(function(err){
 			//console.log('failure');
+		});
+	});
+
+	app.post('/do-contact-submit', function(req, res) {
+		models.contact.create({
+			name:req.body.fullname,
+			email:req.body.email,
+			phone_no:req.body.phone,
+			comment:req.body.comments
+		}).then(function(result){
+			res.json({success: true, msg: 'Contact form submitted successfully!'});
+		}).catch(function(err){
+			//console.log('failure');
+			res.json({success: false, msg: 'Some error occured while submitting the form!'});
 		});
 	});
 
@@ -409,19 +685,17 @@ module.exports = function(app, passport, models) {
 
 	// process the login form
 	app.post('/admin', passport.authenticate('local-login', {
-            successRedirect : '/admin/dashboard', // redirect to the secure profile section
-            failureRedirect : '/admin', // redirect back to the signup page if there is an error
-            failureFlash : true // allow flash messages
-		}),
-        function(req, res) {
-            console.log("hello");
-
-            if (req.body.remember_me) {
-              req.session.cookie.maxAge = 1000 * 60 * 3;
-            } else {
-              req.session.cookie.expires = false;
-            }
-        res.redirect('/admin');
+        successRedirect : '/admin/dashboard', // redirect to the secure profile section
+        failureRedirect : '/admin', // redirect back to the signup page if there is an error
+        failureFlash : true // allow flash messages
+	}), function(req, res) {
+        //console.log("hello");
+        if (req.body.remember_me) {
+          req.session.cookie.maxAge = 1000 * 60 * 3;
+        } else {
+          req.session.cookie.expires = false;
+        }
+    	res.redirect('/admin');
     });
 
 	app.post('/register-submit', function(req, res) {
@@ -437,7 +711,6 @@ module.exports = function(app, passport, models) {
 			alert(err);
 		});
 	});
-	
 };
 
 // route middleware to make sure

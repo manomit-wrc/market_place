@@ -26,6 +26,9 @@ module.exports = {
       address: {
         type: Sequelize.TEXT
       },
+      country_id: {
+        type: Sequelize.INTEGER
+      },
       state: {
         type: Sequelize.STRING
       },

@@ -1,4 +1,4 @@
-var marketPlaceApp = angular.module('marketPlaceApp',['marketPlaceRoute','MainCtrl']);
+var marketPlaceApp = angular.module('marketPlaceApp',['marketPlaceRoute','MainCtrl', 'vcRecaptcha']);
 
 marketPlaceApp.directive('myNavbar', function () {
 	return {
