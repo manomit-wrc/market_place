@@ -123,11 +123,15 @@
 		   <div class="col-lg-12">
 			<hr class="small-hr">
 			<p> {{jbs.description}}</p>
-			<span class="label label-success">HTML 5</span>
-			<span class="label label-success">CSS3</span>
+			 <div class="col-md-12">
+				<div ng-repeat="skl in jbs.job_skill_list" class="col-md-1">
+				  <span class="label label-success">{{skl.name}}</span>
+				</div>
+			 </div>
+			<!-- <span class="label label-success">CSS3</span>
 			<span class="label label-success">PHP 5.4</span>
 			<span class="label label-success">Mysql</span>
-			<span class="label label-success">Bootstrap</span>
+			<span class="label label-success">Bootstrap</span> -->
 		   </div><!-- /.col-lg-12 -->
 		   </div><!-- /.col-lg-12 -->
 		  </div><!-- /.row -->

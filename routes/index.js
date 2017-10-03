@@ -298,26 +298,62 @@ module.exports = function(app, passport, models) {
 		var decoded = jwt.decode(token, "W$q4=25*8%v-}UW");
 	    var user_id=decoded[0].id;
         
-        //models.user.belongsTo(models.country, {foreignKey: 'country_id'});
-       
+        
+       //models.job.belongsTo(models.user, {foreignKey:'user_id'});
+       //models.job.belongsTo(models.user, {foreignKey:'user_id'});
 
+      //--------------------------implement-------------------------------------
 		models.job.belongsTo(models.user, {foreignKey:'user_id'});
         models.job.belongsTo(models.jobcategory, {foreignKey: 'jobscategory_id'});
 
-		//models.job.belongsTo(models.job_skill, {foreignKey: 'job_id'});
-        //models.job_skill.hasMany(models.skill, {foreignKey: 'skill_id'});
-		//models.skill.belongsTo(models.job_skill, {foreignKey: 'id'});
+        models.job.belongsToMany(models.skill, {
+		    through: models.job_skill,
+		    foreignKey: 'job_id',
+		     as: 'job_skill_list'
+		 });
+
+        models.skill.belongsToMany(models.job, {
+		    through: models.job_skill,
+		    foreignKey: 'skill_id',
+		    as: 'job_skill_list'
+		});
+        
+        /* models.job.belongsToMany(models.skill, {
+		    through: models.job_skill,
+		    foreignKey: 'job_id',
+		     as: 'job_skill_list'
+		 });
+
+         models.job.belongsToMany(models.job, {
+		    through: models.skill,
+		    foreignKey: 'id',
+		    as: 'job_skill_list'
+		});*/
+        
+
 		
-         models.user.belongsTo(models.country, {foreignKey:'country_id'});
+		
+        //models.job.hasMany(models.job_skill, {foreignKey: 'job_id'});
+        /*models.job.belongsToMany(models.job_skill, {through: models.job_skill, foreignKey: 'job_id' });*/
+        //models.skill.belongsToMany(models.job_skill, {through: 'job_skills', foreignKey: 'skill_id' });
+        //models.job_skill.belongsTo(models.skill, {foreignKey: 'skill_id'});
+        //--
+        models.user.belongsTo(models.country, {foreignKey:'country_id'});
+      //------------------------------------------------------------------------
+        //models.job_skill.hasMany(models.skill, {foreignKey: 'skill_id'});
+		//models.skill.hasMany(models.job_skill, {foreignKey: 'skill_id'});
+		
+	  //---------------------implement------------------------------------------
+          /*models.user.belongsTo(models.country, {foreignKey:'country_id'});
 
          
          models.job_skill.belongsTo(models.job, {foreignKey: 'job_id'});
-         models.job_skill.belongsTo(models.skill, {foreignKey: 'skill_id'});
-
+         models.job_skill.belongsTo(models.skill, {foreignKey: 'skill_id'});*/
+      //-----------------------------------------------------------------------
 
 		Promise.all([
-
-			models.job.findAll({
+             
+              models.job.findAll({
 				include: [
 		            {
 		              model: models.user
@@ -325,19 +361,37 @@ module.exports = function(app, passport, models) {
                     {
 		              model: models.jobcategory
 		            },
-		           /* {
-		              model: models.job_skill
-		            },*/
-		            /*{
-		              model: models.skill
-		            }*/
+		            {
+		            	model: models.skill,
+		            	as: 'job_skill_list'
+		            }
 		        ],
 			  	where: {
 			  		user_id:user_id
 			  	}
 			}),
+			  /*models.job_skill.findAll({
+                 include: [
+		            {
+		              model: models.skill
+		            }
+		           ],
+		            
+               }),*/
 
-			models.user.findAll({
+			  models.user.findAll({
+                 include: [
+		            {
+		              model: models.country
+		            }
+		           ],
+		           where: {
+			  		id:user_id
+			  	  }
+		            
+               }),
+
+			/*models.user.findAll({
 				include: [
 		            {
 		              model: models.country
@@ -346,9 +400,9 @@ module.exports = function(app, passport, models) {
 			  	where: {
 			  		id:user_id
 			  	}
-			}),
+			}),*/
 
-			models.job_skill.findAll({
+			/*models.job_skill.findAll({
 				include: [
 		            {
 		              model: models.job
@@ -360,17 +414,21 @@ module.exports = function(app, passport, models) {
 			  	where: {
 			  		id:user_id
 			  	}
-			})
+			})*/
 			
 		]).then(function(values){
-
+            
 			var result = JSON.parse(JSON.stringify(values));
 		     console.log(result[0]);
-		    //console.log(result[1]);
+		     //console.log(result[1]);
              //console.log(result[2]);
+              
+            
+
              res.send({
 				jobs_data: result[0],
-				country_name: result[1]
+				//skill_name: result[1],
+				//country_name: result[1]
 			});
 
 		});
