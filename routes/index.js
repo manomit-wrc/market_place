@@ -298,7 +298,36 @@ module.exports = function(app, passport, models) {
 		var decoded = jwt.decode(token, "W$q4=25*8%v-}UW");
 	    var user_id=decoded[0].id;
         
-        
+       //var moment = require( 'moment' );
+
+       /*var date1 = moment( '25/12/2014', 'DD/MM/YYYY' );
+       var date2 = moment( '10/01/2015', 'DD/MM/YYYY' );
+       var diffInMillis = date2.diff( date1 );*/
+
+      /* var date1 = new Date('7/11/2010');
+       var date2 = new Date('12/12/2010');
+       var diffDays = date2.getDate() - date1.getDate(); 
+        alert(diffDays)*/
+
+        /*var date1 = new Date("7/13/2010");
+		var date2 = new Date("12/15/2010");
+		var timeDiff = Math.abs(date2.getTime() - date1.getTime());
+		var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); */
+         
+            var date1 = new Date("2017-09-14 05:26:51");
+			var date2 = new Date("2017-10-04 01:26:51");
+			var timeDiff = Math.abs(date2.getTime() - date1.getTime());
+			var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+		    
+             //console.log(timeDiff);
+             //console.log(diffDays);
+              var dts=new Date();
+              //console.log(dts);
+            //var dateTime = require('node-datetime');
+			//var dt = dateTime.create();
+			//var formatted = dt.format('Y-m-d H:M:S');
+			 //console.log(formatted);
+			 
        //models.job.belongsTo(models.user, {foreignKey:'user_id'});
        //models.job.belongsTo(models.user, {foreignKey:'user_id'});
 
@@ -306,7 +335,7 @@ module.exports = function(app, passport, models) {
 		models.job.belongsTo(models.user, {foreignKey:'user_id'});
         models.job.belongsTo(models.jobcategory, {foreignKey: 'jobscategory_id'});
 
-        models.job.belongsToMany(models.skill, {
+         models.job.belongsToMany(models.skill, {
 		    through: models.job_skill,
 		    foreignKey: 'job_id',
 		     as: 'job_skill_list'
@@ -379,7 +408,7 @@ module.exports = function(app, passport, models) {
 		            
                }),*/
 
-			  models.user.findAll({
+			models.user.findAll({
                  include: [
 		            {
 		              model: models.country
@@ -417,21 +446,23 @@ module.exports = function(app, passport, models) {
 			})*/
 			
 		]).then(function(values){
-            
-			var result = JSON.parse(JSON.stringify(values));
-		     console.log(result[0]);
-		     //console.log(result[1]);
+             var result = JSON.parse(JSON.stringify(values));
+		     //console.log(result[0]);
+		       console.log(result[1]);
              //console.log(result[2]);
-              
-            
-
-             res.send({
+               console.log(dts);
+            res.send({
 				jobs_data: result[0],
-				//skill_name: result[1],
-				//country_name: result[1]
+			   //skill_name: result[1],
+				country_name: result[1],
+				cdate:dts,
 			});
 
+		   
+
 		});
+
+				
 	});
 
 
