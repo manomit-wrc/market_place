@@ -37,7 +37,7 @@
                       <td>{{this.description}}</td>                     
                       <td><img src="/work/{{this.image}}" height="90" width="90"></td>  
                       <td><a href="work/vedio/{{this.video}}" target="_blank">{{this.video}}</a></td>                     
-                      <td><a href="/admin/works/edit/{{this.id}}" >Edit</a>&nbsp;|&nbsp;<a href="/admin/work/delete/{{this.id}}" onclick="return confirm('Are you sure?')">Delete</a></td>
+                      <td><a href="/admin/works/edit/{{this.id}}" title="Edit">Edit</a>&nbsp;|&nbsp;<a href="/admin/work/delete/{{this.id}}" onclick="return confirm('Are you sure?')" title="Delete">Delete</a></td>
                     </tr>
                      {{/each}}               
                 </tbody>

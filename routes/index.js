@@ -335,13 +335,13 @@ module.exports = function(app, passport, models) {
 		models.job.belongsTo(models.user, {foreignKey:'user_id'});
         models.job.belongsTo(models.jobcategory, {foreignKey: 'jobscategory_id'});
 
-         models.job.belongsToMany(models.skill, {
+        models.job.belongsToMany(models.skill, {
 		    through: models.job_skill,
 		    foreignKey: 'job_id',
-		     as: 'job_skill_list'
+		    as: 'job_skill_list'
 		 });
 
-        models.skill.belongsToMany(models.job, {
+         models.skill.belongsToMany(models.job, {
 		    through: models.job_skill,
 		    foreignKey: 'skill_id',
 		    as: 'job_skill_list'
@@ -408,7 +408,7 @@ module.exports = function(app, passport, models) {
 		            
                }),*/
 
-			models.user.findAll({
+			 models.user.findAll({
                  include: [
 		            {
 		              model: models.country
@@ -446,21 +446,20 @@ module.exports = function(app, passport, models) {
 			})*/
 			
 		]).then(function(values){
-             var result = JSON.parse(JSON.stringify(values));
+              var result = JSON.parse(JSON.stringify(values));
 		     //console.log(result[0]);
-		       console.log(result[1]);
+		      console.log(result[1]);
              //console.log(result[2]);
-               console.log(dts);
-            res.send({
+              console.log(dts);
+
+              res.send({
 				jobs_data: result[0],
 			   //skill_name: result[1],
 				country_name: result[1],
-				cdate:dts,
+				cdate:dts,  
 			});
 
-		   
-
-		});
+	});
 
 				
 	});
@@ -497,7 +496,7 @@ module.exports = function(app, passport, models) {
 	    var decoded = jwt.decode(token, "W$q4=25*8%v-}UW");
 	         
 	         var user_id=decoded[0].id;
-	      if(decoded[0].password==md5(oldPwd))
+	      if(decoded[0].password==md5(oldPwd)) 
 	      {
 	      	
 			     if(newPwd==confPwd)
@@ -554,7 +553,7 @@ module.exports = function(app, passport, models) {
 		});	
 	});
 
-	app.get('/user-profile', passport.authenticate('jwt', { session: false}), function(req, res) {
+	 app.get('/user-profile', passport.authenticate('jwt', { session: false}), function(req, res) {
 		var token = getToken(req.headers);
 		if (token) {
 	    	var decoded = jwt.decode(token, "W$q4=25*8%v-}UW");
@@ -583,7 +582,8 @@ module.exports = function(app, passport, models) {
 				address: req.body.all.address,
 				state: req.body.all.state,
 				city: req.body.all.city,
-				pincode: req.body.all.pincode
+				pincode: req.body.all.pincode,
+				country_id: req.body.ctry_id
 			},{
 				where: {
 					id: req.body.all.id

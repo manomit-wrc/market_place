@@ -1,4 +1,4 @@
-
+<div ng-init="getCountryDetails();">
      <!-- ==============================================
 	 Header
 	 =============================================== -->	 
@@ -114,6 +114,27 @@
 			   <span class="help-block" ng-show="myProfileEdit.myPincode.$error.required && (!myProfileEdit.$pristine || myProfileEdit.$submitted)" style="color: #fff;">Please Enter Pincode</span>
 			  </div><!-- /.form-controls -->
 		     </div><!-- /.form-row -->
+
+              
+             <div class="form-row" ng-class="{
+                'has-error':!myProfileEdit.country_name.$valid && (!myProfileEdit.$pristine || myProfileEdit.$submitted), 
+                'has-success': myProfileEdit.country_name.$valid && (!myProfileEdit.$pristine || myProfileEdit.$submitted)
+                }">
+		      <div class="form-controls">
+		      	<select class="field" name="country_name" ng-model="country_name" style="height:50px;"  required="required">
+			   		<option value="" disabled selected>Select country</option>
+
+			   		<option ng-repeat="c in country_data" value="{{c.id}}"> {{c.name}}</option>
+			   </select>
+
+			   <span class="help-block" ng-show="myProfileEdit.country_name.$error.required && (myProfileEdit.$pristine || myProfileEdit.$submitted)" style="color: #fff;">Please Select Country</span>
+			  </div><!-- /.form-controls -->
+		     </div><!-- /.form-row -->
+
+
+
+
+
 			 </div><!-- /.form-body -->
 	
 			 <div class="form-foot">
@@ -130,3 +151,4 @@
 	  </div><!-- /.container -->
 	 </section><!-- /section -->
 
+</div>

@@ -226,7 +226,7 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
 				method: "post",
 				url: "/edit_profile",
 				data:{
-					all : $scope.user
+					all : $scope.user,ctry_id:$scope.country_name
 				},
 				headers: {
 		         	'Content-Type': 'application/json'
@@ -326,7 +326,7 @@ MainCtrl.controller('MainController', function ($scope, $http, $sce, $routeParam
            $http({
 				method: "post",
 				url: "/edit_vendorprofile",
-				headers: { "Content-Type": undefined  },
+				headers: {"Content-Type": undefined },
 				//headers: { "Content-Type": 'application/json;charset = utf-8;'},
 				//headers: { "Content-Type": 'application/x-www-form-urlencoded'},
 				transformRequest: function(data) {
@@ -691,3 +691,5 @@ MainCtrl.directive('addressBasedGoogleMap', function () {
         },
     };
 });
+
+

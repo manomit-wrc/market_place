@@ -72,7 +72,7 @@
                 'has-success': jobsPost.jobDescription.$valid && (!jobsPost.$pristine || jobsPost.$submitted)
                 }">
 		      <div class="form-controls">
-			   <textarea class="field" cols="" rows="" style="height: 100px;" name="jobDescription" ng-model="job.jobDescription" placeholder="Job Description" required></textarea>
+			   <textarea class="field" cols="" rows="" style="height: 100px;" name="jobDescription" id="jobDescription"  ng-model="job.jobDescription" placeholder="Job Description" required data-ck-editor></textarea>
 
 			   <span class="help-block" ng-show="jobsPost.jobDescription.$error.required && (jobsPost.$pristine || jobsPost.$submitted)" style="color: #fff;">Please Enter Job Description</span>
 			  </div><!-- /.form-controls -->
@@ -123,3 +123,7 @@
 	 </section><!-- /section -->
 
 </div>
+<script src="//cdn.ckeditor.com/4.5.6/standard/ckeditor.js"></script>
+<script type="text/javascript">
+        CKEDITOR.replace('jobDescription');
+</script>

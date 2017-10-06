@@ -22,7 +22,7 @@
 	   <div class="row-fluid">
 	   
 	    <div class="col-lg-4">
-		
+		  
 		 <div class="list">
 		  <div class="list-group">
 		  
@@ -125,7 +125,7 @@
 			<p> {{jbs.description}}</p>
 			 <div class="col-md-12">
 				<div ng-repeat="skl in jbs.job_skill_list" class="col-md-1">
-				  <span class="label label-success">{{skl.name}}</span>
+				   <span class="label label-success">{{skl.name}}</span>
 				</div>
 			 </div>
 			<!-- <span class="label label-success">CSS3</span>
@@ -145,7 +145,7 @@
 			
 			<div class="col-lg-2">
 			 <h5> Posted </h5>
-			 <p>{{jbs.createdAt | dateDiff:cdate}}</p>
+			 <p>{{ jbs.createdAt | date}}</p>
 			</div>
 			<div class="col-lg-2">
 			 <h5> Location </h5>
